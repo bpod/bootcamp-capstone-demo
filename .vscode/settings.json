@@ -1,0 +1,25 @@
+{
+  // Enable GitHub Copilot customizations
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  
+  // Enable custom chat modes (experimental)
+  "chat.experimental.chatModes.enabled": true,
+  
+  // Specify custom chat mode locations
+  "chat.modeFilesLocations": [
+    ".github/chatmodes"
+  ],
+  
+  // Enable prompt files (experimental)
+  "chat.experimental.promptFiles.enabled": true,
+  
+  // Specify custom prompt locations
+  "chat.promptFilesLocations": [
+    ".github/prompts"
+  ],
+  
+  // Enable custom instructions
+  "chat.instructionsFilesLocations": [
+    ".github"
+  ]
+}
