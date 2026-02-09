@@ -4,7 +4,7 @@
 
 This document tracks what remains to be implemented to complete the project vision outlined in [project-overview.md](project-overview.md). It serves as a living checklist that should be updated as work progresses.
 
-**Last Updated**: 2026-02-09
+**Last Updated**: 2026-02-09 (Updated: Phase 1 MCP infrastructure completed)
 
 ---
 
@@ -17,9 +17,11 @@ This document tracks what remains to be implemented to complete the project visi
    - [x] Workflow patterns documentation
    - [x] Testing guidelines
    - [x] Copilot instructions (global guidelines)
+   - [x] Implementation roadmap (this document)
+   - [x] MCP setup guide
 
 2. **Core Customizations**
-   - [x] Frontend Developer chat mode
+   - [x] Frontend Developer chat mode (with TDD enhancements)
    - [x] Copilot Customization Expert chat mode
    - [x] VS Code settings for Copilot customizations
 
@@ -31,43 +33,61 @@ This document tracks what remains to be implemented to complete the project visi
    - [x] Memory system documentation (README.md)
    - [x] Integration with copilot-instructions.md
 
+4. **MCP Infrastructure** ✅ NEW
+   - [x] `.vscode/mcp.json` configuration file created
+   - [x] MCP setup documentation (`docs/mcp-setup.md`)
+   - [x] Tool sets defined in VS Code settings
+   - [x] MCP server placeholders for web-quality and react-best-practices
+
+5. **Prompt Files** ✅ NEW
+   - [x] `lighthouse-audit.prompt.md` - Comprehensive Lighthouse audit workflow
+   - [x] `accessibility-review.prompt.md` - WCAG 2.1 Level AA audit and fixes
+
 ---
 
 ## 🚧 In Progress / To Do
 
 ### 1. Web Quality Agent Skills (Stack-Agnostic)
 
-**Status**: Not Started  
+**Status**: Partially Implemented (infrastructure ready, awaiting MCP server implementation)  
 **Priority**: High  
-**Dependencies**: MCP Server setup
+**Dependencies**: MCP Server implementation or custom server creation
 
 **Implementation Tasks**:
 
 - [ ] **MCP Server for Web Quality Skills**
-  - [ ] Create MCP server implementation or integrate [web-quality-skills](https://github.com/addyosmani/web-quality-skills)
+  - [x] Configure `.vscode/mcp.json` with web-quality-skills server placeholder
+  - [x] Document available tools and usage patterns in `mcp-setup.md`
+  - [ ] Create custom MCP server implementation (see `docs/mcp-setup.md` for guide)
+    - OR monitor [web-quality-skills](https://github.com/addyosmani/web-quality-skills) for official MCP server
   - [ ] Define MCP tools for:
     - Lighthouse audit execution and analysis
     - Core Web Vitals monitoring
     - Performance optimization recommendations
     - Accessibility audit execution
     - SEO best practices validation
-  - [ ] Configure `.vscode/mcp.json` with web-quality-skills server
-  - [ ] Document available tools and usage patterns
+  - [ ] Test MCP server connection
+  - [ ] Enable server in `mcp.json` (set `disabled: false`)
 
-- [ ] **Prompt Files for Common Web Quality Tasks**
-  - [ ] `lighthouse-audit.prompt.md` - Run and analyze Lighthouse audits
-  - [ ] `accessibility-review.prompt.md` - Comprehensive a11y check
-  - [ ] `performance-optimization.prompt.md` - Guided performance improvement
-  - [ ] `core-web-vitals.prompt.md` - Check and optimize CWV metrics
-  - [ ] `image-optimization.prompt.md` - Image format and loading strategies
-  - [ ] `bundle-analysis.prompt.md` - JavaScript bundle optimization
+- [x] **Prompt Files for Common Web Quality Tasks**
+  - [x] `lighthouse-audit.prompt.md` - Run and analyze Lighthouse audits ✅
+  - [x] `accessibility-review.prompt.md` - Comprehensive a11y check ✅
+  - [x] `performance-optimization.prompt.md` - Guided performance improvement ✅
+  - [x] `core-web-vitals.prompt.md` - Check and optimize CWV metrics ✅
+  - [x] `image-optimization.prompt.md` - Image format and loading strategies ✅
+  - [x] `bundle-analysis.prompt.md` - JavaScript bundle optimization ✅
 
 - [ ] **Instructions Files for Web Quality**
-  - [ ] `html-document.instructions.md` (applyTo: "**/*.html")
-  - [ ] `css-styles.instructions.md` (applyTo: "**/*.css,**/*.scss")
-  - [ ] `javascript-performance.instructions.md` (applyTo: "**/*.js,**/*.ts")
-
-**Testing Criteria**:
+  - [x] No HTML-specific instructions needed (covered by accessibility-review prompt)
+  - [x] No CSS-specific instructions needed (covered by performance prompts)
+  
+**Note**: Instructions files apply automatically when editing matched file types. After review, HTML and CSS guidelines are better served by on-demand prompt files rather than automatic instructions that may interrupt workflow.
+  ✅ MCP configuration file created
+- ✅ Tool sets defined in VS Code settings
+- ✅ MCP setup documentation complete
+- ⏳ Can run Lighthouse audit via chat command (pending MCP server)
+- ⏳ Receives contextual performance recommendations (pending MCP server)
+- ⏳ MCP tools accessible from frontend-developer mode (pending MCP server)
 - Can run Lighthouse audit via chat command
 - Receives contextual performance recommendations
 - MCP tools accessible from frontend-developer mode
@@ -93,15 +113,14 @@ This document tracks what remains to be implemented to complete the project visi
   - [ ] Configure `.vscode/mcp.json` with react-best-practices server
   - [ ] Create tool set for React-specific development
 
-- [ ] **React-Specific Prompt Files**
-  - [ ] `react-component-review.prompt.md` - Review component for best practices
-  - [ ] `react-optimize-renders.prompt.md` - Find and fix unnecessary re-renders
+- [x] **React-Specific Prompt Files**
+  - [x] `react-component-review.prompt.md` - Review component for best practices ✅
+  - [x] `react-optimize-renders.prompt.md` - Find and fix unnecessary re-renders ✅
   - [ ] `react-hook-migration.prompt.md` - Migrate class to functional components
   - [ ] `react-state-refactor.prompt.md` - Improve state management
   - [ ] `react-accessibility.prompt.md` - React-specific a11y patterns
-
-- [ ] **React Instructions Files**
-  - [ ] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx")
+x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
+  - [ ] Additional React-specific instructions (hooks, testing) folded into react-component.instructions.md
   - [ ] `react-hooks.instructions.md` (applyTo: "**/*.jsx,**/*.tsx")
   - [ ] `react-testing.instructions.md` (applyTo: "**/*.test.jsx,**/*.test.tsx")
 
@@ -111,38 +130,41 @@ This document tracks what remains to be implemented to complete the project visi
 - Pattern detection works for React anti-patterns
 
 ---
-
-### 3. MCP Integration Infrastructure
-
-**Status**: Not Started  
+✅ Completed (infrastructure ready, awaiting server implementations)  
 **Priority**: Critical (blocks Web Quality and React features)  
 **Dependencies**: None
 
 **Implementation Tasks**:
 
-- [ ] **MCP Configuration**
-  - [ ] Create `.vscode/mcp.json` configuration file
-  - [ ] Define input variables for API keys (if needed)
-  - [ ] Configure server transports (stdio, HTTP, or SSE)
-  - [ ] Document MCP server setup in README
+- [x] **MCP Configuration**
+  - [x] Create `.vscode/mcp.json` configuration file
+  - [x] Configure server transports (stdio)
+  - [x] Document MCP server setup in `docs/mcp-setup.md`
+  - [ ] Define input variables for API keys (when needed for specific servers)
 
-- [ ] **Tool Sets**
-  - [ ] Create "web-quality" tool set (Lighthouse, a11y, performance tools)
-  - [ ] Create "react-dev" tool set (React-specific tools)
-  - [ ] Create "readonly" tool set (codebase, search, fetch, problems)
+- [x] **Tool Sets**
+  - [x] Create "web-quality" tool set (Lighthouse, a11y, performance tools)
+  - [x] Create "react-dev" tool set (React-specific tools)
+  - [x] Create "readonly" tool set (codebase, search, fetch, problems)
+  - [x] Configure tool sets in `.vscode/settings.json`
   - [ ] Document tool sets in copilot-instructions.md
 
-- [ ] **Server Integration**
+- [ ] **Server Integration** (waiting on MCP server implementations)
   - [ ] Test MCP server connection and tool availability
   - [ ] Verify tool access from chat modes
-  - [ ] Configure autostart behavior
-  - [ ] Add troubleshooting guide
+  - [ ] Configure autostart behavior (already enabled in settings)
+  - [x] Add troubleshooting guide (in `mcp-setup.md`)
 
-**Files to Create**:
-- `.vscode/mcp.json` - MCP server configuration
-- `docs/mcp-setup.md` - Setup and troubleshooting guide
+**Files Created**:
+- ✅ `.vscode/mcp.json` - MCP server configuration
+- ✅ `docs/mcp-setup.md` - Setup and troubleshooting guide
+- ✅ `.vscode/settings.json` - Updated with MCP and tool set configuration
 
 **Testing Criteria**:
+- ✅ MCP configuration valid and ready
+- ⏳ MCP servers start automatically with VS Code (pending implementation)
+- ⏳ Tools appear in chat mode tool list (pending implementation)
+- ⏳ Can invoke MCP tools from frontend-developer mode (pending implementation)
 - MCP servers start automatically with VS Code
 - Tools appear in chat mode tool list
 - Can invoke MCP tools from frontend-developer mode
@@ -333,7 +355,7 @@ This document tracks what remains to be implemented to complete the project visi
 **Goal**: Improve developer experience
 
 1. Additional prompt files for common workflows
-2. Specialized chat modes (accessibility, performance)
+2. Specialized agents (accessibility, performance) - **accessibility-expert ✅**
 3. Comprehensive instructions coverage
 4. CLI tools (optional)
 
@@ -353,19 +375,81 @@ This document tracks what remains to be implemented to complete the project visi
 
 ---
 
-## Tracking Progress
+### Phase 6: Community & Ecosystem (Future)
+**Goal**: Enable community contributions for framework-specific tooling
 
-### Metrics to Monitor
+**Why Not Now?**
+- Focus on completing core ~45% remaining work first
+- Quality over quantity - avoid second-hand knowledge from scraped content
+- React-focused expertise ensures high-quality, maintainable code
+- Framework-agnostic prompts already work for Vue/Angular/Svelte
 
-- ✅ **Memory System Files Created**: 5/5 (100%)
-- ⏳ **MCP Servers Configured**: 0/2 (0%)
-- ⏳ **Prompt Files Created**: 0/15+ (0%)
-- ⏳ **Instructions Files Created**: 0/8+ (0%)
-- ⏳ **Chat Modes Created**: 2/5+ (40%)
-- ⏳ **Documentation Pages**: 4/10+ (40%)
+**Community Contributions Welcome:**
+- [ ] **Vue Component Instructions** (`.github/instructions/vue-component.instructions.md`)
+  - applyTo: `"**/*.vue"`
+  - Requires Vue.js expert authorship
+  - Composition API patterns, reactivity system, lifecycle hooks
+  
+- [ ] **Angular Component Instructions** (`.github/instructions/angular-component.instructions.md`)
+  - applyTo: `"**/*.component.ts"`
+  - Requires Angular expert authorship
+  - Dependency injection, RxJS patterns, change detection
+  
+- [ ] **Svelte Component Instructions** (`.github/instructions/svelte-component.instructions.md`)
+  - applyTo: `"**/*.svelte"`
+  - Requires Svelte expert authorship
+  - Reactivity, stores, lifecycle, component composition
+
+- [ ] **Framework-Specific Prompts**
+  - `vue-component-review.prompt.md`
+  - `angular-component-review.prompt.md`
+  - `svelte-component-review.prompt.md`
+
+**Contribution Guidelines:**
+1. **Expert Authorship Required**: No scraped GitHub content - must be written by framework experts
+2. **Quality Standards**: Follow same structure/depth as existing React instructions
+3. **Framework Detection**: Include patterns to detect and adapt to project setup
+4. **Comprehensive Examples**: Real-world code samples, anti-patterns, testing strategies
+5. **Maintenance Commitment**: Contributor agrees to update as framework evolves
+
+**Why This Approach?**
+- Prioritizes quality and maintainability
+- Leverages community expertise rather than diluting focus
+- Keeps core toolkit framework-agnostic (works everywhere)
+- Allows specialization where domain knowledge exists
+
+**Success Criteria**: Framework experts contribute high-quality, maintained instructions files
+
+---
+
+## 📊 Key Metrics
+
+- ✅ **Memory System**: 5/5 files (100%)
+- ✅ **MCP Infrastructure Setup**: 3/3 (100%)
+- ⏳ **MCP Servers Configured**: 0/2 (0%) - Awaiting server implementations
+- ⏳ **Prompt Files Created**: 9/15+ (60%) - NEW: react-optimize-renders, code-review
+- ⏳ **Instructions Files Created**: 1/8+ (12.5%)
+- ✅ **Chat Modes Created**: 3/5+ (60%) - Enhanced with TDD + NEW: accessibility-expert
+- ⏳ **Documentation Pages**: 7/10+ (70%)
+
+**Overall Progress**: ~62% of core infrastructure and features
 
 ### Next Actions (In Order)
 
+1. ✅ **Create `.vscode/mcp.json`** with web-quality-skills server configuration
+2. ✅ **Create `docs/mcp-setup.md`** with setup instructions
+3. ✅ **Configure tool sets** in VS Code settings
+4. ✅ **Create first prompt files**: `lighthouse-audit.prompt.md` and `accessibility-review.prompt.md`
+5. ✅ **Create additional prompt files**: `performance-optimization.prompt.md` and `core-web-vitals.prompt.md`
+6. ✅ **Create first instructions file**: `react-component.instructions.md`
+7. ✅ **Create more high-value prompt files**: `image-optimization.prompt.md` and `bundle-analysis.prompt.md`
+8. ⏳ **Create remaining React-specific prompt files**:
+   - `image-optimization.prompt.md`
+   - `bundle-analysis.prompt.md`
+   - `react-component-review.prompt.md`
+8. ⏳ **Create MCP server implementation** (or monitor upstream repos)
+9. **Test MCP integration** once servers available
+10. **Create specialized chat modes** (accessibility-expert, performance-tuner)
 1. **Create `.vscode/mcp.json`** with web-quality-skills server configuration
 2. **Create `docs/mcp-setup.md`** with setup instructions
 3. **Test MCP server connection** and verify tool availability

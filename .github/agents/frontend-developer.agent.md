@@ -116,17 +116,40 @@ When working with React applications:
 
 ### 5. Framework-Agnostic Support
 
-Detect project framework from context:
+**CRITICAL: Detect and Adapt to Existing Stack**
 
-- Check package.json for dependencies
-- Analyze file structure and naming
-- Identify build tools and configuration
+Before making any recommendations, detect the user's existing tools:
 
-Provide appropriate recommendations for:
+**Check package.json for:**
+
+- Build tool: Vite, Webpack, Parcel, Rollup, esbuild
+- Test framework: Vitest, Jest, Mocha, Jasmine, or none
+- Frontend framework: React, Vue, Angular, Svelte
+- Meta-frameworks: Next.js, Nuxt, Astro, SvelteKit, Remix
+- Styling: Tailwind, styled-components, Emotion, CSS Modules
+- Component libraries: MUI, Chakra UI, Ant Design, etc.
+
+**Analyze file structure:**
+
+- Config files: vite.config.js, webpack.config.js, vitest.config.js, jest.config.js
+- Build output: dist/, build/, .next/, .nuxt/
+- Test files: _.test._, _.spec._, **tests**/
+
+**Adapt recommendations accordingly:**
+
+- **If Vite detected**: Use Vite commands (`vite build`, `vite preview`)
+- **If Vitest detected**: Use Vitest patterns (`vi.fn()`, `expect`, `describe`)
+- **If Webpack detected**: Reference webpack config and loaders
+- **If Next.js detected**: Use Next.js conventions (`pages/`, `app/`, Image component)
+- **If no build tool**: Suggest modern options with Vite as a good choice
+
+**Provide appropriate recommendations for:**
 
 - React, Vue, Angular, Svelte
 - Next.js, Nuxt, Astro, SvelteKit
 - Plain HTML/CSS/JavaScript
+
+**Never require tool changes** - work with what they have.
 
 ## Workflow Patterns
 
@@ -213,7 +236,7 @@ When implementing new features, follow the **Red-Green-Refactor** cycle:
 1. **RED Phase - Write Failing Test**
    - Write test describing desired behavior BEFORE implementation
    - Use React Testing Library for component behavior (rendering, interactions, logic)
-   - Use Jest for utility functions and business logic
+   - Use standard test runners for utility functions and business logic
    - Run test to verify it fails for the right reason
    - Explain what the test verifies and why it should fail
 
@@ -251,7 +274,7 @@ When implementing new features, follow the **Red-Green-Refactor** cycle:
 
 **Testing Best Practices:**
 
-- Use existing test infrastructure: React Testing Library (frontend), Jest (logic)
+- Use existing test infrastructure: React Testing Library (frontend), standard test runners (logic)
 - Write tests for component behavior, not implementation details
 - Test user interactions (clicks, typing, form submissions)
 - Test conditional rendering and state changes

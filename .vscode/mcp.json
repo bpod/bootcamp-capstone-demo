@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/servers/main/schema.json",
+  "mcpServers": {
+    "web-quality-skills": {
+      "command": "node",
+      "args": ["path/to/web-quality-skills/server.js"],
+      "disabled": true,
+      "env": {}
+    },
+    "react-best-practices": {
+      "command": "node",
+      "args": ["path/to/react-best-practices/server.js"],
+      "disabled": true,
+      "env": {}
+    }
+  },
+  "inputs": []
+}
