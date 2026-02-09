@@ -436,26 +436,40 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 
 ### Next Actions (In Order)
 
+**Completed This Session**:
 1. ✅ **Create `.vscode/mcp.json`** with web-quality-skills server configuration
 2. ✅ **Create `docs/mcp-setup.md`** with setup instructions
 3. ✅ **Configure tool sets** in VS Code settings
 4. ✅ **Create first prompt files**: `lighthouse-audit.prompt.md` and `accessibility-review.prompt.md`
 5. ✅ **Create additional prompt files**: `performance-optimization.prompt.md` and `core-web-vitals.prompt.md`
 6. ✅ **Create first instructions file**: `react-component.instructions.md`
-7. ✅ **Create more high-value prompt files**: `image-optimization.prompt.md` and `bundle-analysis.prompt.md`
-8. ⏳ **Create remaining React-specific prompt files**:
-   - `image-optimization.prompt.md`
-   - `bundle-analysis.prompt.md`
-   - `react-component-review.prompt.md`
-8. ⏳ **Create MCP server implementation** (or monitor upstream repos)
-9. **Test MCP integration** once servers available
-10. **Create specialized chat modes** (accessibility-expert, performance-tuner)
-1. **Create `.vscode/mcp.json`** with web-quality-skills server configuration
-2. **Create `docs/mcp-setup.md`** with setup instructions
-3. **Test MCP server connection** and verify tool availability
-4. **Create first prompt file**: `lighthouse-audit.prompt.md`
-5. **Update frontend-developer.chatmode.md** to use MCP tools
-6. **Document progress** in session-notes.md
+7. ✅ **Create more high-value prompt files**: `image-optimization.prompt.md`, `bundle-analysis.prompt.md`, `react-component-review.prompt.md`, `react-optimize-renders.prompt.md`, `code-review.prompt.md`
+8. ✅ **Create specialized agent**: `accessibility-expert.agent.md`
+9. ✅ **Migrate to new VS Code API**: chatmodes→agents, mode:→agent:
+
+**Next Session Options** (Choose based on priorities):
+
+**Option 1: Complete React Prompt Suite** (Recommended - fills React tooling gap):
+- ⏳ `react-hook-migration.prompt.md` - Migrate class components to functional components with hooks
+- ⏳ `react-state-refactor.prompt.md` - Improve state management patterns (lift state, context, reducers)
+- Estimated: 2 files, ~800 lines
+
+**Option 2: Code Quality Prompts** (High value - universal benefit):
+- ⏳ `test-generation.prompt.md` - Generate tests for components using React Testing Library patterns
+- ⏳ `refactor-guide.prompt.md` - Step-by-step refactoring workflow with safety nets
+- Estimated: 2 files, ~700 lines
+
+**Option 3: Performance Agent** (Medium value - complements existing prompts):
+- ⏳ `performance-tuner.agent.md` - Dedicated performance optimization specialist
+- Estimated: 1 file, ~400 lines
+
+**Option 4: Additional Instructions Files** (Lower priority):
+- ⏳ `typescript.instructions.md` - TypeScript patterns (applyTo: "**/*.ts,**/*.tsx")
+- ⏳ `testing.instructions.md` - Testing patterns (applyTo: "**/*.test.*,**/*.spec.*")
+
+**Future Work**:
+- ⏳ **Create MCP server implementation** (or monitor upstream repos)
+- ⏳ **Test MCP integration** once servers available
 
 ---
 
