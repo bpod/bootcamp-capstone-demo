@@ -290,8 +290,8 @@ I'll check:
 
 ### Testing
 
-- **jest-axe** - Unit test accessibility (React Testing Library)
-- **cypress-axe** - E2E accessibility testing
+- **axe matchers for your test framework** – Unit test accessibility (for example: `jest-axe` with Jest, or equivalent axe integrations for other runners)
+- **browser automation a11y integrations** – E2E accessibility testing (for example: `cypress-axe`, Playwright + axe-core, or similar tools)
 
 ### Screen Readers
 
