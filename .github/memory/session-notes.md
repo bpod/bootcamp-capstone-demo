@@ -192,6 +192,132 @@ Copy this template when documenting a completed session:
 
 ---
 
+## Performance Tuner Agent Creation - 2026-02-10 (Session 3 Continuation)
+
+### What Was Accomplished
+
+- **Performance Tuner Agent Created** ✅
+  - Created `performance-tuner.agent.md` (~796 lines): Comprehensive performance optimization specialist
+  - Focuses on: Core Web Vitals (LCP, INP, CLS), bundle optimization, React performance, Lighthouse audits
+  - Tools configured: codebase, search, problems, runCommands, getTerminalOutput, editFiles
+  - Includes: Measure-Optimize-Validate workflow, performance patterns, build tool detection
+
+- **Agent Integration with Existing Prompts**
+  - Agent designed to leverage **6 existing performance prompts**:
+    1. `lighthouse-audit.prompt.md` - Comprehensive audits
+    2. `performance-optimization.prompt.md` - Systematic optimization workflow
+    3. `core-web-vitals.prompt.md` - LCP, INP, CLS focus
+    4. `bundle-analysis.prompt.md` - JavaScript bundle optimization
+    5. `image-optimization.prompt.md` - Image format conversion, lazy loading
+    6. `react-optimize-renders.prompt.md` - React-specific performance
+  - Agent serves as centralized performance expertise to work with existing prompt suite
+
+- **Comprehensive Performance Coverage**
+  - **Core Web Vitals optimization**: LCP ≤2.5s, INP ≤200ms, CLS ≤0.1
+  - **Bundle optimization**: Code splitting, tree shaking, lighter alternatives
+  - **Image optimization**: WebP/AVIF conversion, responsive images, lazy loading
+  - **React performance**: Memoization, virtualization, profiling
+  - **Resource optimization**: Critical CSS, resource hints (preload, prefetch, preconnect)
+  - **Performance budgeting**: Lighthouse budget configuration and CI/CD enforcement
+
+- **Build Tool Detection Pattern**
+  - Agent detects user's build tool (Vite, Webpack, Next.js, Parcel) before making recommendations
+  - Adapts bundle analysis commands to detected tooling
+  - References correct bundler in all suggestions
+  - **Follows plug-in architecture principle**: Detect, don't prescribe
+
+- **Implementation Roadmap Updated**
+  - Marked performance-tuner.agent.md as complete
+  - Updated metrics: Agents 4/6 → 5/6 (83%), Overall Progress 74% → 76%
+  - Reorganized "Next Session Options" to prioritize instructions files (Option 1)
+  - Agents now: frontend-developer, accessibility-expert, copilot-customization, testing-specialist, **performance-tuner**
+
+### Key Findings and Decisions
+
+**Finding 1: Performance Requires Dedicated Specialization**
+- Performance optimization has complex workflows (measure → optimize → validate → repeat)
+- Core Web Vitals thresholds are strict and measureable (≤2.5s, ≤200ms, ≤0.1)
+- Multiple optimization areas (bundles, images, React, resources) need coordinated strategy
+- **Decision**: Create dedicated performance-tuner agent with comprehensive performance knowledge
+- **Rationale**: Frontend-developer has broad focus; performance needs deep specialization
+
+**Finding 2: Agent Complements Existing Prompt Suite**
+- 6 performance-related prompts already exist, but no centralized expert
+- Each prompt handles specific workflow, agent provides overarching knowledge
+- Agent can recommend appropriate prompt for specific tasks
+- **Decision**: Design agent to reference and leverage existing prompts
+- **Rationale**: Avoid duplication; agent coordinates multi-prompt performance work
+
+**Finding 3: Measure-Optimize-Validate Loop is Core Workflow**
+- **Pattern**: Never optimize without measuring first
+- Workflow: Establish baseline → Identify opportunities → Implement → Validate gains → Repeat
+- Quantifiable metrics prevent guessing and ensure progress
+- **Decision**: Agent enforces data-driven optimization workflow throughout all guidance
+- **Rationale**: Aligns with project's "measure everything" principle from copilot-instructions.md
+
+**Finding 4: Build Tool Detection is Critical**
+- Bundle analysis commands differ by build tool (Vite vs Webpack vs Next.js)
+- Optimization strategies vary by framework (SSR vs CSR vs SSG)
+- **Decision**: Agent checks for vite.config.*, webpack.config.*, next.config.* before recommending
+- **Rationale**: Follows "plug-in architecture principle"; adapts to user's stack
+
+**Finding 5: Performance Budgets Enable Proactive Quality**
+- Lighthouse supports budget.json configuration for CI/CD enforcement
+- Performance degradation can be caught before deployment
+- Budgets prevent "slow feature creep" over time
+- **Decision**: Agent includes performance budget configuration guidance
+- **Rationale**: Proactive performance monitoring better than reactive optimization
+
+**Finding 6: Agent Provides Complete Optimization Example**
+- Developers need to see full workflow: audit → analyze → optimize → validate → report
+- Concrete example helps understand multi-step process
+- **Decision**: Agent includes complete example showing 62 → 89 Lighthouse score improvement
+- **Rationale**: Real-world example demonstrates value and workflow execution
+
+**Finding 7: Instructions Files are Next High Priority**
+- Agents now 83% complete (5/6, only optional refactoring-specialist remains)
+- Instructions files only 12.5% complete (1/8+)
+- Auto-apply guidance for file types would enhance daily workflow
+- **Decision**: Recommend instructions files as Option 1 for next session
+- **Rationale**: Agents are mostly complete; shift focus to auto-apply patterns
+
+### Outcomes
+
+- ✅ Performance Tuner Agent: Complete (~796 lines)
+- ✅ Overall project progress: ~76% (up from 74%)
+- ✅ Agent architecture: 5/6 (83%)
+- ✅ Performance expertise now available for all Lighthouse/Core Web Vitals work
+- ✅ Clear next steps: instructions files recommended (typescript, testing, package-json)
+- 🎯 Major milestone: Agent creation nearly complete!
+
+**Agent Coverage:**
+- **frontend-developer**: General React/frontend development (10 prompts)
+- **accessibility-expert**: Accessibility focus (1 prompt)
+- **testing-specialist**: Testing and TDD, framework-agnostic (1 prompt)
+- **performance-tuner**: Performance optimization (6 prompts)
+- **copilot-customization**: VS Code customization (internal use)
+- Optional: refactoring-specialist (may not be needed - frontend-developer + refactor-guide prompt sufficient)
+
+**Performance Agent Features:**
+- Core Web Vitals optimization (LCP, INP, CLS)
+- Lighthouse audit analysis and prioritization
+- Bundle size optimization (code splitting, tree shaking)
+- Image optimization (WebP/AVIF, lazy loading, responsive images)
+- React performance tuning (memo, lazy, Suspense, profiling)
+- Critical CSS extraction
+- Resource hints (preload, prefetch, preconnect)
+- Performance budgeting and CI/CD integration
+- **Build tool detection** (adapts to Vite, Webpack, Next.js, etc.)
+
+**Quality Improvements:**
+- Dedicated performance expertise available via chat
+- Data-driven optimization workflow (measure first!)
+- Integration with 6 existing performance prompts
+- Performance budgets enable proactive quality monitoring
+- **Respects user's existing build tools** (plug-in architecture compliance)
+
+---
+
 ## React Accessibility Prompt + Agent Planning - 2026-02-10 (Session 2)
 
 ### What Was Accomplished

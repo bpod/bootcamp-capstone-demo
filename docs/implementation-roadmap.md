@@ -4,7 +4,7 @@
 
 This document tracks what remains to be implemented to complete the project vision outlined in [project-overview.md](project-overview.md). It serves as a living checklist that should be updated as work progresses.
 
-**Last Updated**: 2026-02-10 (Updated: refactor-guide.prompt.md completed, code quality suite 100% complete)
+**Last Updated**: 2026-02-10 (Updated: performance-tuner.agent.md completed, agents 83% complete)
 
 ---
 
@@ -275,23 +275,24 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 
 **Planned Agents**:
 
-- [ ] `performance-tuner.agent.md` - Performance optimization specialist (Option 2)
-  - Focus: Core Web Vitals, bundle optimization, React performance
-  - Tools: codebase, search, runCommands (lighthouse, bundle analysis)
-  - Utilizes: performance-optimization, core-web-vitals, bundle-analysis prompts
+- [x] `performance-tuner.agent.md` - Performance optimization specialist ✅
+  - Focus: Core Web Vitals, bundle optimization, React performance, Lighthouse
+  - Tools: codebase, search, runCommands, getTerminalOutput, editFiles
+  - Utilizes: performance-optimization, core-web-vitals, bundle-analysis, lighthouse-audit, image-optimization, react-optimize-renders prompts
   
-- [ ] `refactoring-specialist.agent.md` - Code refactoring and architecture expert (Future)
+- [ ] `refactoring-specialist.agent.md` - Code refactoring and architecture expert (Optional)
   - Focus: Code smells, design patterns, refactoring strategies
   - Tools: codebase, search, usages, problems
   - Utilizes: refactor-guide.prompt.md, code-review.prompt.md
+  - Note: May not be needed since frontend-developer can handle refactoring with refactor-guide prompt
 
 **Enhancement Tasks**:
 
 - [x] Memory system integration in frontend-developer mode ✅
 - [x] Migrated from chatmodes to agents (new VS Code API) ✅
 - [x] Create testing-specialist agent ✅
+- [x] Create performance-tuner agent ✅
 - [ ] MCP tool integration (pending MCP setup)
-- [ ] Create performance-tuner agent
 - [ ] Create refactoring-specialist agent (optional)
 
 **Testing Criteria**:
@@ -449,10 +450,10 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 - ⏳ **MCP Servers Configured**: 0/2 (0%) - Awaiting server implementations
 - ✅ **Prompt Files Created**: 14/15+ (93%) - Code quality suite complete! ✅
 - ⏳ **Instructions Files Created**: 1/8+ (12.5%)
-- ✅ **Agents Created**: 4/6 (67%) - testing-specialist ✅
+- ✅ **Agents Created**: 5/6 (83%) - performance-tuner ✅
 - ⏳ **Documentation Pages**: 7/10+ (70%)
 
-**Overall Progress**: ~74% of core infrastructure and features
+**Overall Progress**: ~76% of core infrastructure and features
 
 ### Next Actions (In Order)
 
@@ -470,20 +471,24 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 11. ✅ **React Accessibility Prompt**: `react-accessibility.prompt.md` (~1,050 lines) - React suite 100% complete!
 12. ✅ **Testing Specialist Agent**: `testing-specialist.agent.md` (~796 lines) - TDD and RTL expert, framework-agnostic
 13. ✅ **Test Generation Prompt**: `test-generation.prompt.md` (~1,050 lines) - Comprehensive test generation with RTL patterns
-14. ✅ **Refactoring Guide Prompt**: `refactor-guide.prompt.md` (~1,100 lines) - Safe refactoring workflows and code smell detection
+14. ✅ **Refactoring Guide Prompt**: `refactor-guide.prompt.md` (~1,570 lines) - Safe refactoring workflows and code smell detection
+15. ✅ **Performance Tuner Agent**: `performance-tuner.agent.md` (~796 lines) - Performance optimization specialist
 
 **Next Session Options** (Choose based on priorities):
 
-**Option 1: Performance Tuner Agent** ⭐ (High value - complements 6 existing performance prompts):
-- ⏳ `performance-tuner.agent.md` - Dedicated performance optimization specialist
-- Focuses on: Core Web Vitals, bundle optimization, React performance, Lighthouse
-- Would utilize: performance-optimization, core-web-vitals, bundle-analysis prompts
-- Tools: codebase, search, runCommands (for lighthouse, bundle analysis)
-- Estimated: 1 file, ~450 lines
-
-**Option 2: Additional Instructions Files** (Lower priority):
+**Option 1: Additional Instructions Files** ⭐ (High value - auto-apply guidance for file types):
 - ⏳ `typescript.instructions.md` - TypeScript patterns (applyTo: "**/*.ts,**/*.tsx")
+  - Type safety patterns, generic usage, interface vs type
 - ⏳ `testing.instructions.md` - Testing patterns (applyTo: "**/*.test.*,**/*.spec.*")
+  - Test structure, naming conventions, assertion best practices
+- ⏳ `package-json.instructions.md` - Dependency management (applyTo: "**/package.json")
+  - Semantic versioning, script conventions, security patterns
+- Estimated: 3 files, ~300-400 lines each
+
+**Option 2: Additional Prompts** (Lower priority - more specialized workflows):
+- ⏳ `debug-session.prompt.md` - Structured debugging workflow
+- ⏳ `document-component.prompt.md` - Component documentation generation
+- ⏳ `security-review.prompt.md` - Security best practices check
 
 **Future Work**:
 - ⏳ **Create MCP server implementation** (or monitor upstream repos)
