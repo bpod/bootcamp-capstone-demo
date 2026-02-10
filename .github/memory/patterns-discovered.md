@@ -52,6 +52,7 @@ Copy this template when documenting a new pattern:
 
 - **Accessibility prompts** → `accessibility-expert`
   - accessibility-review.prompt.md
+  - react-accessibility.prompt.md
   
 - **Frontend/React/Performance prompts** → `frontend-developer`
   - lighthouse-audit.prompt.md
@@ -63,6 +64,10 @@ Copy this template when documenting a new pattern:
   - react-optimize-renders.prompt.md
   - react-hook-migration.prompt.md
   - react-state-refactor.prompt.md
+
+- **Testing prompts** → `testing-specialist`
+  - test-generation.prompt.md (planned)
+  - Any TDD or React Testing Library focused prompts
 
 - **General code quality** → `agent` (keep generic)
   - code-review.prompt.md (applies across all languages/frameworks)
@@ -103,6 +108,7 @@ tools: ["codebase", "search", "problems"]
 **Related Files**: 
 - [frontend-developer.agent.md](../.github/agents/frontend-developer.agent.md)
 - [accessibility-expert.agent.md](../.github/agents/accessibility-expert.agent.md)
+- [testing-specialist.agent.md](../.github/agents/testing-specialist.agent.md)
 - [copilot-customization.agent.md](../.github/agents/copilot-customization.agent.md)
 
 **When to Revisit**: 
@@ -251,27 +257,54 @@ This toolkit should **enhance** existing projects, not require rebuilding them. 
 
 ## Pattern: Framework-Agnostic Testing Guidance
 
-**Context**: Documenting testing approaches and examples in project documentation and chat modes.
+**Context**: Documenting testing approaches and examples in project documentation, chat modes, agents, and prompt files. Critical for testing-specialist agent and all test-related prompts.
 
-**Problem**: Recommending specific test frameworks (Jest, Mocha, etc.) creates coupling and may not match user's existing setup. Users may have different test runners based on their project configuration.
+**Problem**: Recommending specific test frameworks (Jest, Mocha, etc.) violates the "plug-in architecture principle" and creates coupling. Users may have Vitest, Jest, Mocha, or other test runners based on their project configuration. Prescribing one framework forces users to change their setup.
 
-**Solution**: Use framework-agnostic testing terminology and examples. Reference "standard test runners" or "your test framework" instead of specific tools. When showing mock functions, provide generic examples like `vi.fn()` (Vitest) or comment "mock function from your test framework."
+**Solution**: Use framework-agnostic testing patterns with multi-framework syntax hints. Show primary example with inline comments explaining equivalents across popular frameworks.
 
 **Example**:
-```markdown
-// ❌ Framework-specific
-- Use Jest for utility functions and business logic
-- const handleClick = jest.fn();
+```javascript
+// ❌ Framework-specific (violates plug-in architecture)
+const mockSubmit = jest.fn();
+jest.mock("../api/userApi");
+jest.useFakeTimers();
 
-// ✅ Framework-agnostic
-- Use standard test runners for utility functions and business logic
-- const handleClick = vi.fn(); // or mock function from your test framework
+// ✅ Framework-agnostic with hints
+const mockSubmit = vi.fn(); // Vitest: vi.fn() | Jest: jest.fn() | Sinon: sinon.spy()
+
+// Vitest: vi.mock() | Jest: jest.mock() | Mocha: use sinon
+vi.mock("../api/userApi");
+
+vi.useFakeTimers(); // Vitest: vi.useFakeTimers() | Jest: jest.useFakeTimers()
 ```
+
+**Implementation Pattern**:
+1. **Add Framework Detection Section** at top of agent/documentation
+2. **Use Generic Terminology**: "mock function" not "Jest mock", "test framework" not "Jest"
+3. **Show Multi-Framework Syntax**: Primary example + inline comments with equivalents
+4. **Provide Multiple Config Examples**: Both Vitest and Jest configurations in Tools section
+5. **Update References**: Link to multiple framework docs, not just one
+
+**Critical Anti-Pattern** ⚠️:
+```javascript
+// ❌ NEVER prescribe a specific framework throughout all examples
+import { jest } from '@jest/globals';
+const mock = jest.fn();  // Hardcoded Jest everywhere
+
+// ✅ ALWAYS show framework-agnostic patterns
+const mock = vi.fn(); // Vitest: vi.fn() | Jest: jest.fn()
+```
+
+**Real-World Example**: 
+testing-specialist.agent.md initially prescribed Jest in all 14 code examples, violating core project principle. Refactored to show framework-agnostic patterns with multi-framework comments throughout.
 
 **Rationale**:
 - Different projects use different test runners (Vitest, Jest, Mocha, etc.)
 - Project should work with any testing setup
 - Guidance focuses on testing principles, not tool specifics
+- Users can adapt examples to their chosen framework
+- **Compliance with "plug-in architecture principle"** from copilot-instructions.md
 - Users can adapt examples to their chosen framework
 
 **When to Use**:

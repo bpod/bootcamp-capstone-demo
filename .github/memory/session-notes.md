@@ -60,6 +60,138 @@ Copy this template when documenting a completed session:
 
 ---
 
+## Testing Specialist Agent Creation - 2026-02-10 (Session 3)
+
+### What Was Accomplished
+
+- **Testing Specialist Agent Created** ✅
+  - Created `testing-specialist.agent.md` (~796 lines): Comprehensive TDD and testing expert
+  - Focuses on: React Testing Library, framework-agnostic testing, test coverage, TDD workflows (RED-GREEN-REFACTOR)
+  - Tools configured: codebase, search, problems, runCommands, testFailure, editFiles, createFile
+  - Includes extensive patterns, best practices, and common testing workflows
+  
+- **Critical Framework-Agnostic Refactoring** ✅
+  - **Issue Detected**: Initial version prescribed Jest throughout all examples, violating "plug-in architecture principle"
+  - **Root Cause**: Violated core project guideline: "Detect, Don't Prescribe" (from .github/copilot-instructions.md)
+  - **Refactoring Completed**: Updated all Jest-specific syntax to framework-agnostic patterns
+  - **Changes Made**: 
+    - Added "Framework Detection" section explaining how agent adapts to user's testing framework
+    - Updated frontmatter description to emphasize "framework-agnostic approach"
+    - Changed expertise from "Jest" to "Testing Frameworks (Adapt to yours)"
+    - Updated all code examples to show multi-framework syntax: `vi.fn(); // Vitest: vi.fn() | Jest: jest.fn()`
+    - Refactored Tools section to show both Vitest and Jest configurations
+    - Updated References section to include multiple framework docs
+  - **Validation**: grep confirmed all Jest references now only appear in comments explaining framework equivalents
+
+- **Agent Capabilities Documented**
+  - Generate tests for existing code
+  - TDD workflow guidance (step-by-step RED-GREEN-REFACTOR)
+  - Test review and improvement suggestions
+  - Debug test failures
+  - Test coverage strategy
+  - Common testing patterns library
+
+- **Implementation Roadmap Updated**
+  - Marked testing-specialist agent as complete
+  - Updated metrics: Agents 4/6 (67%), Overall Progress ~70%
+  - Reorganized "Next Session Options" to prioritize test-generation.prompt.md
+  - Updated agent status from planned to current
+
+- **Existing Prompts Reviewed**
+  - Analyzed all existing prompts for appropriate agent assignment
+  - Confirmed: code-review.prompt.md should stay generic (multi-dimensional)
+  - No existing prompts need to change agents
+  - testing-specialist will be used for future test-generation.prompt.md
+
+### Key Findings and Decisions
+
+**Finding 1: Testing Requires Specialized Expertise**
+- TDD workflows have specific patterns (RED-GREEN-REFACTOR) that need dedicated guidance
+- React Testing Library has unique best practices (test behavior not implementation)
+- Jest mocking strategies and async handling are common pain points
+- **Decision**: Create dedicated testing-specialist agent with comprehensive testing knowledge
+- **Rationale**: Generic agent lacks depth in testing patterns; frontend-developer has broader focus
+
+**Finding 2: Testing-Specialist Focuses on User-Centric Testing**
+- React Testing Library philosophy: test what users see/do, not implementation details
+- Accessible queries (getByRole, getByLabelText) over test IDs
+- User interactions (userEvent) over synthetic events
+- **Decision**: Agent emphasizes RTL principles throughout all guidance
+- **Rationale**: Aligns with project's accessibility and quality-driven mission
+
+**Finding 3: TDD Workflow Needs Step-by-Step Guidance**
+- Many developers struggle with "where to start" in TDD
+- RED-GREEN-REFACTOR cycle needs concrete examples
+- Balance between test-first and pragmatic testing
+- **Decision**: Agent provides sequential TDD guidance with minimal implementations
+- **Rationale**: Reduces TDD adoption friction with clear, actionable steps
+
+**Finding 4: Test Quality Patterns Prevent Common Mistakes**
+- Common test smells: testing implementation, overusing snapshots, giant tests
+- Async testing mistakes (missing await, act() warnings)
+- Improper mocking levels
+- **Decision**: Agent includes extensive "anti-patterns" and test smells section
+- **Rationale**: Proactively prevents common mistakes developers make
+
+**Finding 5: Agent Assignment Follows Specialization**
+- testing-specialist for test-specific workflows
+- frontend-developer for general React/frontend work
+- accessibility-expert for a11y-focused work
+- code-review.prompt.md stays generic (covers 8 dimensions)
+- **Decision**: No existing prompts need agent reassignment
+- **Rationale**: Current agent assignments are appropriate for prompt scope
+
+**Finding 6: Framework Prescription Violates Core Project Principle** ⚠️
+- **Critical Issue**: Initial agent version prescribed Jest throughout all code examples
+- **Violation**: Contradicted "plug-in architecture principle" from .github/copilot-instructions.md
+- **Core Principle**: "Detect, Don't Prescribe" - must check package.json and adapt to user's existing tools
+- **Impact**: Would have forced Jest on users with Vitest, Mocha, or other testing frameworks
+- **Decision**: Immediately refactored to framework-agnostic approach with multi-framework syntax
+- **Rationale**: Cannot violate core project principles; agents must adapt to user's stack, not prescribe specific tools
+- **Lesson Learned**: Always review new content against copilot-instructions.md before considering complete
+- **Pattern**: Show primary example with comments explaining equivalents: `vi.fn(); // Vitest: vi.fn() | Jest: jest.fn()`
+
+**Finding 7: Test Generation Prompt is Next Logical Step**
+- testing-specialist provides foundation for test generation
+- test-generation.prompt.md would be highest-value next prompt
+- Leverages new agent's comprehensive testing knowledge
+- **Decision**: Recommend test-generation.prompt.md as Option 1 for next session
+- **Rationale**: Maximize value from newly created agent
+
+### Outcomes
+
+- ✅ Testing Specialist Agent: Complete (~796 lines, framework-agnostic)
+- ✅ Framework-agnostic refactoring: Complete (all 14 Jest prescriptions fixed)
+- ✅ Overall project progress: ~70% (up from 68%)
+- ✅ Agent architecture: 4/6 (67%)
+- ✅ Clear next steps: test-generation.prompt.md recommended
+- 🔄 No existing prompts require agent updates
+
+**Agent Coverage:**
+- frontend-developer: General React/frontend development (10 prompts)
+- accessibility-expert: Accessibility focus (1 prompt)
+- testing-specialist: Testing and TDD, framework-agnostic (0 prompts yet, ready for test-generation)
+- copilot-customization: VS Code customization (internal use)
+- Performance & refactoring agents: Planned
+
+**Agent Features:**
+- TDD workflows (RED-GREEN-REFACTOR cycle)
+- React Testing Library patterns
+- **Framework-agnostic testing** (adapts to Jest, Vitest, Mocha, etc.)
+- Test coverage strategies
+- Common testing patterns library
+- Test smell detection
+- Async testing guidance
+
+**Quality Improvements:**
+- Dedicated testing expertise available via chat
+- Foundation for test-generation workflows
+- Consistent testing guidance across all test-related work
+- Proactive anti-pattern prevention
+- **Respects user's existing testing framework** (plug-in architecture compliance)
+
+---
+
 ## React Accessibility Prompt + Agent Planning - 2026-02-10 (Session 2)
 
 ### What Was Accomplished

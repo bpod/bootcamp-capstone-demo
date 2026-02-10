@@ -4,7 +4,7 @@
 
 This document tracks what remains to be implemented to complete the project vision outlined in [project-overview.md](project-overview.md). It serves as a living checklist that should be updated as work progresses.
 
-**Last Updated**: 2026-02-09 (Updated: Phase 1 MCP infrastructure completed)
+**Last Updated**: 2026-02-10 (Updated: test-generation.prompt.md completed, testing workflow complete)
 
 ---
 
@@ -207,7 +207,7 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
   - [x] `code-review.prompt.md` - Comprehensive code review checklist ✅
   - [ ] `refactor-guide.prompt.md` - Step-by-step refactoring assistance
   - [ ] `debug-session.prompt.md` - Structured debugging workflow
-  - [ ] `test-generation.prompt.md` - Generate tests for components
+  - [x] `test-generation.prompt.md` - Generate tests for components ✅
 
 - [ ] **Documentation Prompts**
   - [ ] `document-component.prompt.md` - Component documentation generation
@@ -271,15 +271,11 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 - [x] `frontend-developer.agent.md` - Full-stack frontend development with TDD, quality-driven workflows ✅
 - [x] `accessibility-expert.agent.md` - WCAG 2.1 Level AA compliance specialist ✅
 - [x] `copilot-customization.agent.md` - VS Code Copilot customization expert ✅
+- [x] `testing-specialist.agent.md` - Testing and TDD expert (React Testing Library, jest, coverage) ✅
 
 **Planned Agents**:
 
-- [ ] `testing-specialist.agent.md` - Testing and TDD expert (Option 1)
-  - Focus: React Testing Library, jest, test coverage, TDD workflows
-  - Tools: codebase, search, problems, runCommands
-  - Utilizes: test-generation.prompt.md, code-review.prompt.md
-  
-- [ ] `performance-tuner.agent.md` - Performance optimization specialist (Option 3)
+- [ ] `performance-tuner.agent.md` - Performance optimization specialist (Option 2)
   - Focus: Core Web Vitals, bundle optimization, React performance
   - Tools: codebase, search, runCommands (lighthouse, bundle analysis)
   - Utilizes: performance-optimization, core-web-vitals, bundle-analysis prompts
@@ -293,8 +289,8 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 
 - [x] Memory system integration in frontend-developer mode ✅
 - [x] Migrated from chatmodes to agents (new VS Code API) ✅
+- [x] Create testing-specialist agent ✅
 - [ ] MCP tool integration (pending MCP setup)
-- [ ] Create testing-specialist agent
 - [ ] Create performance-tuner agent
 - [ ] Create refactoring-specialist agent (optional)
 
@@ -451,12 +447,12 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 - ✅ **Memory System**: 5/5 files (100%)
 - ✅ **MCP Infrastructure Setup**: 3/3 (100%)
 - ⏳ **MCP Servers Configured**: 0/2 (0%) - Awaiting server implementations
-- ✅ **Prompt Files Created**: 12/15+ (80%) - React suite complete! ✅
+- ✅ **Prompt Files Created**: 13/15+ (87%) - Testing workflow complete! ✅
 - ⏳ **Instructions Files Created**: 1/8+ (12.5%)
-- ⏳ **Agents Created**: 3/6+ (50%) - Need: testing-specialist, performance-tuner, refactoring-specialist
+- ✅ **Agents Created**: 4/6 (67%) - testing-specialist ✅
 - ⏳ **Documentation Pages**: 7/10+ (70%)
 
-**Overall Progress**: ~68% of core infrastructure and features
+**Overall Progress**: ~72% of core infrastructure and features
 
 ### Next Actions (In Order)
 
@@ -472,30 +468,25 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 9. ✅ **Migrate to new VS Code API**: chatmodes→agents, mode:→agent:
 10. ✅ **Complete React Prompt Suite**: `react-hook-migration.prompt.md`, `react-state-refactor.prompt.md`
 11. ✅ **React Accessibility Prompt**: `react-accessibility.prompt.md` (~1,050 lines) - React suite 100% complete!
+12. ✅ **Testing Specialist Agent**: `testing-specialist.agent.md` (~796 lines) - TDD and RTL expert, framework-agnostic
+13. ✅ **Test Generation Prompt**: `test-generation.prompt.md` (~1,050 lines) - Comprehensive test generation with RTL patterns
 
 **Next Session Options** (Choose based on priorities):
 
-**Option 1: Testing Specialist Agent** ⭐ (High value - enables test generation workflows):
-- ⏳ `testing-specialist.agent.md` - Dedicated testing and TDD expert
-- Focuses on: React Testing Library, jest, test coverage, TDD workflows
-- Would utilize: test-generation.prompt.md (to be created), code-review.prompt.md
-- Tools: codebase, search, problems, runCommands (for test execution)
-- Estimated: 1 file, ~450 lines
-
-**Option 2: Code Quality Prompts** (High value - universal benefit):
-- ⏳ `test-generation.prompt.md` - Generate tests for components using React Testing Library patterns
+**Option 1: Refactoring Guide Prompt** ⭐ (High value - completes code quality suite):
 - ⏳ `refactor-guide.prompt.md` - Step-by-step refactoring workflow with safety nets
-- Would benefit from testing-specialist agent (create agent first if choosing this option)
-- Estimated: 2 files, ~800 lines
+- Uses: frontend-developer agent (or future refactoring-specialist)
+- Focuses on: Code smells, refactoring patterns, incremental improvements
+- Estimated: 1 file, ~700 lines
 
-**Option 3: Performance Tuner Agent** (Medium value - complements existing prompts):
+**Option 2: Performance Tuner Agent** (Medium value - complements existing prompts):
 - ⏳ `performance-tuner.agent.md` - Dedicated performance optimization specialist
 - Focuses on: Core Web Vitals, bundle optimization, React performance, Lighthouse
 - Would utilize: performance-optimization, core-web-vitals, bundle-analysis prompts
 - Tools: codebase, search, runCommands (for lighthouse, bundle analysis)
 - Estimated: 1 file, ~450 lines
 
-**Option 4: Additional Instructions Files** (Lower priority):
+**Option 3: Additional Instructions Files** (Lower priority):
 - ⏳ `typescript.instructions.md` - TypeScript patterns (applyTo: "**/*.ts,**/*.tsx")
 - ⏳ `testing.instructions.md` - Testing patterns (applyTo: "**/*.test.*,**/*.spec.*")
 
