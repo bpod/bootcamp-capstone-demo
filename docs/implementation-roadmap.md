@@ -4,7 +4,7 @@
 
 This document tracks what remains to be implemented to complete the project vision outlined in [project-overview.md](project-overview.md). It serves as a living checklist that should be updated as work progresses.
 
-**Last Updated**: 2026-02-10 (Updated: performance-tuner.agent.md completed, agents 83% complete)
+**Last Updated**: 2026-02-10 (Updated: instructions files completed - typescript, testing, package-json)
 
 ---
 
@@ -234,25 +234,33 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 
 **File-Type Specific Instructions**:
 
-- [ ] `package-json.instructions.md` (applyTo: "**/package.json")
-  - Dependency management best practices
-  - Script naming conventions
-  - Version range guidelines
+- [x] `typescript.instructions.md` (applyTo: "**/*.ts,**/*.tsx") ✅
+  - Type safety patterns, interfaces vs types, generics
+  - Utility types, type guards, discriminated unions
+  - React with TypeScript best practices
+  - ~787 lines
 
-- [ ] `config-files.instructions.md` (applyTo: "**/*.config.js,**/.*.rc")
+- [x] `testing.instructions.md` (applyTo: "**/*.test.*,**/*.spec.*,**/__tests__/**") ✅
+  - AAA pattern, test structure, descriptive naming
+  - React Testing Library patterns, accessible queries
+  - Async testing, mocking strategies, TDD
+  - ~743 lines
+
+- [x] `package-json.instructions.md` (applyTo: "**/package.json") ✅
+  - Semantic versioning, dependency management
+  - Script conventions, security best practices
+  - Engine compatibility, cross-platform scripts
+  - ~678 lines
+
+- [ ] `config-files.instructions.md` (applyTo: "**/*.config.js,**/.*.rc") (Optional)
   - Configuration patterns
   - Environment variable handling
   - Security considerations
 
-- [ ] `markdown-docs.instructions.md` (applyTo: "**/*.md")
+- [ ] `markdown-docs.instructions.md` (applyTo: "**/*.md") (Optional)
   - Documentation structure
   - Code example formatting
   - Link conventions
-
-- [ ] `test-files.instructions.md` (applyTo: "**/*.test.*,**/*.spec.*")
-  - Testing patterns
-  - Mock/stub guidelines
-  - Assertion best practices
 
 **Testing Criteria**:
 - Instructions apply when editing matching file types
@@ -449,11 +457,11 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 - ✅ **MCP Infrastructure Setup**: 3/3 (100%)
 - ⏳ **MCP Servers Configured**: 0/2 (0%) - Awaiting server implementations
 - ✅ **Prompt Files Created**: 14/15+ (93%) - Code quality suite complete! ✅
-- ⏳ **Instructions Files Created**: 1/8+ (12.5%)
+- ✅ **Instructions Files Created**: 4/5+ (80%) - Core instructions complete! ✅
 - ✅ **Agents Created**: 5/6 (83%) - performance-tuner ✅
 - ⏳ **Documentation Pages**: 7/10+ (70%)
 
-**Overall Progress**: ~76% of core infrastructure and features
+**Overall Progress**: ~79% of core infrastructure and features
 
 ### Next Actions (In Order)
 
@@ -473,22 +481,32 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 13. ✅ **Test Generation Prompt**: `test-generation.prompt.md` (~1,050 lines) - Comprehensive test generation with RTL patterns
 14. ✅ **Refactoring Guide Prompt**: `refactor-guide.prompt.md` (~1,570 lines) - Safe refactoring workflows and code smell detection
 15. ✅ **Performance Tuner Agent**: `performance-tuner.agent.md` (~796 lines) - Performance optimization specialist
+16. ✅ **TypeScript Instructions**: `typescript.instructions.md` (~787 lines) - Type safety patterns, interfaces, generics
+17. ✅ **Testing Instructions**: `testing.instructions.md` (~743 lines) - Testing conventions, RTL patterns, TDD
+18. ✅ **Package.json Instructions**: `package-json.instructions.md` (~678 lines) - Dependency management, security, scripts
 
 **Next Session Options** (Choose based on priorities):
 
-**Option 1: Additional Instructions Files** ⭐ (High value - auto-apply guidance for file types):
-- ⏳ `typescript.instructions.md` - TypeScript patterns (applyTo: "**/*.ts,**/*.tsx")
-  - Type safety patterns, generic usage, interface vs type
-- ⏳ `testing.instructions.md` - Testing patterns (applyTo: "**/*.test.*,**/*.spec.*")
-  - Test structure, naming conventions, assertion best practices
-- ⏳ `package-json.instructions.md` - Dependency management (applyTo: "**/package.json")
-  - Semantic versioning, script conventions, security patterns
-- Estimated: 3 files, ~300-400 lines each
-
-**Option 2: Additional Prompts** (Lower priority - more specialized workflows):
-- ⏳ `debug-session.prompt.md` - Structured debugging workflow
-- ⏳ `document-component.prompt.md` - Component documentation generation
+**Option 1: Additional Prompts** ⭐ (High value - specialized workflows):
+- ⏳ `debug-session.prompt.md` - Structured debugging workflow with Chrome DevTools
+  - Step-by-step debugging process
+  - Common debugging patterns
+  - Performance profiling during debug
 - ⏳ `security-review.prompt.md` - Security best practices check
+  - Common vulnerabilities (XSS, CSRF, injection)
+  - Dependency security audit
+  - Authentication/authorization patterns
+- Estimated: 2 files, ~800-1000 lines each
+
+**Option 2: Documentation Suite** (Medium value - content generation):
+- ⏳ `document-component.prompt.md` - Component documentation generation
+- ⏳ `document-api.prompt.md` - API documentation helper
+- ⏳ `readme-generator.prompt.md` - Project README creation
+- Estimated: 3 files, ~500-700 lines each
+
+**Option 3: Optional Instructions Files** (Lower priority):
+- ⏳ `config-files.instructions.md` - Configuration patterns
+- ⏳ `markdown-docs.instructions.md` - Documentation structure
 
 **Future Work**:
 - ⏳ **Create MCP server implementation** (or monitor upstream repos)
