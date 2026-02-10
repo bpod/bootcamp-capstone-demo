@@ -763,11 +763,222 @@ Copy this template when documenting a completed session:
   - Documentation Suite: 100% (3/3) - Component docs, API docs, README generation
   - Total: 19 comprehensive prompts (exceeds target by 27%)
 - ✅ **Agents** (5/6 = 83%) - Expertise for complex tasks, near complete
-- ✅ **Instructions** (4/5+ = 80%) - Auto-apply guidance for file types, core complete
+- ✅ **Instructions** (6/5+ = 120%) - **COMPLETE!** 🎉
 
 ---
 
-## React Accessibility Prompt + Agent Planning - 2026-02-10 (Session 2)
+## Optional Instructions Files Creation - 2026-02-10 (Session 3 Continuation)
+
+### What Was Accomplished
+
+- **Two Optional Instructions Files Created** ✅
+  - Created `config-files.instructions.md` (~809 lines): Build tool, linting, environment variable configurations
+  - Created `markdown-docs.instructions.md` (~765 lines): Documentation structure, formatting, best practices
+  - Total: 1,574 lines of auto-apply configuration and documentation guidance
+
+- **Config Files Instructions Coverage**
+  - Build tool configurations (Vite, Webpack, Next.js)
+    - Vite: plugin setup, build options, dev server, proxy configuration
+    - Webpack: module rules, optimization, dev server, performance budgets
+    - Next.js: image optimization, i18n, security headers, bundle analyzer
+  - Linting and formatting (ESLint, Prettier)
+    - ESLint rules for TypeScript, React, accessibility (jsx-a11y)
+    - Prettier configuration and ignore patterns
+  - TypeScript configuration (tsconfig.json)
+    - Strict type checking, module resolution, path mapping
+    - Emit options, compiler flags
+  - Environment variables
+    - Security rules (never commit secrets, prefix public vars)
+    - Environment file patterns (.env.example, .env.development, .env.production)
+    - Variable validation at startup
+    - Build tool-specific patterns (VITE_, NEXT_PUBLIC_, REACT_APP_)
+  - Configuration best practices
+    - Cross-environment configuration patterns
+    - Performance budgets enforcement
+    - Security headers (CSP, X-Frame-Options, etc.)
+    - Path aliases across tools (TypeScript, Vite, Webpack)
+  - **Framework detection** (plug-in architecture)
+    - Detect existing build tool before making recommendations
+    - Adapt to Vite, Webpack, Next.js, Parcel
+    - Never prescribe specific build tool
+
+- **Markdown Docs Instructions Coverage**
+  - Document structure
+    - Heading hierarchy (H1 once, don't skip levels)
+    - Sentence case for headings
+  - Code blocks
+    - Language-specific syntax highlighting
+    - Inline code for functions, variables, files, commands
+    - Code comments explaining patterns
+    - BAD vs GOOD examples with ❌ and ✅
+  - Links
+    - Internal links (relative paths, heading anchors)
+    - External links (descriptive text, reference-style)
+    - Link text best practices (no "click here")
+  - Lists
+    - Unordered lists (consistent markers)
+    - Ordered lists (sequential or all 1s)
+    - Task lists with checkboxes
+    - Nested lists with proper indentation
+  - Tables
+    - Basic tables with alignment
+    - Complex tables with code and links
+    - Column alignment (left, center, right)
+  - Emphasis and formatting
+    - Bold for strong emphasis, italic for subtle
+    - Strikethrough for deprecated content
+    - Avoid ALL CAPS for emphasis
+  - Images
+    - Alt text best practices (descriptive, concise)
+    - Image organization (dedicated folder)
+    - Relative paths for portability
+  - Blockquotes
+    - Standard blockquotes for notes
+    - GitHub callouts (NOTE, WARNING, TIP, IMPORTANT, CAUTION)
+  - Badges
+    - Build status, coverage, npm version, license
+    - Custom badges with shields.io
+  - Documentation best practices
+    - README structure (features, installation, quick start, docs)
+    - API documentation format (parameters, returns, examples, throws)
+    - Changelog format (Keep a Changelog, Semantic Versioning)
+  - Line length and wrapping
+    - Wrap prose at 100 characters
+    - Don't wrap code blocks or links
+  - Common anti-patterns
+    - Multiple H1 headings, inconsistent list markers
+    - No blank lines around code blocks
+    - Generic link text, images without alt text
+  - File naming conventions
+    - Lowercase with hyphens (getting-started.md)
+    - Exception: README.md, CONTRIBUTING.md, LICENSE.md
+  - Accessibility considerations
+    - Accessible tables, descriptive alt text
+    - Semantic heading structure
+    - Descriptive link text
+
+- **Implementation Roadmap Updated**
+  - Marked 2 optional instructions files as complete
+  - Updated metrics: Instructions 4/5+ → 6/5+ (120%), Overall Progress 82% → 83%
+  - Added completed entries 24-25 with line counts and descriptions
+  - Reorganized next session options (now all optional enhancements)
+  - Updated instructions files status to "All instructions complete!"
+
+### Key Findings and Decisions
+
+**Finding 1: Configuration Files Need Framework Detection**
+- Developers use different build tools (Vite, Webpack, Next.js, Parcel)
+- Each tool has different configuration syntax and patterns
+- Cannot prescribe specific build tool (violates plug-in architecture principle)
+- **Decision**: Include framework detection guidance, adapt recommendations to user's stack
+- **Rationale**: Instructions must work with any build tool, not prescribe one
+
+**Finding 2: Environment Variables Critical for Security**
+- Many security vulnerabilities come from exposed secrets in config files
+- Developers often don't understand public vs server-side variable prefixing
+- Clear rules needed: VITE_, NEXT_PUBLIC_, REACT_APP_ for client-side only
+- **Decision**: Extensive environment variable section with security rules and validation
+- **Rationale**: Prevent common security mistakes in configuration
+
+**Finding 3: Config Files Apply to Many File Types**
+- Configuration spans many patterns: *.config.js, .eslintrc.*, tsconfig.json, .env*
+- Single instructions file needs comprehensive applyTo pattern
+- **Decision**: ApplyTo pattern covers all config types
+- **Rationale**: Consistent guidance across all configuration contexts
+
+**Finding 4: Markdown Documentation Often Inconsistent**
+- Heading hierarchy frequently violated (skipping levels)
+- Code blocks missing language specifiers (no syntax highlighting)
+- Link text often generic ("click here", "this link")
+- Images missing alt text (accessibility issue)
+- **Decision**: Comprehensive formatting and best practices section
+- **Rationale**: Auto-apply guidance ensures consistent, accessible documentation
+
+**Finding 5: Documentation Structure Follows Patterns**
+- README: Features → Installation → Quick Start → Documentation → Contributing
+- API Docs: Parameters → Returns → Examples → Throws
+- Changelog: Keep a Changelog format with Semantic Versioning
+- **Decision**: Include templates for common documentation types
+- **Rationale**: Templates speed up documentation creation with consistent structure
+
+**Finding 6: Code Examples Need BAD vs GOOD Patterns**
+- Developers learn best from seeing anti-patterns alongside correct patterns
+- ❌ and ✅ visual indicators make examples easier to scan
+- Comments explaining why pattern is good or bad are essential
+- **Decision**: Use ❌ BAD / ✅ GOOD pattern consistently in all examples
+- **Rationale**: Visual distinction makes examples more effective
+
+**Finding 7: All Instructions Files Now Complete**
+- Original target: 5+ instructions files
+- Current count: 6 instructions files (120%)
+- Coverage: TypeScript, testing, package.json, config files, markdown docs, React components
+- **Decision**: Mark instructions files as "All instructions complete!"
+- **Rationale**: All essential file types covered, remaining instructions optional
+
+### Outcomes
+
+- ✅ Config Files Instructions: Complete (~809 lines, 16KB)
+- ✅ Markdown Docs Instructions: Complete (~765 lines, 16KB)
+- ✅ Overall project progress: ~83% (up from 82%)
+- ✅ Instructions files: 6/5+ (120%) - **All instructions complete!** 🎉
+- ✅ Auto-apply guidance for all essential file types
+- 🎯 Major milestone: Instructions suite completely finished!
+
+**Config Files Instructions Features:**
+- **Build Tools**: Vite, Webpack, Next.js configurations with optimization
+- **Linting**: ESLint rules for TypeScript, React, accessibility
+- **Formatting**: Prettier configuration and ignore patterns
+- **TypeScript**: Comprehensive tsconfig.json patterns
+- **Environment Variables**: Security rules, validation, build tool patterns
+- **Security**: Headers, CORS, performance budgets
+- **Framework Detection**: Adapt to user's existing build tool (plug-in architecture)
+- **Best Practices**: Path aliases, source maps, cross-environment configs
+
+**Markdown Docs Instructions Features:**
+- **Structure**: Heading hierarchy, document organization
+- **Code Blocks**: Language highlighting, inline code, BAD/GOOD examples
+- **Links**: Internal, external, descriptive text best practices
+- **Lists**: Unordered, ordered, task lists, nested lists
+- **Tables**: Basic, complex, alignment
+- **Images**: Alt text, organization, accessibility
+- **Formatting**: Bold, italic, strikethrough, blockquotes, callouts
+- **Badges**: Build status, coverage, npm version, custom badges
+- **Templates**: README, API docs, changelog formats
+- **Accessibility**: Alt text, semantic structure, descriptive links
+
+**Quality Improvements:**
+- Auto-apply configuration guidance reduces mistakes
+- Environment variable security prevents credential leaks
+- Framework detection ensures compatibility with any build tool
+- Markdown standards improve documentation readability and accessibility
+- Consistent formatting across all project documentation
+- Templates accelerate documentation creation
+
+**Complete Toolkit Status:**
+- ✅ **Prompt Files** (19/15+ = 127%) - **COMPLETE!** 🎉
+  - Web Quality: 6/6 (Lighthouse, accessibility, performance, CWV, images, bundles)
+  - React: 5/5 (Component review, renders, hooks, state, accessibility)
+  - Code Quality: 4/4 (Code review, refactoring, testing, debugging)
+  - Security: 1/1 (Security review)
+  - Documentation: 3/3 (Component docs, API docs, README generation)
+- ✅ **Agents** (5/6 = 83%) - Near complete (only optional refactoring-specialist remains)
+- ✅ **Instructions** (6/5+ = 120%) - **COMPLETE!** 🎉
+  - TypeScript: Type safety, interfaces, generics, React patterns
+  - Testing: Test structure, RTL patterns, TDD, async testing
+  - Package.json: Dependencies, versioning, scripts, security
+  - Config Files: Build tools, linting, env vars, framework detection
+  - Markdown Docs: Structure, formatting, links, templates, accessibility
+  - React Components: Composition, hooks, accessibility, performance
+
+**Project Status:**
+- **Core Implementation**: 83% complete
+- **All Essential Files**: Complete (prompts, instructions, agents)
+- **Remaining Work**: Optional enhancements only
+- **Recommendation**: Core implementation finished, optional items enhance but not required
+
+---
+
+## Documentation Prompts Creation - 2026-02-10 (Session 3 Continuation)
 
 ### What Was Accomplished
 

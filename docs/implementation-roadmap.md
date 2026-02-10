@@ -4,7 +4,7 @@
 
 This document tracks what remains to be implemented to complete the project vision outlined in [project-overview.md](project-overview.md). It serves as a living checklist that should be updated as work progresses.
 
-**Last Updated**: 2026-02-10 (Updated: documentation prompts completed - document-component, document-api, readme-generator)
+**Last Updated**: 2026-02-10 (Updated: optional instructions files completed - config-files, markdown-docs)
 
 ---
 
@@ -272,15 +272,23 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
   - Engine compatibility, cross-platform scripts
   - ~678 lines
 
-- [ ] `config-files.instructions.md` (applyTo: "**/*.config.js,**/.*.rc") (Optional)
-  - Configuration patterns
-  - Environment variable handling
-  - Security considerations
+- [x] `config-files.instructions.md` (applyTo: "**/*.config.js,**/*.config.ts,**/.*.rc,**/vite.config.*,**/webpack.config.*") ✅
+  - Build tool configurations (Vite, Webpack, Next.js)
+  - Linting and formatting (ESLint, Prettier)
+  - Environment variable patterns and validation
+  - Security best practices for config files
+  - Performance budgets and optimization
+  - Framework detection (plug-in architecture)
+  - ~809 lines
 
-- [ ] `markdown-docs.instructions.md` (applyTo: "**/*.md") (Optional)
-  - Documentation structure
-  - Code example formatting
-  - Link conventions
+- [x] `markdown-docs.instructions.md` (applyTo: "**/*.md") ✅
+  - Document structure and heading hierarchy
+  - Code block formatting with language highlighting
+  - Link conventions (internal, external, descriptive text)
+  - Tables, lists, emphasis, images
+  - Documentation best practices (README, API docs, changelogs)
+  - Accessibility considerations
+  - ~765 lines
 
 **Testing Criteria**:
 - Instructions apply when editing matching file types
@@ -477,11 +485,11 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 - ✅ **MCP Infrastructure Setup**: 3/3 (100%)
 - ⏳ **MCP Servers Configured**: 0/2 (0%) - Awaiting server implementations
 - ✅ **Prompt Files Created**: 19/15+ (127%) - All prompts complete! ✅
-- ✅ **Instructions Files Created**: 4/5+ (80%) - Core instructions complete! ✅
+- ✅ **Instructions Files Created**: 6/5+ (120%) - All instructions complete! ✅
 - ✅ **Agents Created**: 5/6 (83%) - performance-tuner ✅
 - ⏳ **Documentation Pages**: 7/10+ (70%)
 
-**Overall Progress**: ~82% of core infrastructure and features
+**Overall Progress**: ~83% of core infrastructure and features
 
 ### Next Actions (In Order)
 
@@ -509,40 +517,35 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 21. ✅ **Component Documentation Prompt**: `document-component.prompt.md` (~828 lines) - JSDoc/TSDoc, props docs, accessibility
 22. ✅ **API Documentation Prompt**: `document-api.prompt.md` (~921 lines) - Request/response schemas, OpenAPI conventions
 23. ✅ **README Generator Prompt**: `readme-generator.prompt.md` (~1,129 lines) - Installation, architecture, deployment guides
+24. ✅ **Config Files Instructions**: `config-files.instructions.md` (~809 lines) - Build tools, linting, env vars, security, framework detection
+25. ✅ **Markdown Docs Instructions**: `markdown-docs.instructions.md` (~765 lines) - Document structure, code blocks, links, best practices
 
-**Next Session Options** (Choose based on priorities):
+**Next Session Options** (Optional enhancements only):
 
-**Option 1: Optional Instructions Files** ⭐ (Medium value):
-- ⏳ `config-files.instructions.md` - Configuration patterns
-  - applyTo: "**/*.config.js,**/*.config.ts,**/.*.rc"
-  - Vite, Webpack, ESLint, Prettier, TypeScript configurations
-  - Environment variable handling, cross-environment configs
-  - Security considerations for config files
-- ⏳ `markdown-docs.instructions.md` - Documentation structure
-  - applyTo: "**/*.md"
-  - Markdown formatting standards (headings, lists, code blocks)
-  - Link conventions, image embedding
-  - Documentation best practices
-- Estimated: 2 files, ~400-500 lines each
+**Note**: All core implementation is complete (83%)! Remaining options are optional enhancements.
 
-**Option 2: Optional Prompts** (Lower value):
+**Option 1: Optional Prompts** (Lower value):
 - ⏳ `performance-budget.prompt.md` - Performance budget validation
   - Define size/timing budgets for assets
   - CI/CD integration for budget enforcement
+  - Estimated: ~500-600 lines
 - ⏳ `browser-compatibility.prompt.md` - Cross-browser testing
-  - Browser support matrix
-  - Polyfill recommendations
-- Estimated: 2 files, ~500-600 lines each
+  - Browser support matrix, polyfill recommendations
+  - Testing strategy across browsers
+  - Estimated: ~500-600 lines
+- **Note**: These are nice-to-have since core performance and testing prompts already cover most needs
 
-**Option 3: Optional Agent** (Lowest priority):
+**Option 2: Optional Agent** (Lowest priority):
 - ⏳ `refactoring-specialist.agent.md` - Code refactoring expert
-  - Note: Likely not needed - frontend-developer handles refactoring with refactor-guide prompt
   - Focus: Code smells, design patterns, refactoring strategies
-- Estimated: 1 file, ~700-800 lines
+  - Tools: codebase, search, usages, problems
+  - Estimated: ~700-800 lines
+  - **Note**: Likely not needed - frontend-developer handles refactoring with refactor-guide prompt
 
-**Future Work**:
+**Option 3: MCP Server Implementation** (Future work):
 - ⏳ **Create MCP server implementation** (or monitor upstream repos)
 - ⏳ **Test MCP integration** once servers available
+- **Note**: Infrastructure ready, waiting on server implementations
 
 ---
 
