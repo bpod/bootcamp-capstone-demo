@@ -1,6 +1,6 @@
 ---
 description: "Review React component for best practices, performance, accessibility, and maintainability"
-agent: "agent"
+agent: "frontend-developer"
 tools: ["codebase", "search", "problems"]
 ---
 

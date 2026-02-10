@@ -1,6 +1,6 @@
 ---
 description: Comprehensive accessibility audit using WCAG 2.1 Level AA standards
-agent: agent
+agent: accessibility-expert
 tools:
   [
     "codebase",

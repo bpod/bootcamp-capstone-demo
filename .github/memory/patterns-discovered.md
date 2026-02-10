@@ -42,6 +42,75 @@ Copy this template when documenting a new pattern:
 
 ---
 
+## Pattern: Prompt File Agent Specification
+
+**Context**: All prompt files (`.prompt.md`) should specify which agent should execute them via the `agent:` frontmatter property.
+
+**Problem**: Using the generic `agent: "agent"` doesn't leverage the specialized context, tools, and instructions of custom agents we've created (frontend-developer, accessibility-expert, copilot-customization).
+
+**Solution**: Map each prompt to the most appropriate specialized agent based on the prompt's domain:
+
+- **Accessibility prompts** → `accessibility-expert`
+  - accessibility-review.prompt.md
+  
+- **Frontend/React/Performance prompts** → `frontend-developer`
+  - lighthouse-audit.prompt.md
+  - performance-optimization.prompt.md
+  - core-web-vitals.prompt.md
+  - image-optimization.prompt.md
+  - bundle-analysis.prompt.md
+  - react-component-review.prompt.md
+  - react-optimize-renders.prompt.md
+  - react-hook-migration.prompt.md
+  - react-state-refactor.prompt.md
+
+- **General code quality** → `agent` (keep generic)
+  - code-review.prompt.md (applies across all languages/frameworks)
+
+**Benefits**:
+
+1. **Automatic Context**: Prompt inherits the agent's specialized instructions and knowledge
+2. **Appropriate Tools**: Agent's configured tool set is available (e.g., accessibility-expert has runCommands for axe-core)
+3. **Consistent Expertise**: Same agent context whether invoked via chat or prompt file
+4. **Better Results**: Specialized agents have deeper domain knowledge and better patterns
+
+**Example**:
+
+```yaml
+---
+description: "Review React component for best practices"
+agent: "frontend-developer"  # ✅ Uses frontend-developer context
+tools: ["codebase", "search", "problems"]
+---
+```
+
+**Anti-Pattern**:
+
+```yaml
+---
+description: "Review React component for best practices"
+agent: "agent"  # ❌ Generic agent lacks React-specific context
+tools: ["codebase", "search", "problems"]
+---
+```
+
+**When to Use Generic Agent**:
+
+- Truly framework/domain-agnostic prompts
+- When creating prompts before specialized agents exist
+- Documentation or exploration tasks that don't fit existing agents
+
+**Related Files**: 
+- [frontend-developer.agent.md](../.github/agents/frontend-developer.agent.md)
+- [accessibility-expert.agent.md](../.github/agents/accessibility-expert.agent.md)
+- [copilot-customization.agent.md](../.github/agents/copilot-customization.agent.md)
+
+**When to Revisit**: 
+- When creating new specialized agents, audit existing prompts to see if they should use the new agent
+- When creating new prompt files, always choose the most appropriate agent
+
+---
+
 ## Example Pattern
 
 ## Pattern: Service State Initialization

@@ -1,6 +1,6 @@
 ---
 description: Guided performance optimization workflow using Measure-Optimize-Validate loop
-agent: agent
+agent: frontend-developer
 tools:
   [
     "codebase",

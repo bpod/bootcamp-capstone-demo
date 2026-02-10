@@ -1,6 +1,6 @@
 ---
 description: "Optimize images for web performance - format selection, sizing, lazy loading, CDN delivery"
-agent: "agent"
+agent: "frontend-developer"
 tools: ["codebase", "search", "problems"]
 ---
 
