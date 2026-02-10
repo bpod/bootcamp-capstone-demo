@@ -4,7 +4,7 @@
 
 This document tracks what remains to be implemented to complete the project vision outlined in [project-overview.md](project-overview.md). It serves as a living checklist that should be updated as work progresses.
 
-**Last Updated**: 2026-02-10 (Updated: instructions files completed - typescript, testing, package-json)
+**Last Updated**: 2026-02-10 (Updated: documentation prompts completed - document-component, document-api, readme-generator)
 
 ---
 
@@ -203,21 +203,41 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 
 **Suggested Prompts**:
 
-- [ ] **Development Workflow Prompts**
+- [x] **Development Workflow Prompts** ✅
   - [x] `code-review.prompt.md` - Comprehensive code review checklist ✅
   - [x] `refactor-guide.prompt.md` - Step-by-step refactoring assistance ✅
-  - [ ] `debug-session.prompt.md` - Structured debugging workflow
+  - [x] `debug-session.prompt.md` - Structured debugging workflow with Chrome DevTools ✅
+    - Step-by-step debugging process, breakpoints, console strategies
+    - Performance profiling, memory leak detection
+    - Common debugging scenarios and patterns
+    - ~949 lines
   - [x] `test-generation.prompt.md` - Generate tests for components ✅
 
-- [ ] **Documentation Prompts**
-  - [ ] `document-component.prompt.md` - Component documentation generation
-  - [ ] `document-api.prompt.md` - API documentation helper
-  - [ ] `readme-generator.prompt.md` - Project README creation
+- [x] **Documentation Prompts** ✅
+  - [x] `document-component.prompt.md` - Component documentation generation ✅
+    - JSDoc/TSDoc format, props documentation, usage examples
+    - Accessibility documentation, browser support
+    - Implementation notes, standalone README generation
+    - ~828 lines
+  - [x] `document-api.prompt.md` - API documentation helper ✅
+    - Request/response schemas, authentication requirements
+    - Error codes and handling, code examples (fetch, axios, cURL, Python)
+    - OpenAPI/Swagger conventions, related endpoints
+    - ~921 lines
+  - [x] `readme-generator.prompt.md` - Project README creation ✅
+    - Installation instructions, usage examples, architecture overview
+    - Development workflow, testing, deployment guides
+    - Troubleshooting, contributing guidelines, templates
+    - ~1,129 lines
 
-- [ ] **Quality Assurance Prompts**
-  - [ ] `security-review.prompt.md` - Security best practices check
-  - [ ] `performance-budget.prompt.md` - Define and validate performance budgets
-  - [ ] `browser-compatibility.prompt.md` - Cross-browser compatibility check
+- [x] **Quality Assurance Prompts** ✅
+  - [x] `security-review.prompt.md` - Security best practices check ✅
+    - OWASP Top 10 vulnerability assessment
+    - Dependency security audit, npm audit workflow
+    - Authentication/authorization patterns, secure coding
+    - ~1,147 lines
+  - [ ] `performance-budget.prompt.md` - Define and validate performance budgets (Optional)
+  - [ ] `browser-compatibility.prompt.md` - Cross-browser compatibility check (Optional)
 
 **Testing Criteria**:
 - Prompts accessible via command palette
@@ -456,12 +476,12 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 - ✅ **Memory System**: 5/5 files (100%)
 - ✅ **MCP Infrastructure Setup**: 3/3 (100%)
 - ⏳ **MCP Servers Configured**: 0/2 (0%) - Awaiting server implementations
-- ✅ **Prompt Files Created**: 14/15+ (93%) - Code quality suite complete! ✅
+- ✅ **Prompt Files Created**: 19/15+ (127%) - All prompts complete! ✅
 - ✅ **Instructions Files Created**: 4/5+ (80%) - Core instructions complete! ✅
 - ✅ **Agents Created**: 5/6 (83%) - performance-tuner ✅
 - ⏳ **Documentation Pages**: 7/10+ (70%)
 
-**Overall Progress**: ~79% of core infrastructure and features
+**Overall Progress**: ~82% of core infrastructure and features
 
 ### Next Actions (In Order)
 
@@ -484,29 +504,41 @@ x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
 16. ✅ **TypeScript Instructions**: `typescript.instructions.md` (~787 lines) - Type safety patterns, interfaces, generics
 17. ✅ **Testing Instructions**: `testing.instructions.md` (~743 lines) - Testing conventions, RTL patterns, TDD
 18. ✅ **Package.json Instructions**: `package-json.instructions.md` (~678 lines) - Dependency management, security, scripts
+19. ✅ **Debug Session Prompt**: `debug-session.prompt.md` (~949 lines) - Systematic debugging workflows, Chrome DevTools
+20. ✅ **Security Review Prompt**: `security-review.prompt.md` (~1,147 lines) - OWASP Top 10, dependency security, secure coding
+21. ✅ **Component Documentation Prompt**: `document-component.prompt.md` (~828 lines) - JSDoc/TSDoc, props docs, accessibility
+22. ✅ **API Documentation Prompt**: `document-api.prompt.md` (~921 lines) - Request/response schemas, OpenAPI conventions
+23. ✅ **README Generator Prompt**: `readme-generator.prompt.md` (~1,129 lines) - Installation, architecture, deployment guides
 
 **Next Session Options** (Choose based on priorities):
 
-**Option 1: Additional Prompts** ⭐ (High value - specialized workflows):
-- ⏳ `debug-session.prompt.md` - Structured debugging workflow with Chrome DevTools
-  - Step-by-step debugging process
-  - Common debugging patterns
-  - Performance profiling during debug
-- ⏳ `security-review.prompt.md` - Security best practices check
-  - Common vulnerabilities (XSS, CSRF, injection)
-  - Dependency security audit
-  - Authentication/authorization patterns
-- Estimated: 2 files, ~800-1000 lines each
-
-**Option 2: Documentation Suite** (Medium value - content generation):
-- ⏳ `document-component.prompt.md` - Component documentation generation
-- ⏳ `document-api.prompt.md` - API documentation helper
-- ⏳ `readme-generator.prompt.md` - Project README creation
-- Estimated: 3 files, ~500-700 lines each
-
-**Option 3: Optional Instructions Files** (Lower priority):
+**Option 1: Optional Instructions Files** ⭐ (Medium value):
 - ⏳ `config-files.instructions.md` - Configuration patterns
+  - applyTo: "**/*.config.js,**/*.config.ts,**/.*.rc"
+  - Vite, Webpack, ESLint, Prettier, TypeScript configurations
+  - Environment variable handling, cross-environment configs
+  - Security considerations for config files
 - ⏳ `markdown-docs.instructions.md` - Documentation structure
+  - applyTo: "**/*.md"
+  - Markdown formatting standards (headings, lists, code blocks)
+  - Link conventions, image embedding
+  - Documentation best practices
+- Estimated: 2 files, ~400-500 lines each
+
+**Option 2: Optional Prompts** (Lower value):
+- ⏳ `performance-budget.prompt.md` - Performance budget validation
+  - Define size/timing budgets for assets
+  - CI/CD integration for budget enforcement
+- ⏳ `browser-compatibility.prompt.md` - Cross-browser testing
+  - Browser support matrix
+  - Polyfill recommendations
+- Estimated: 2 files, ~500-600 lines each
+
+**Option 3: Optional Agent** (Lowest priority):
+- ⏳ `refactoring-specialist.agent.md` - Code refactoring expert
+  - Note: Likely not needed - frontend-developer handles refactoring with refactor-guide prompt
+  - Focus: Code smells, design patterns, refactoring strategies
+- Estimated: 1 file, ~700-800 lines
 
 **Future Work**:
 - ⏳ **Create MCP server implementation** (or monitor upstream repos)
