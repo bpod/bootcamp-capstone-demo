@@ -6,10 +6,12 @@ This project aims to create a comprehensive AI-powered development toolkit that 
 
 ## Mission Statement
 
-Build an intelligent, stack-agnostic development assistant that empowers developers to create high-performance, accessible, and maintainable web applications by leveraging:
+Build an intelligent, **plug-in toolkit** that empowers developers to create high-performance, accessible, and maintainable web applications by leveraging:
 - Google Lighthouse guidelines and Core Web Vitals best practices
 - React and modern frontend development patterns
 - AI-native tooling optimized for LLM consumption and agent workflows
+
+**Core Architecture Principle**: This toolkit is designed to be **plugged into any existing frontend project** without requiring changes to the project's build tools, test frameworks, or development setup. It detects and adapts to the user's existing stack rather than imposing specific tools.
 
 ## Project Goals
 
@@ -22,10 +24,12 @@ Create a comprehensive collection of Agent Skills for optimizing web projects ba
 - SEO best practices
 
 **Key Features:**
-- Framework-agnostic: Works with React, Vue, Angular, Svelte, Next.js, Nuxt, Astro, plain HTML, and more
-- Automated auditing and suggestions
-- Real-time optimization recommendations
-- Progressive enhancement strategies
+- **Plug-in architecture**: Integrates with existing projects without requiring tool changes
+- **Framework-agnostic**: Works with React, Vue, Angular, Svelte, Next.js, Nuxt, Astro, plain HTML, and more
+- **Tool-agnostic**: Adapts to existing build tools (Vite, Webpack, etc.) and test frameworks (Vitest, Jest, etc.)
+- **Automated auditing and suggestions**: Uses universal tools (Lighthouse, axe-core)
+- **Real-time optimization recommendations**: Based on detected project structure
+- **Progressive enhancement strategies**: Improve existing projects incrementally
 
 ### 2. React Best Practices Repository
 A structured, LLM-optimized repository containing:

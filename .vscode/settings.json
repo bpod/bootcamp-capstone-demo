@@ -21,5 +21,35 @@
   // Enable custom instructions
   "chat.instructionsFilesLocations": [
     ".github"
-  ]
+  ],
+  
+  // MCP Server Configuration
+  "chat.mcp.access": "all",
+  "chat.mcp.autostart": true,
+  
+  // Tool Sets - Group related tools for easier access
+  "chat.toolSets": {
+    "readonly": [
+      "codebase",
+      "search",
+      "fetch",
+      "usages",
+      "problems"
+    ],
+    "web-quality": [
+      "lighthouse_audit",
+      "analyze_performance",
+      "check_accessibility",
+      "optimize_images",
+      "analyze_bundle"
+    ],
+    "react-dev": [
+      "review_component",
+      "suggest_hooks",
+      "detect_anti_patterns",
+      "optimize_renders",
+      "suggest_state_management"
+    ]
+  }
 }
+

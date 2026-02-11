@@ -156,14 +156,13 @@ Use tools like axe-core to catch a11y issues:
 // Run accessibility audit
 axe https://your-app.com --save results.json
 
-// Or integrate with jest-axe for component testing
-import { axe, toHaveNoViolations } from 'jest-axe';
-expect.extend(toHaveNoViolations);
+// Or integrate axe-core for component testing
+import { axe } from 'axe-core';
 
 test('component should have no accessibility violations', async () => {
   const { container } = render(<YourComponent />);
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
+  const results = await axe.run(container);
+  expect(results.violations).toHaveLength(0);
 });
 ```
 
@@ -285,7 +284,7 @@ screen.getByTestId('submit-btn');
 import { render, screen, userEvent } from '@testing-library/react';
 
 test('button triggers action on click', () => {
-  const handleClick = jest.fn();
+  const handleClick = vi.fn(); // or mock function from your test framework
   render(<Button onClick={handleClick}>Click me</Button>);
   
   const button = screen.getByRole('button');
