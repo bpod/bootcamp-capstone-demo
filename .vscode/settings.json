@@ -7,7 +7,7 @@
   
   // Specify custom chat mode locations
   "chat.modeFilesLocations": [
-    ".github/chatmodes"
+    ".github/agents"
   ],
   
   // Enable prompt files (experimental)

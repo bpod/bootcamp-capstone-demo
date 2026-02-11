@@ -18,6 +18,37 @@ This is an AI-native development toolkit for building high-performance, accessib
 - [Implementation Roadmap](../docs/implementation-roadmap.md) - Remaining work and priorities
 - [Memory System](memory/README.md) - Working memory and pattern documentation
 
+## Authoritative References
+
+This toolkit aligns with and references industry-standard best practices:
+
+### Web Quality Standards
+
+- **[Web Quality Skills](https://github.com/addyosmani/web-quality-skills)** by Addy Osmani (Google Chrome Team)
+  - Authoritative source for Lighthouse audits, Core Web Vitals optimization, and web performance patterns
+  - Our thresholds and metrics align exactly with their standards
+  - Reference their 150+ audits covering Performance, Accessibility, SEO, and Best Practices
+
+### React Best Practices
+
+- **[Vercel Agent Skills - React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)**
+  - Production-proven React patterns from Vercel Engineering
+  - 40+ rules across 8 categories (waterfalls, bundle size, re-renders, etc.)
+  - Prioritized by performance impact (Critical → Low)
+  - Our React guidance implements and extends these patterns
+
+### Our Complementary Value
+
+While these resources provide **what good code looks like**, our toolkit provides:
+
+1. **Automated Execution**: MCP servers that run Lighthouse, accessibility audits, and React analysis with one command
+2. **Intelligent Pattern Matching**: Automatically surface relevant rules from authoritative sources based on your code
+3. **GitHub Copilot Integration**: Deep integration with agents, prompts, and instructions for seamless workflow
+4. **Validation Workflows**: Demo apps, before/after examples, and systematic testing approaches
+5. **Stack Detection**: Adapt recommendations to your existing tools (Vite, Webpack, Vitest, Jest, etc.)
+
+**Philosophy**: We don't compete with web-quality-skills or Vercel patterns—we automate and integrate them into your daily development workflow.
+
 ## Core Development Principles
 
 ### 1. Quality-Driven Development

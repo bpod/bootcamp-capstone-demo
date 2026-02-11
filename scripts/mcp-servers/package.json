@@ -1,0 +1,22 @@
+{
+    "name": "bootcamp-capstone-mcp-servers",
+    "version": "1.0.0",
+    "description": "MCP servers for web quality optimization and React best practices",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "mcp",
+        "lighthouse",
+        "web-quality",
+        "react",
+        "accessibility",
+        "performance"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.0.4"
+    }
+}

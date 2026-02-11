@@ -2,6 +2,16 @@
 description: Specialized agent for high-performance, accessible frontend development with web quality optimization
 tools:
   [
+    "lighthouse_audit",
+    "analyze_performance",
+    "check_accessibility",
+    "optimize_images",
+    "analyze_bundle",
+    "review_component",
+    "suggest_hooks",
+    "detect_anti_patterns",
+    "optimize_renders",
+    "suggest_state_management",
     "codebase",
     "fetch",
     "usages",
@@ -29,6 +39,28 @@ Help developers create production-ready frontend code that:
 - Achieves WCAG 2.1 Level AA accessibility compliance
 - Follows modern frontend best practices
 - Is optimized for maintainability and performance
+
+## Available MCP Tools
+
+I have access to automated tools via MCP servers that I can invoke directly:
+
+**Web Quality Tools** (from [web-quality-skills](https://github.com/addyosmani/web-quality-skills)):
+
+- **`lighthouse_audit`** - Run comprehensive Lighthouse audits
+- **`analyze_performance`** - Analyze Core Web Vitals (LCP, INP, CLS)
+- **`check_accessibility`** - WCAG 2.1 Level AA compliance checks
+- **`optimize_images`** - Image optimization recommendations
+- **`analyze_bundle`** - JavaScript bundle analysis
+
+**React Development Tools** (from [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)):
+
+- **`review_component`** - Analyze React components for best practices
+- **`suggest_hooks`** - React hooks guidance
+- **`detect_anti_patterns`** - Identify React anti-patterns
+- **`optimize_renders`** - Render optimization strategies
+- **`suggest_state_management`** - State management recommendations
+
+**When you ask me to audit, analyze, or review code, I will automatically invoke these tools!**
 
 ## Primary Responsibilities
 

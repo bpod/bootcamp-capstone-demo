@@ -3,14 +3,14 @@
   "mcpServers": {
     "web-quality-skills": {
       "command": "node",
-      "args": ["path/to/web-quality-skills/server.js"],
-      "disabled": true,
+      "args": ["${workspaceFolder}/scripts/mcp-servers/web-quality-server.js"],
+      "disabled": false,
       "env": {}
     },
     "react-best-practices": {
       "command": "node",
-      "args": ["path/to/react-best-practices/server.js"],
-      "disabled": true,
+      "args": ["${workspaceFolder}/scripts/mcp-servers/react-best-practices-server.js"],
+      "disabled": false,
       "env": {}
     }
   },

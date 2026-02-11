@@ -46,18 +46,41 @@ A structured, LLM-optimized repository containing:
 - Contextual code snippets
 - Decision trees for pattern selection
 
-### 3. Integration with Existing Tools
+### 3. Integration with Industry Standards
 
-Leverage proven open-source libraries using Model Context Protocol (MCP):
+**Authoritative Pattern Sources:**
 
-**Primary Resources:**
-- [Web Quality Skills](https://github.com/addyosmani/web-quality-skills) - Comprehensive web optimization patterns
-- [React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) - Production-ready React patterns
+This toolkit implements and automates best practices from industry-leading resources:
 
-**Integration Strategy:**
-- MCP server implementation for seamless AI assistant integration
-- Unified interface for accessing both web quality and React-specific guidance
-- Contextualized recommendations based on project stack and requirements
+- **[Web Quality Skills](https://github.com/addyosmani/web-quality-skills)** (Addy Osmani, Google Chrome Team)
+  - Comprehensive web optimization patterns
+  - 150+ Lighthouse audits across Performance, Accessibility, SEO, Best Practices
+  - Core Web Vitals thresholds: LCP ≤2.5s, INP ≤200ms, CLS ≤0.1
+  - Real-world performance engineering patterns
+
+- **[Vercel Agent Skills - React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)**
+  - Production-ready React patterns from Vercel Engineering  
+  - 40+ rules prioritized by impact (Critical → Low)
+  - Categories: Waterfalls, Bundle Size, Server Performance, Re-renders, etc.
+  - Next.js-specific optimizations
+
+**Our Integration Strategy:**
+
+1. **Reference, Don't Duplicate**: Use authoritative sources for standards and patterns
+2. **Automate Execution**: MCP servers run audits and analysis tools automatically
+3. **Intelligent Matching**: Surface relevant patterns based on code context
+4. **GitHub Copilot Native**: Deep integration with agents, prompts, and instructions
+5. **Stack Agnostic**: Works with any framework, build tool, or test framework
+
+**What We Add:**
+
+- **MCP Server Layer**: Wraps Lighthouse CLI, axe-core, ESLint with React plugins
+- **Pattern Intelligence**: Parses and caches Vercel rules for fast, context-aware suggestions
+- **Workflow Integration**: One-click audits from Copilot Chat
+- **Validation Framework**: Demo apps and systematic testing approaches
+- **Tool Detection**: Adapts to your existing stack (Vite/Webpack, Vitest/Jest, etc.)
+
+**Positioning**: We are the **automation layer** for industry-standard patterns, not a competing standard.
 
 ### 4. Frontend Developer Agent/Chat Mode
 
