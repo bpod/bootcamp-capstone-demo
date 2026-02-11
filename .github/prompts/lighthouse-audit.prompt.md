@@ -6,6 +6,8 @@ description: Run comprehensive Lighthouse audit and get actionable optimization 
 
 Run a comprehensive Lighthouse audit on the application and receive prioritized, actionable optimization recommendations.
 
+**Note**: If MCP servers are enabled, I can automatically run Lighthouse audits using the `lighthouse_audit` tool. Otherwise, I'll guide you through manual execution.
+
 ## Workflow
 
 ### Step 1: Identify Audit Target
@@ -24,6 +26,12 @@ Determine what to audit:
 - Audit localhost URL
 
 ### Step 2: Run Lighthouse Audit
+
+**Automated (MCP Available):**
+
+I will automatically invoke the `lighthouse_audit` tool with the provided URL. This executes Lighthouse and returns structured results with references to [web-quality-skills](https://github.com/addyosmani/web-quality-skills) patterns.
+
+**Manual (MCP Unavailable):**
 
 Execute Lighthouse with comprehensive output:
 

@@ -8,6 +8,8 @@ Comprehensive review of React components against best practices. Covers componen
 
 **Applies to**: React functional components (.jsx, .tsx files)
 
+**Note**: If MCP servers are enabled, I can automatically analyze components using the `review_component` tool, which checks against [Vercel's React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices). Otherwise, I'll perform a manual structured review.
+
 ---
 
 ## Review Checklist

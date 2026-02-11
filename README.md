@@ -72,6 +72,14 @@ Context-aware guidance that automatically activates:
 - ❌ BAD / ✅ GOOD pattern comparisons
 - Multi-step workflows with success criteria
 
+### 🔧 **MCP Server Automation**
+- **Automated tool execution** - One-click Lighthouse audits, accessibility checks, React analysis
+- **Pattern references** - Responses cite [web-quality-skills](https://github.com/addyosmani/web-quality-skills) and [Vercel React patterns](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
+- **Intelligent suggestions** - Context-aware recommendations from authoritative sources
+- **Seamless integration** - Tools automatically available in Copilot Chat
+
+**[→ MCP Servers Documentation](scripts/mcp-servers/README.md)**
+
 ---
 
 ## 🚀 Quick Start
