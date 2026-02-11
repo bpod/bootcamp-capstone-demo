@@ -3,22 +3,32 @@ name: accessibility-quick
 description: Quick accessibility audit - find top 5 WCAG 2.1 Level AA violations
 ---
 
-# Quick Accessibility Audit
+Identify **top 5 most critical** WCAG 2.1 Level AA violations in ${file} or ${selection}.
 
-Identify the **top 5 most critical** WCAG 2.1 Level AA violations in ${file} or ${selection}.
+**Common Violations**:
 
-## Focus Areas
+1. **Images without alt text** (WCAG 1.1.1)
+2. **Poor color contrast** < 4.5:1 (WCAG 1.4.3)
+3. **Form inputs without labels** (WCAG 3.3.2)
+4. **Non-semantic elements** - div onClick instead of button (WCAG 4.1.2)
+5. **Missing keyboard navigation** - custom widgets without keyboard support (WCAG 2.1.1)
 
-Scan for these common violations:
+**Workflow**: Scan code → List top 5 issues → Provide quick fixes
 
-1. **Images without alt text** (WCAG 1.1.1 - Level A)
-   - `<img>` tags missing `alt` attribute
-   - Icon images without accessible labels
+**Output Format**:
 
-2. **Poor color contrast** (WCAG 1.4.3 - Level AA)
-   - Text contrast < 4.5:1 (normal text)
-   - Large text contrast < 3:1 (18pt+ or 14pt+ bold)
-   - Check inline styles and CSS classes
+```
+1. [Issue] - [WCAG Criterion]
+   Fix: [One-line code example]
+
+2. [Issue] - [WCAG Criterion]
+   Fix: [One-line code example]
+...
+```
+
+Focus on highest-impact, easiest-to-fix issues. For comprehensive audit, use `accessibility-review` prompt.
+
+- Check inline styles and CSS classes
 
 3. **Form inputs without labels** (WCAG 3.3.2 - Level A)
    - `<input>`, `<textarea>`, `<select>` without associated `<label>`
@@ -96,6 +106,6 @@ Focus on **quick wins** - issues that are easy to fix with high impact.
 
 **Why it matters**: Screen reader users hear "image" with no context. They can't understand page content.
 
-***
+---
 
 Keep it focused, actionable, and quick to implement.

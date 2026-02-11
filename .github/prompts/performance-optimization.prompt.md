@@ -3,31 +3,30 @@ name: performance-optimization
 description: Guided performance optimization workflow using Measure-Optimize-Validate loop
 ---
 
-# Performance Optimization Workflow
+Systematic performance improvement following **Measure-Optimize-Validate** loop.
 
-Systematic performance improvement following the **Measure-Optimize-Validate** loop. This prompt guides you through identifying, implementing, and validating performance optimizations incrementally.
+**Workflow:**
 
-## Workflow
+1. **Detect**: Check project for build tool (Vite/Webpack/Next.js) and framework
+2. **Measure**: Run Lighthouse audit to capture baseline (Performance score, LCP, INP, CLS, bundle size)
+3. **Identify**: Prioritize by impact - Image optimization, bundle size, render-blocking resources, third-party code
+4. **Optimize**: Implement ONE change incrementally
+5. **Validate**: Re-run Lighthouse, compare metrics, verify no regressions
+6. **Iterate**: Document findings, commit, move to next optimization
 
-### Step 1: Detect Existing Setup
+**MCP Tool**: If available, use `lighthouse_audit` tool.
 
-**Check project configuration:**
+**Standards Reference**: All optimizations follow [Web Quality Skills - Performance](https://github.com/addyosmani/web-quality-skills) patterns:
 
-```bash
-# Detect build tool
-[ -f "vite.config.js" ] && echo "Vite detected"
-[ -f "webpack.config.js" ] && echo "Webpack detected"
-[ -f "next.config.js" ] && echo "Next.js detected"
+- Image Optimization: WebP/AVIF, responsive images, lazy loading
+- Code Splitting: React.lazy, dynamic imports, route-based splitting
+- Resource Hints: preload, preconnect, dns-prefetch
+- Bundle Analysis: Remove unused deps, tree shaking
+- Core Web Vitals: LCP ≤2.5s, INP ≤200ms, CLS ≤0.1
 
-# Check package.json for framework
-cat package.json | grep -E '"(react|vue|angular|svelte)"'
-```
+**Adapt to Detected Stack**: Reference user's existing build tool (Vite plugins, Webpack loaders, Next.js config)
 
-**Adapt recommendations** based on detected tools.
-
-### Step 2: Measure Baseline Performance
-
-**Run performance audit:**
+Implement one optimization at a time. Never optimize without measuring first.
 
 ```bash
 # If production URL available
@@ -352,6 +351,6 @@ After completing each optimization:
 - [Testing Guidelines](../../docs/testing-guidelines.md)
 - [Project Overview](../../docs/project-overview.md)
 
-***
+---
 
 **Remember**: Performance optimization is iterative. Complete one optimization, validate impact, then move to the next. Quality over speed.

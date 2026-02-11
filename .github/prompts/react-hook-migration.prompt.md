@@ -1,23 +1,33 @@
 ---
 name: react-hook-migration
-description: "Migrate React class components to functional components with hooks"
+description: Migrate React class components to functional components with hooks
 ---
 
-# React Hook Migration
+Migrate React class component ${selection} or ${file} to functional component with hooks.
 
-Systematic migration of React class components to functional components with hooks. This workflow ensures safe, tested migration while preserving functionality and improving code maintainability.
+**Workflow:**
 
-**Applies to**: React class components (.jsx, .tsx files)
+1. **Analyze**: Identify state, lifecycle methods, refs, context usage
+2. **Migrate**: Convert incrementally (state → useState, lifecycle → useEffect, etc.)
+3. **Test**: Ensure tests pass after migration
+4. **Refactor**: Extract custom hooks if patterns emerge
 
-***
+**Standards Reference**: [Vercel React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
 
-## Why Migrate to Hooks?
+**Migration Patterns**:
 
-**Benefits:**
+- `this.state` → `useState`
+- `componentDidMount` → `useEffect(() => {}, [])`
+- `componentDidUpdate` → `useEffect(() => {}, [deps])`
+- `componentWillUnmount` → `useEffect(() => { return cleanup }, [])`
+- `this.refs` → `useRef`
+- Context → `useContext`
+- Instance methods → Regular functions or custom hooks
 
-- **Simpler Code**: Less boilerplate, easier to read and test
-- **Better Reusability**: Extract logic into custom hooks
-- **Smaller Bundles**: No class overhead, better tree shaking
+**Testing**: Run tests after each step. If tests fail, identify and fix before proceeding.
+
+Provide before/after code with incremental steps.
+
 - **Modern Patterns**: Align with React team recommendations (since React 16.8)
 - **Future-Proof**: New React features target hooks first
 - **Better TypeScript**: Simpler type inference with hooks
@@ -31,7 +41,7 @@ Systematic migration of React class components to functional components with hoo
 - ❌ Don't migrate blindly - focus on active codebases
 - ❌ Don't rush - test thoroughly
 
-***
+---
 
 ## Migration Workflow
 
@@ -127,7 +137,7 @@ test("displays user name", async () => {
 git checkout -b migrate/user-profile-to-hooks
 ```
 
-***
+---
 
 ### Phase 2: Migration Steps
 
@@ -524,7 +534,7 @@ function Welcome() {
 }
 ```
 
-***
+---
 
 ### Phase 3: Advanced Patterns
 
@@ -658,7 +668,7 @@ function DataTable() {
 }
 ```
 
-***
+---
 
 ### Phase 4: Testing After Migration
 
@@ -709,7 +719,7 @@ function onRenderCallback(id, phase, actualDuration) {
 - No unnecessary re-renders
 - Memory usage stable
 
-***
+---
 
 ## Migration Checklist
 
@@ -739,7 +749,7 @@ function onRenderCallback(id, phase, actualDuration) {
 - [ ] Code review completed
 - [ ] Documentation updated
 
-***
+---
 
 ## Common Pitfalls
 
@@ -829,7 +839,7 @@ function Timer() {
 }
 ```
 
-***
+---
 
 ## TypeScript Migration Tips
 
@@ -872,7 +882,7 @@ const [state, dispatch] = useReducer<React.Reducer<State, Action>>(reducer, {
 });
 ```
 
-***
+---
 
 ## Resources
 
@@ -892,7 +902,7 @@ const [state, dispatch] = useReducer<React.Reducer<State, Action>>(reducer, {
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - Testing hooks
 - [React Hooks Testing Library](https://react-hooks-testing-library.com/) - Testing custom hooks
 
-***
+---
 
 ## Summary
 

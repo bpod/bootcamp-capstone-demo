@@ -3,30 +3,30 @@ name: accessibility-review
 description: Comprehensive accessibility review following WCAG 2.1 Level AA standards
 ---
 
-# Accessibility Review and Remediation
+Perform accessibility audit of ${selection}, ${file}, or ${input:url} following WCAG 2.1 Level AA standards.
 
-Perform a comprehensive accessibility audit of components or pages and provide specific fixes for WCAG 2.1 Level AA compliance.
+**Workflow:**
 
-## Workflow
+1. **Audit**: Check semantic HTML, keyboard navigation, ARIA, color contrast, form labels, focus management
+2. **Prioritize**: Categorize issues (Critical → Low)
+3. **Fix**: Provide before/after code examples
+4. **Validate**: Suggest keyboard testing and screen reader verification
 
-### Step 1: Define Audit Scope
+**MCP Tool**: If available, use accessibility audit tool. Otherwise perform manual review.
 
-Determine what to audit:
+**Standards Reference**: All checks align with [Web Quality Skills - Accessibility](https://github.com/addyosmani/web-quality-skills) covering:
 
-**If ${selection} is provided:**
+- Semantic HTML (WCAG 4.1.2)
+- Keyboard Navigation (WCAG 2.1.1)
+- ARIA Attributes (WCAG 4.1.2, 4.1.3)
+- Color Contrast (WCAG 1.4.3) - 4.5:1 normal text, 3:1 large text
+- Form Accessibility (WCAG 3.3.2) - labels, aria-invalid, aria-describedby
+- Images & Media (WCAG 1.1.1) - alt text
+- Dynamic Content (WCAG 4.1.3) - aria-live regions
 
-- Audit the selected component or code block
-- Focus on component-specific a11y issues
+**Critical Issues** (fix immediately): Complete keyboard nav failures, missing alt text, forms without labels, insufficient color contrast
 
-**If ${file} is provided:**
-
-- Audit the entire file
-- Check all components in the file
-
-**If neither provided:**
-
-- Ask user: "What should I audit? (component name, file path, or URL)"
-- Search codebase for the target
+Provide specific fixes with before/after code. Explain screen reader impact for each issue.
 
 ### Step 2: Automated Accessibility Checks
 

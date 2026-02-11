@@ -1,23 +1,41 @@
 ---
 name: test-generation
-description: "Generate comprehensive tests for components using React Testing Library and TDD principles"
+description: Generate comprehensive tests for components using React Testing Library and TDD principles
 ---
 
-# Test Generation
+Generate tests for ${selection} or ${file} following Testing Library principles.
 
-Generate high-quality, maintainable tests for React components using Testing Library principles and TDD methodology. Focuses on user-centric testing, proper async handling, and framework-agnostic patterns.
+**Philosophy**: Test behavior, not implementation. Tests users would understand.
 
-**Focus**: Test behavior, not implementation. Write tests users would understand.
+**Workflow:**
 
-***
+1. **Analyze**: Identify user-visible behavior, interactions, edge cases
+2. **Detect Framework**: Check for React Testing Library, Vitest, Jest
+3. **Generate Tests**: Write tests for behavior (render, interactions, state changes)
+4. **Run**: Execute tests, verify coverage
+5. **Refactor**: Improve testability if needed
 
-## Test Generation Workflow
+**Test Structure**:
 
-### 1. Analyze Component
+- Arrange: Setup component and data
+- Act: Simulate user interaction (click, type, etc.)
+- Assert: Verify expected outcome
 
-**Understand what to test:**
+**Testing Library Queries** (priority order):
 
-- **User-visible behavior** - What users see and do
+1. `getByRole` - Accessibility-first (button, heading, textbox)
+2. `getByLabelText` - Form inputs
+3. `getByText` - Non-interactive text
+4. `getByTestId` - Last resort
+
+**Adapt to Detected Test Framework**:
+
+- Vitest: `vi.fn()`, `describe`, `it`, `expect`
+- Jest: `jest.fn()`, `describe`, `it`, `expect`
+- React Testing Library: `render`, `screen`, `userEvent`, `waitFor`
+
+Generate copy-pasteable tests with proper imports based on detected stack.
+
 - **Component inputs** - Props, user interactions, data fetching
 - **Component outputs** - Rendered UI, callbacks, side effects
 - **Edge cases** - Empty states, errors, loading states
@@ -32,7 +50,7 @@ Generate high-quality, maintainable tests for React components using Testing Lib
 5. What error states exist?
 6. Is this component accessible?
 
-***
+---
 
 ### 2. Choose Testing Strategy
 
@@ -108,7 +126,7 @@ describe("formatCurrency", () => {
 });
 ```
 
-***
+---
 
 ### 3. TDD Workflow (Optional but Recommended)
 
@@ -166,7 +184,7 @@ function Counter() {
 }
 ```
 
-***
+---
 
 ## Testing Patterns
 
@@ -235,7 +253,7 @@ describe("ContactForm", () => {
 });
 ```
 
-***
+---
 
 ### Pattern 2: Async Data Fetching
 
@@ -313,7 +331,7 @@ describe("UserProfile", () => {
 });
 ```
 
-***
+---
 
 ### Pattern 3: User Interactions
 
@@ -400,7 +418,7 @@ describe("TodoList", () => {
 });
 ```
 
-***
+---
 
 ### Pattern 4: Modal/Dialog Testing
 
@@ -478,7 +496,7 @@ describe("ConfirmDialog", () => {
 });
 ```
 
-***
+---
 
 ### Pattern 5: Custom Hooks Testing
 
@@ -555,7 +573,7 @@ describe("useDebounce", () => {
 });
 ```
 
-***
+---
 
 ### Pattern 6: Accessibility Testing
 
@@ -614,7 +632,7 @@ describe("SearchBar accessibility", () => {
 });
 ```
 
-***
+---
 
 ## Edge Cases to Test
 
@@ -677,7 +695,7 @@ describe("Pagination", () => {
 });
 ```
 
-***
+---
 
 ## Testing Best Practices
 
@@ -789,7 +807,7 @@ afterEach(() => {
 });
 ```
 
-***
+---
 
 ## Common Test Smells to Avoid
 
@@ -848,7 +866,7 @@ afterEach(() => {
 });
 ```
 
-***
+---
 
 ## Test File Structure
 
@@ -911,7 +929,7 @@ describe("ComponentName", () => {
 });
 ```
 
-***
+---
 
 ## Test Coverage Guidelines
 
@@ -937,7 +955,7 @@ describe("ComponentName", () => {
 - Configuration files
 - Type definitions
 
-***
+---
 
 ## Running Tests
 
@@ -973,7 +991,7 @@ npm test -- --testNamePattern="user login"
     files: ./coverage/coverage-final.json
 ```
 
-***
+---
 
 ## Quick Reference
 
@@ -1048,7 +1066,7 @@ expect(mockFn).toHaveBeenCalledWith("arg1", "arg2");
 expect(mockFn).toHaveBeenCalledTimes(3);
 ```
 
-***
+---
 
 ## Summary
 

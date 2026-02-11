@@ -1,27 +1,36 @@
 ---
 name: image-optimization
-description: "Optimize images for web performance - format selection, sizing, lazy loading, CDN delivery"
+description: Optimize images for web performance - format selection, sizing, lazy loading, CDN delivery
 ---
 
-# Image Optimization Workflow
+Optimize images to improve LCP and reduce page weight.
 
-Optimize images to improve performance metrics (LCP, bundle size, bandwidth). This workflow provides comprehensive image optimization strategies with framework-agnostic implementation guidance.
+**Impact**: Images often 50% of page weight and 77% of LCP elements. Optimizations reduce LCP by 30-50%.
 
-## Image Performance Impact
+**Workflow:**
 
-**Largest Contentful Paint (LCP)**:
+1. **Audit**: Identify large images in ${workspaceFolder} or analyze Lighthouse report
+2. **Convert**: WebP/AVIF formats (60-80% smaller than JPEG/PNG)
+3. **Responsive**: Add srcset with multiple sizes (480w, 768w, 1200w)
+4. **Lazy Load**: `loading="lazy"` for below-fold images
+5. **Dimensions**: Add width/height to prevent CLS
+6. **Priority**: `loading="eager"` + `fetchpriority="high"` for LCP image
 
-- Images are often the LCP element (~77% of pages)
-- Target: LCP ≤ 2.5 seconds
-- Optimized images can reduce LCP by 30-50%
+**Standards Reference**: [Web Quality Skills - Images](https://github.com/addyosmani/web-quality-skills)
 
-**Bundle Size & Bandwidth**:
+**Tool Detection**: Adapt to user's build tool:
 
-- Images account for ~50% of average page weight
+- Vite: `vite-plugin-imagemin` or `vite-imagetools`
+- Webpack: `image-webpack-loader`
+- Next.js: `next/image` component
+- Astro: Built-in `<Image>` component
+
+Provide before/after code examples with detected framework.
+
 - Proper optimization reduces bandwidth by 50-80%
 - Faster load times on slow networks
 
-***
+---
 
 ## 1. Audit Current Image Usage
 
@@ -60,7 +69,7 @@ lighthouse https://your-app.com --only-categories=performance --view
 - "Serve images in modern formats"
 - "Defer offscreen images"
 
-***
+---
 
 ## 2. Choose Optimal Image Formats
 
@@ -92,7 +101,7 @@ Does it need transparency?
 | **SVG**  | Icons, logos               | Vector (tiny)                | 100%            | ✅ Best for graphics |
 | **GIF**  | Animations                 | Poor compression             | 100%            | ⚠️ Use video instead |
 
-***
+---
 
 ## 3. Implement Responsive Images
 
@@ -187,7 +196,7 @@ export function OptimizedImage({
 }
 ```
 
-***
+---
 
 ## 4. Implement Lazy Loading
 
@@ -253,7 +262,7 @@ export function LazyImage({ src, alt, width, height, threshold = 0.1 }) {
 }
 ```
 
-***
+---
 
 ## 5. Build Tool Integration
 
@@ -311,7 +320,7 @@ module.exports = {
 };
 ```
 
-***
+---
 
 ## 6. CDN & Delivery Optimization
 
@@ -357,7 +366,7 @@ export function CDNImage({ src, alt, width, height, transforms = {} }) {
 <link rel="preload" as="image" href="/hero.webp" type="image/webp" />
 ```
 
-***
+---
 
 ## 7. Prevent Cumulative Layout Shift (CLS)
 
@@ -417,7 +426,7 @@ export function AspectRatioImage({
 }
 ```
 
-***
+---
 
 ## 8. Validation & Measurement
 
@@ -456,7 +465,7 @@ const imgObserver = new PerformanceObserver((list) => {
 imgObserver.observe({ type: "resource", buffered: true });
 ```
 
-***
+---
 
 ## Success Criteria
 
@@ -490,7 +499,7 @@ imgObserver.observe({ type: "resource", buffered: true });
 - Total page size reduced by 30-60%
 - Lighthouse image audits show 90+ scores
 
-***
+---
 
 ## Common Pitfalls to Avoid
 
@@ -502,7 +511,7 @@ imgObserver.observe({ type: "resource", buffered: true });
 ❌ **Forgetting alt text**: Required for accessibility  
 ❌ **Loading="lazy" on LCP image**: Use `eager` for above-fold critical images
 
-***
+---
 
 ## Related Prompts
 
@@ -511,7 +520,7 @@ imgObserver.observe({ type: "resource", buffered: true });
 - [lighthouse-audit.prompt.md](lighthouse-audit.prompt.md) - Comprehensive audit workflow
 - [accessibility-review.prompt.md](accessibility-review.prompt.md) - Check image alt text compliance
 
-***
+---
 
 ## Resources
 

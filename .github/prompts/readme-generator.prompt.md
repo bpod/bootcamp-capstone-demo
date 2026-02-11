@@ -3,27 +3,29 @@ name: readme-generator
 description: Generate comprehensive project README with setup instructions, architecture overview, usage examples, and deployment guides
 ---
 
-# README Generator
+Generate comprehensive README.md for ${workspaceFolder}.
 
-Generate comprehensive, well-structured project README files including project overview, setup instructions, architecture documentation, usage examples, contribution guidelines, and deployment information. Follows best practices for open-source and internal projects.
+**Workflow:**
 
-**Focus**: Create README that helps new developers understand, set up, and contribute to the project quickly.
+1. **Analyze**: Detect project type, dependencies, build tools, framework
+2. **Structure**: Follow standard README sections
+3. **Customize**: Adapt to detected stack (npm vs yarn, Vite vs Webpack, etc.)
+4. **Examples**: Provide copy-pasteable commands
 
-***
+**README Sections**:
 
-## README Generation Workflow
+- **Title & Description**: Project name, one-line summary, badges
+- **Features**: Key capabilities bullet list
+- **Installation**: Prerequisites, setup commands
+- **Usage**: How to run dev server, build, test
+- **Project Structure**: Directory tree
+- **Configuration**: Environment variables, config files
+- **Contributing**: Guidelines for contributors
+- **License**: License information
 
-### Step 1: Analyze Project Structure
+**Adapt to Detected Stack**: Reference actual build commands (npm/yarn/pnpm), correct dev server ports, real script names from package.json
 
-**Gather key information:**
-
-1. **Project Type** - Web app, library, CLI tool, API
-2. **Technology Stack** - Languages, frameworks, build tools
-3. **Package Manager** - npm, yarn, pnpm
-4. **Key Features** - What does this project do?
-5. **Dependencies** - Major external libraries
-6. **Build Output** - Static site, server app, package
-7. **Deployment Target** - Vercel, AWS, Docker, npm registry
+Generate complete, accurate README based on project inspection. 2. **Technology Stack** - Languages, frameworks, build tools 3. **Package Manager** - npm, yarn, pnpm 4. **Key Features** - What does this project do? 5. **Dependencies** - Major external libraries 6. **Build Output** - Static site, server app, package 7. **Deployment Target** - Vercel, AWS, Docker, npm registry
 
 **Detection Commands:**
 
@@ -44,7 +46,7 @@ cat package.json | jq '.devDependencies | keys[]' | grep -E "(vitest|jest|mocha)
 ls -1 | grep -E "(vercel.json|netlify.toml|Dockerfile)"
 ```
 
-***
+---
 
 ### Step 2: Create Project Header
 
@@ -62,7 +64,7 @@ ls -1 | grep -E "(vercel.json|netlify.toml|Dockerfile)"
 
 [Live Demo](https://demo.example.com) · [Documentation](https://docs.example.com) · [Report Bug](https://github.com/username/repo/issues) · [Request Feature](https://github.com/username/repo/issues)
 
-***
+---
 
 ## Overview
 
@@ -100,7 +102,7 @@ _[Caption describing what the screenshot shows]_
 - Outdated or broken badges
 - Vanity metrics without value
 
-***
+---
 
 ### Step 3: Write Table of Contents
 
@@ -125,14 +127,14 @@ _[Caption describing what the screenshot shows]_
 - [FAQ](#faq)
 - [License](#license)
 
-***
+---
 ```
 
 **For Short READMEs (<500 lines):**
 
 Skip TOC - keep it simple and scannable without extra navigation.
 
-***
+---
 
 ### Step 4: Document Prerequisites
 
@@ -270,7 +272,7 @@ The application should now be running at:
 **API:** http://localhost:3000/api  
 **API Docs:** http://localhost:3000/api-docs
 
-***
+---
 
 ## Verification
 
@@ -364,7 +366,7 @@ npm run format      # Format all files with Prettier
 npm run type-check  # Run TypeScript compiler
 ```
 
-***
+---
 
 ## Examples
 
@@ -418,7 +420,7 @@ function LoginPage() {
 }
 ```
 
-***
+---
 
 ## Documentation
 
@@ -561,7 +563,7 @@ Response flows back up the chain
 - Suspense for loading states
 ```
 
-***
+---
 
 ### Step 8: Write Development Guide
 
@@ -706,7 +708,7 @@ describe('ComponentName', () => {
 - Source maps disabled (optional)
 - Error tracking (Sentry)
 
-***
+---
 
 ## Scripts Reference
 
@@ -1003,7 +1005,7 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 **Website:** https://example.com
 ```
 
-***
+---
 
 ## README Templates
 
@@ -1085,7 +1087,7 @@ See [Deployment Guide](./docs/deployment.md)
 MIT
 ```
 
-***
+---
 
 ## Variables
 
@@ -1093,7 +1095,7 @@ MIT
 - `${input:projectName}` - Project name (prompts if not provided)
 - `${input:description}` - Project description (prompts if not provided)
 
-***
+---
 
 ## Success Criteria
 
@@ -1109,7 +1111,7 @@ After running this prompt:
 ✅ Contributing guidelines provided  
 ✅ License and contact information added
 
-***
+---
 
 ## Example Usage
 
@@ -1131,7 +1133,7 @@ Review and update the README.md with current project information
 Add deployment section to README for Vercel hosting
 ```
 
-***
+---
 
 ## Follow-up Actions
 
@@ -1144,7 +1146,7 @@ After generating README:
 5. **Add to Website** - Display README on project website
 6. **Keep Updated** - README should reflect current state
 
-***
+---
 
 ## References
 

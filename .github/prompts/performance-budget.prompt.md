@@ -3,20 +3,42 @@ name: performance-budget
 description: Define and enforce performance budgets for assets, bundles, and metrics with CI/CD integration
 ---
 
-# Performance Budget Definition and Enforcement
+Define and enforce performance budgets to prevent regressions.
 
-Define measurable performance budgets for your application and enforce them in your build process and CI/CD pipeline. This prevents performance regressions by failing builds that exceed defined limits.
+**Performance Budgets**: Self-imposed limits on metrics (file sizes, bundle sizes, timings).
 
-## What Are Performance Budgets?
+**Workflow:**
 
-**Performance budgets** are self-imposed limits on metrics that affect site performance:
+1. **Measure Baseline**: Run Lighthouse, check current asset sizes
+2. **Define Budgets**: Set realistic limits based on baseline
+3. **Configure**: Create budget file for build tool
+4. **Enforce**: Integrate with CI/CD (fail builds exceeding limits)
+5. **Monitor**: Track over time, adjust budgets as needed
 
-- **Resource budgets**: File size limits for assets (JS, CSS, images, fonts)
-- **Quantity budgets**: Maximum number of HTTP requests
-- **Timing budgets**: Limits on metrics (LCP, TTI, First Contentful Paint)
-- **Bundle budgets**: JavaScript bundle size limits by route/page
+**Budget Types**:
 
-**Why budgets matter:**
+- **Resource**: JS < 170KB, CSS < 50KB, Images < 200KB
+- **Timing**: LCP < 2.5s, TTI < 3.8s, FCP < 1.8s
+- **Quantity**: < 50 HTTP requests
+
+**Standards Reference**: [Web Quality Skills - Performance](https://github.com/addyosmani/web-quality-skills)
+
+**Tool Integration**:
+
+- Lighthouse CI: `lighthouse-budget.json`
+- Webpack: `performance.maxAssetSize`
+- Bundlesize: `bundlesize` npm package
+
+**Example lighthouse-budget.json**:
+
+```json
+{
+  "timings": [{ "metric": "largest-contentful-paint", "budget": 2500 }],
+  "resourceSizes": [{ "resourceType": "script", "budget": 170 }]
+}
+```
+
+Provide budget configuration for detected build tool.
 
 - Prevent gradual performance degradation
 - Make trade-offs explicit and visible
@@ -41,7 +63,7 @@ grep -E '"(react|vue|angular|svelte)"' package.json
 
 **Budget configuration varies by tool** - adapt approach accordingly.
 
-***
+---
 
 ### Step 2: Establish Baseline Metrics
 
@@ -80,7 +102,7 @@ Fonts: 270 KB
 Total requests: 47
 ```
 
-***
+---
 
 ### Step 3: Define Performance Budgets
 
@@ -161,7 +183,7 @@ Total requests: 47
 }
 ```
 
-***
+---
 
 ### Step 4: Configure Budget Enforcement (By Tool)
 
@@ -281,7 +303,7 @@ module.exports = nextConfig;
 }
 ```
 
-***
+---
 
 ### Step 5: Create Budget Validation Script
 
@@ -422,7 +444,7 @@ checkBudgets().catch((err) => {
 npm run build:check
 ```
 
-***
+---
 
 ### Step 6: Configure Lighthouse Budgets
 
@@ -503,7 +525,7 @@ lighthouse https://example.com --budget-path=./budget.json --output=json --outpu
 cat lighthouse-budget-report.json | jq '.audits["performance-budget"]'
 ```
 
-***
+---
 
 ### Step 7: CI/CD Integration
 
@@ -614,7 +636,7 @@ jobs:
     lhci autorun
 ```
 
-***
+---
 
 ### Step 8: Monitor Budget Health
 
@@ -665,7 +687,7 @@ generateDashboard();
 node scripts/budget-dashboard.js
 ```
 
-***
+---
 
 ## Success Criteria
 
@@ -678,7 +700,7 @@ node scripts/budget-dashboard.js
 - [ ] Budget dashboard accessible to stakeholders
 - [ ] Process for reviewing and adjusting budgets established
 
-***
+---
 
 ## Common Budget Violations and Fixes
 
@@ -736,7 +758,7 @@ import FaHome from "react-icons/fa/FaHome";
 3. Extract critical CSS above the fold
 4. Consider CSS-in-JS with dead code elimination
 
-***
+---
 
 ## Tips for Maintaining Budgets
 
@@ -747,7 +769,7 @@ import FaHome from "react-icons/fa/FaHome";
 5. **Monitor trends** - Track bundle size over time (bundlesize.io, bundlephobia.com)
 6. **Educate team** - Regular performance reviews and training
 
-***
+---
 
 ## References
 

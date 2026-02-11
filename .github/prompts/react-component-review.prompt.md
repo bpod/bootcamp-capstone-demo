@@ -1,17 +1,35 @@
 ---
 name: react-component-review
-description: "Review React component for best practices, performance, accessibility, and maintainability"
+description: Review React component against Vercel best practices and performance patterns
 ---
 
-# React Component Review
+Review React component(s) for best practices, performance, accessibility, and maintainability.
 
-Comprehensive review of React components against best practices. Covers component structure, state management, performance optimization, accessibility, testing, and common anti-patterns.
+**Target**: ${selection} or ${file} - React functional components
 
-**Applies to**: React functional components (.jsx, .tsx files)
+**Workflow:**
 
-**Note**: If MCP servers are enabled, I can automatically analyze components using the `review_component` tool, which checks against [Vercel's React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices). Otherwise, I'll perform a manual structured review.
+1. **Analyze**: Check component structure, hooks usage, state management
+2. **Detect Issues**: Identify anti-patterns and performance bottlenecks
+3. **Recommend Fixes**: Provide specific improvements with code examples
+4. **Prioritize**: Rank issues by impact (Critical → Low)
 
-***
+**MCP Tool**: If available, use `review_component` tool. Otherwise perform manual review.
+
+**Standards Reference**: All recommendations follow [Vercel React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices), covering 40+ rules across:
+
+- **Waterfalls**: Avoid sequential data fetching, use parallel loading
+- **Bundle Size**: Code splitting, tree shaking, lazy loading
+- **Server Components**: RSC patterns (Next.js)
+- **Re-renders**: Memo, useMemo, useCallback where beneficial
+- **State Management**: useState, useReducer, Context, external stores
+- **Accessibility**: Semantic HTML, ARIA, keyboard navigation
+- **Testing**: Component testability, RTL patterns
+- **TypeScript**: Proper typing, inference, generics
+
+Focus on Critical and High priority issues first. Suggest incremental improvements.
+
+---
 
 ## Review Checklist
 
@@ -26,7 +44,7 @@ This workflow reviews components across 8 dimensions:
 7. **TypeScript** - Type safety, prop types, generics (if applicable)
 8. **Anti-Patterns** - Common mistakes and code smells
 
-***
+---
 
 ## 1. Component Structure Review
 
@@ -125,7 +143,7 @@ export function UserProfile({ userId, onUpdate }) {
 - [ ] Early returns before main render
 - [ ] Single responsibility (component does one thing well)
 
-***
+---
 
 ## 2. State Management Review
 
@@ -187,7 +205,7 @@ const activeUsers = useMemo(() => users.filter((u) => u.active), [users]);
 - [ ] No derived state (values computed from other state)
 - [ ] State updates use functional form when depending on previous value
 
-***
+---
 
 ## 3. Performance Optimization Review
 
@@ -283,7 +301,7 @@ export function Dashboard() {
 - [ ] Suspense boundaries provide loading states
 - [ ] No premature optimization (profile first!)
 
-***
+---
 
 ## 4. Accessibility Review
 
@@ -372,7 +390,7 @@ export function EmailInput({ error }) {
 - [ ] Images have alt text
 - [ ] Color not the only indicator (text labels for status)
 
-***
+---
 
 ## 5. Error Handling Review
 
@@ -444,7 +462,7 @@ export function App() {
 - [ ] Async errors caught and displayed to users
 - [ ] Network failures have retry mechanisms
 
-***
+---
 
 ## 6. Testing & Testability Review
 
@@ -504,7 +522,7 @@ test("calls onSearch when form submitted", async () => {
 - [ ] Tests avoid implementation details (no `.state()`, `.instance()`)
 - [ ] Mock external dependencies (API, localStorage, etc.)
 
-***
+---
 
 ## 7. TypeScript Review (if applicable)
 
@@ -557,7 +575,7 @@ export function List<T>({ items, renderItem, keyExtractor }: ListProps<T>) {
 - [ ] Generic types used for reusable components
 - [ ] No `any` types (use `unknown` if type truly unknown)
 
-***
+---
 
 ## 8. Common Anti-Patterns
 
@@ -627,7 +645,7 @@ useEffect(() => {
 - [ ] No nested component definitions
 - [ ] No string refs (use useRef)
 
-***
+---
 
 ## Review Summary Template
 
@@ -667,7 +685,7 @@ useEffect(() => {
 - [Link to relevant documentation]
 ```
 
-***
+---
 
 ## Success Criteria
 
@@ -680,7 +698,7 @@ useEffect(() => {
 ✅ **TypeScript**: Proper types, no `any`, exported interfaces  
 ✅ **No Anti-Patterns**: Stable keys, no mutations, complete dependencies
 
-***
+---
 
 ## Related Resources
 

@@ -3,21 +3,37 @@ name: browser-compatibility
 description: Cross-browser compatibility testing, polyfills, and progressive enhancement strategies
 ---
 
-# Browser Compatibility Testing and Strategy
+Ensure cross-browser compatibility for ${workspaceFolder} or ${selection}.
 
-Ensure your application works across all target browsers with appropriate polyfills, feature detection, and progressive enhancement. This prompt guides you through compatibility testing and implementation strategies.
+**Workflow:**
 
-## Browser Support Strategy
+1. **Define Support Matrix**: Identify target browsers based on analytics
+2. **Detect Issues**: Check caniuse.com for feature support
+3. **Implement Fixes**: Polyfills, feature detection, progressive enhancement
+4. **Test**: BrowserStack or manual testing on target browsers
 
-### Step 1: Define Browser Support Matrix
+**Common Support Tiers**:
 
-**Determine target browsers based on analytics and requirements:**
+- Tier 1 (Full): Chrome, Firefox, Safari, Edge (last 2 versions)
+- Tier 2 (Core): IE11, older mobile browsers
+- Tier 3 (Basic): Graceful degradation
 
-**Common support tiers:**
+**Strategies**:
 
-#### Tier 1: Full Support (≥95% features)
+- **Feature Detection**: `if ('IntersectionObserver' in window)`
+- **Polyfills**: core-js, intersection-observer polyfill
+- **Transpilation**: Babel for ES6+ → ES5
+- **Progressive Enhancement**: Core functionality works everywhere, enhancements for modern browsers
+- **Autoprefixer**: CSS vendor prefixes
 
-- Chrome (last 2 versions)
+**Tools**:
+
+- Can I Use: Feature support lookup
+- Browserslist: Define target browsers in package.json
+- Polyfill.io: Dynamic polyfill delivery
+
+Provide polyfill and configuration recommendations for detected issues.
+
 - Firefox (last 2 versions)
 - Safari (last 2 versions)
 - Edge (last 2 versions)
@@ -68,7 +84,7 @@ npx browserslist
 }
 ```
 
-***
+---
 
 ### Step 2: Audit Browser Compatibility Issues
 
@@ -120,7 +136,7 @@ npm install --save-dev caniuse-lite
 npx browserslist-useragent-regexp --browsers "defaults"
 ```
 
-***
+---
 
 ### Step 3: Configure Transpilation and Polyfills
 
@@ -217,7 +233,7 @@ import App from "./App";
 // Rest of app
 ```
 
-***
+---
 
 ### Step 4: Feature Detection (Progressive Enhancement)
 
@@ -285,7 +301,7 @@ if (Modernizr.fetchapi) {
 }
 ```
 
-***
+---
 
 ### Step 5: CSS Fallbacks and Autoprefixer
 
@@ -368,7 +384,7 @@ npm install --save-dev autoprefixer postcss
 }
 ```
 
-***
+---
 
 ### Step 6: Browser-Specific Testing
 
@@ -549,7 +565,7 @@ npx playwright test --project=firefox
 npx playwright test --debug
 ```
 
-***
+---
 
 ### Step 7: Polyfill Strategy by Feature
 
@@ -624,7 +640,7 @@ if (!window.CSS || !window.CSS.supports("color", "var(--primary)")) {
 }
 ```
 
-***
+---
 
 ### Step 8: Create Compatibility Report
 
@@ -672,7 +688,7 @@ function generateReport() {
 generateReport();
 ```
 
-***
+---
 
 ## Common Compatibility Issues and Solutions
 
@@ -789,7 +805,7 @@ const buttonStyle = {
 };
 ```
 
-***
+---
 
 ## Success Criteria
 
@@ -805,7 +821,7 @@ const buttonStyle = {
 - [ ] Progressive enhancement for Tier 2/3 browsers
 - [ ] Compatibility report generated
 
-***
+---
 
 ## Testing Checklist
 
@@ -827,7 +843,7 @@ const buttonStyle = {
 - [ ] Performance budgets met across browsers
 - [ ] Accessibility tests pass on all browsers
 
-***
+---
 
 ## References
 

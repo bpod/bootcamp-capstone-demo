@@ -1,23 +1,38 @@
 ---
 name: bundle-analysis
-description: "Analyze and optimize JavaScript bundle size - code splitting, tree shaking, lazy loading"
+description: Analyze and optimize JavaScript bundle size - code splitting, tree shaking, lazy loading
 ---
 
-# JavaScript Bundle Optimization Workflow
+Reduce JavaScript bundle size to improve TTI and load performance.
 
-Reduce JavaScript bundle sizes to improve load times, Time to Interactive (TTI), and overall performance. This workflow detects your build tool and provides targeted optimization strategies.
+**Impact**: Every 100KB of JS adds ~1s to TTI. Target: TTI ≤3.8s mobile.
 
-## Bundle Size Impact on Performance
+**Workflow:**
 
-**Time to Interactive (TTI)**:
+1. **Analyze**: Run bundle visualizer (detect build tool first)
+2. **Identify**: Large dependencies, duplicate code, unused exports
+3. **Optimize**: Apply code splitting, lazy loading, or remove unused deps
+4. **Validate**: Re-analyze bundle, compare sizes
 
-- Large bundles delay interactivity
-- Target: TTI ≤ 3.8 seconds on mobile
-- Every 100KB of JS adds ~1 second to TTI
+**MCP Tool**: If available, use `analyze_bundle` tool.
 
-**First Contentful Paint (FCP)**:
+**Tool Detection & Commands**:
 
-- Render-blocking JavaScript delays FCP
+- Vite: `npx vite-bundle-visualizer`
+- Webpack: `npx webpack-bundle-analyzer`
+- Next.js: `npm run build -- --analyze`
+
+**Standards Reference**: [Vercel React Best Practices - Bundle Size](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
+
+**Optimization Strategies**:
+
+- Code splitting: React.lazy(), dynamic imports, route-based splitting
+- Tree shaking: Check sideEffects in package.json
+- Remove unused deps: `npx depcheck`
+- Replace heavy libs: moment → date-fns, lodash → lodash-es
+
+Provide specific implementation for detected framework.
+
 - Defer non-critical scripts
 - Target: FCP ≤ 1.8 seconds
 
@@ -27,7 +42,7 @@ Reduce JavaScript bundle sizes to improve load times, Time to Interactive (TTI),
 - FID (First Input Delay): Large bundles delay input response
 - Smaller bundles = faster, more responsive apps
 
-***
+---
 
 ## 1. Detect Build Tool & Analyze Current Bundle
 
@@ -132,7 +147,7 @@ du -sh node_modules/* | sort -hr | head -20
 # Visit: https://bundlephobia.com
 ```
 
-***
+---
 
 ## 2. Code Splitting Strategies
 
@@ -256,7 +271,7 @@ function UserProfile() {
 }
 ```
 
-***
+---
 
 ## 3. Tree Shaking & Dead Code Elimination
 
@@ -328,7 +343,7 @@ import Modal from "@mui/material/Modal";
 }
 ```
 
-***
+---
 
 ## 4. Replace Heavy Dependencies
 
@@ -383,7 +398,7 @@ const filtered = users.filter((user) => user.active);
 const mapped = filtered.map((user) => user.name);
 ```
 
-***
+---
 
 ## 5. Dynamic Imports for Large Libraries
 
@@ -428,7 +443,7 @@ loadPolyfills().then(() => {
 });
 ```
 
-***
+---
 
 ## 6. Optimize Third-Party Scripts
 
@@ -488,7 +503,7 @@ wget https://www.google-analytics.com/analytics.js -O public/analytics.js
 - Reduce DNS lookups
 - Avoid render-blocking from third-party domains
 
-***
+---
 
 ## 7. Set Performance Budgets
 
@@ -541,7 +556,7 @@ module.exports = {
 }
 ```
 
-***
+---
 
 ## 8. Measure & Validate
 
@@ -590,7 +605,7 @@ window.addEventListener("load", () => {
 });
 ```
 
-***
+---
 
 ## Success Criteria
 
@@ -619,7 +634,7 @@ window.addEventListener("load", () => {
 - Lighthouse "Reduce unused JavaScript" scoring 90+
 - TBT (Total Blocking Time) ≤ 300ms
 
-***
+---
 
 ## Common Pitfalls to Avoid
 
@@ -631,7 +646,7 @@ window.addEventListener("load", () => {
 ❌ **Optimizing without measuring**: Run bundle analyzer first  
 ❌ **Splitting too aggressively**: Balance bundle count with HTTP/2 multiplexing
 
-***
+---
 
 ## Related Prompts
 
@@ -639,7 +654,7 @@ window.addEventListener("load", () => {
 - [core-web-vitals.prompt.md](core-web-vitals.prompt.md) - INP/FID optimization
 - [lighthouse-audit.prompt.md](lighthouse-audit.prompt.md) - Comprehensive audit workflow
 
-***
+---
 
 ## Resources
 

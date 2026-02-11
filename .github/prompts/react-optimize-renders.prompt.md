@@ -1,22 +1,32 @@
 ---
 name: react-optimize-renders
-description: "Find and fix unnecessary React re-renders to improve performance"
+description: Find and fix unnecessary React re-renders to improve performance
 ---
 
-# React Re-Render Optimization
+Diagnose and fix unnecessary re-renders in React ${selection} or ${file}.
 
-Diagnose and fix unnecessary re-renders in React applications. This workflow helps identify performance bottlenecks caused by excessive component updates and provides targeted fixes.
+**When to Use**: Performance issues, UI jank, slow interactions. Profile first with React DevTools Profiler!
 
-## Why Re-Renders Matter
+**Workflow:**
 
-**Performance Impact:**
+1. **Profile**: Use React DevTools Profiler to identify components re-rendering excessively
+2. **Diagnose**: Find root cause (props changing, context updates, parent re-renders)
+3. **Fix**: Apply appropriate optimization (memo, useMemo, useCallback)
+4. **Validate**: Re-profile, verify improvement
 
-- Unnecessary re-renders waste CPU cycles
-- Can cause UI jank and poor user experience
-- Compound as component trees grow
-- Critical for complex dashboards, lists, forms
+**Standards Reference**: [Vercel React Best Practices - Re-renders](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
 
-**Common Causes:**
+**Common Causes & Fixes**:
+
+- Inline objects/arrays in JSX → Move outside component or useMemo
+- Inline functions as props → useCallback (only if child is memoized)
+- Context value changing → useMemo for context value
+- Parent re-renders → React.memo() on child (if expensive)
+- Unstable keys in lists → Use stable, unique IDs
+
+**Anti-Pattern**: Don't optimize prematurely! Only memo expensive components after profiling shows benefit.
+
+Provide specific code fixes with profiling guidance.
 
 - Inline object/array creation in props
 - Missing memoization for computed values
@@ -24,7 +34,7 @@ Diagnose and fix unnecessary re-renders in React applications. This workflow hel
 - Parent re-renders triggering child re-renders
 - Context value changes affecting all consumers
 
-***
+---
 
 ## 1. Identify Re-Render Issues
 
@@ -91,7 +101,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 ```
 
-***
+---
 
 ## 2. Common Anti-Patterns & Fixes
 
@@ -135,7 +145,7 @@ function Dashboard({ userName, userRole }) {
 }
 ```
 
-***
+---
 
 ### ❌ Anti-Pattern #2: Inline Function Definitions
 
@@ -213,7 +223,7 @@ const ProductCard = React.memo(function ProductCard({
 });
 ```
 
-***
+---
 
 ### ❌ Anti-Pattern #3: Context Updates Triggering Unnecessary Renders
 
@@ -285,7 +295,7 @@ function Header() {
 }
 ```
 
-***
+---
 
 ### ❌ Anti-Pattern #4: Not Using React.memo for Expensive Components
 
@@ -350,7 +360,7 @@ function Dashboard() {
 }
 ```
 
-***
+---
 
 ## 3. Optimization Strategies
 
@@ -448,7 +458,7 @@ function LargeList({ items }) {
 }
 ```
 
-***
+---
 
 ## 4. Debugging Workflow
 
@@ -529,7 +539,7 @@ function MyComponent(props) {
 }
 ```
 
-***
+---
 
 ## 5. Performance Checklist
 
@@ -555,7 +565,7 @@ Before optimizing, verify the problem exists:
 - [ ] Simple components (render cost < memo overhead)
 - [ ] No user-visible performance issues
 
-***
+---
 
 ## Success Criteria
 
@@ -566,7 +576,7 @@ Before optimizing, verify the problem exists:
 ✅ **Performance Improved**: Lighthouse performance score increased, UI feels snappier  
 ✅ **Measured Impact**: Before/after profiling shows concrete improvements
 
-***
+---
 
 ## Common Mistakes to Avoid
 
@@ -576,7 +586,7 @@ Before optimizing, verify the problem exists:
 ❌ **Ignoring Root Cause**: Fixing symptoms instead of architectural issues  
 ❌ **Complex Memo Comparisons**: Custom comparison functions that are slow
 
-***
+---
 
 ## Related Resources
 

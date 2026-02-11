@@ -1,23 +1,37 @@
 ---
 name: react-accessibility
-description: "React-specific accessibility patterns, testing, and WCAG compliance in JSX"
+description: React-specific accessibility patterns, testing, and WCAG compliance in JSX
 ---
 
-# React Accessibility Patterns
+Implement accessible React components following WCAG 2.1 Level AA.
 
-Comprehensive guide to implementing accessible React components. Covers JSX-specific patterns, React hooks for accessibility, testing with jest-axe and React Testing Library, and common React a11y anti-patterns.
+**Target**: ${selection} or ${file} - React components (.jsx, .tsx)
 
-**Focus**: React implementation patterns for WCAG 2.1 Level AA compliance
+**Workflow:**
 
-***
+1. **Audit**: Check JSX for semantic HTML, ARIA, keyboard nav, focus management
+2. **Test**: Run jest-axe in tests, manual keyboard testing
+3. **Fix**: Provide React-specific accessible patterns
+4. **Validate**: Screen reader testing checklist
 
-## Why React Accessibility Matters
+**Standards Reference**:
 
-**React-Specific Challenges:**
+- [Web Quality Skills - Accessibility](https://github.com/addyosmani/web-quality-skills)
+- [Vercel React Best Practices - Accessibility](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
 
-- JSX syntax can obscure semantic HTML
-- Component composition can break document structure
-- Client-side routing breaks browser navigation
+**React-Specific Patterns**:
+
+- Use semantic HTML in JSX (button vs div onClick)
+- Focus management: useRef, focus() after dynamic updates
+- Keyboard handlers: onKeyDown with Enter/Space checks
+- Live regions: aria-live for dynamic content
+- Forms: useId() for label/input association
+- Modals: Focus trap with react-focus-lock
+
+**Testing**: jest-axe integration + React Testing Library queries by role
+
+Provide accessible component examples with hooks.
+
 - Dynamic content updates need ARIA live regions
 - Focus management in single-page applications
 - Event handlers on non-semantic elements
@@ -30,7 +44,7 @@ Comprehensive guide to implementing accessible React components. Covers JSX-spec
 - Legal compliance (ADA, Section 508, WCAG)
 - Better component design (accessibility forces good patterns)
 
-***
+---
 
 ## 1. Semantic HTML in JSX
 
@@ -127,7 +141,7 @@ function ProductCard({ level = 2 }) {
 }
 ```
 
-***
+---
 
 ## 2. ARIA in React
 
@@ -351,7 +365,7 @@ function SearchResults({ query }) {
 }
 ```
 
-***
+---
 
 ## 3. Focus Management
 
@@ -472,7 +486,7 @@ function App() {
 }
 ```
 
-***
+---
 
 ## 4. Keyboard Navigation
 
@@ -571,7 +585,7 @@ function Dropdown({ label, options, value, onChange }) {
 }
 ```
 
-***
+---
 
 ## 5. React Hooks for Accessibility
 
@@ -719,7 +733,7 @@ function Modal({ isOpen, onClose, children }) {
 }
 ```
 
-***
+---
 
 ## 6. Testing Accessibility in React
 
@@ -930,7 +944,7 @@ function AlertMessage({ type, message }) {
 // □ Test with screen reader shortcuts (H for headings, etc.)
 ```
 
-***
+---
 
 ## 7. Common React A11y Anti-Patterns
 
@@ -1009,7 +1023,7 @@ function BadModal({ isOpen, children }) {
 // ✅ GOOD: Full accessibility support (see Modal example in section 2)
 ```
 
-***
+---
 
 ## 8. Accessibility Checklist for React Components
 
@@ -1027,7 +1041,7 @@ function BadModal({ isOpen, children }) {
 - [ ] **Live Regions**: Dynamic content changes announced (aria-live)
 - [ ] **Testing**: Passes jest-axe, manual keyboard testing, screen reader testing
 
-***
+---
 
 ## 9. Tools and Resources
 
@@ -1065,7 +1079,7 @@ npm install --save-dev @testing-library/react @testing-library/user-event
 - [Inclusive Components](https://inclusive-components.design/)
 - [A11y Project](https://www.a11yproject.com/)
 
-***
+---
 
 ## Summary
 

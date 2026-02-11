@@ -3,31 +3,39 @@ name: core-web-vitals
 description: Check and optimize Core Web Vitals (LCP, INP, CLS) to meet thresholds
 ---
 
-# Core Web Vitals Optimization
+Optimize Core Web Vitals for ${input:url} to meet "good" thresholds.
 
-Focus specifically on the three Core Web Vitals metrics that directly impact search rankings and user experience. This prompt provides targeted strategies for meeting the "good" thresholds.
+**Target Thresholds** (75th percentile):
 
-## Core Web Vitals Thresholds
+- LCP (Largest Contentful Paint): ≤ 2.5s
+- INP (Interaction to Next Paint): ≤ 200ms
+- CLS (Cumulative Layout Shift): ≤ 0.1
 
-**Target these metrics:**
+**Workflow:**
 
-- ✅ **LCP (Largest Contentful Paint)**: ≤ 2.5 seconds
-- ✅ **INP (Interaction to Next Paint)**: ≤ 200 milliseconds
-- ✅ **CLS (Cumulative Layout Shift)**: ≤ 0.1
+1. **Measure**: Run Lighthouse audit or use web-vitals library
+2. **Identify**: Determine which metrics fail and by how much
+3. **Optimize**: Apply targeted fixes for worst-performing metric first
+4. **Validate**: Re-run audit, compare before/after
+5. **Monitor**: Set up RUM tracking (web-vitals library)
 
-**75th percentile of page loads** must meet these thresholds to be considered "good."
+**MCP Tool**: If available, use `analyze_performance` tool.
 
-## Workflow
+**Standards Reference**: All optimizations follow [Web Quality Skills - Core Web Vitals](https://github.com/addyosmani/web-quality-skills) strategies:
 
-### Step 1: Measure Current Web Vitals
+**LCP Fixes**: Optimize images (WebP, srcset, loading="eager"), remove render-blocking CSS/JS, improve TTFB, use CDN
 
-**Run Lighthouse audit:**
+**INP Fixes**: Code splitting, debounce handlers, reduce JS execution time, defer third-party scripts
 
-```bash
-lighthouse ${input:url} --output=json --output-path=./cwv-report.json --only-categories=performance
-```
+**CLS Fixes**: Add image width/height, font-display: optional, reserve space for ads/embeds, avoid content insertion
 
-**Or use web-vitals library in-browser:**
+**Quick Reference**:
+
+- LCP > 2.5s → Optimize images + remove render blockers
+- INP > 200ms → Code split + debounce event handlers
+- CLS > 0.1 → Add dimensions + reserve space
+
+Focus on worst metric first - weakest link determines overall score.
 
 ```html
 <script type="module">
@@ -122,7 +130,7 @@ For React/Vue/Angular apps with slow FCP:
 
 **Expected impact:** LCP reduced by 30-60%
 
-***
+---
 
 ### Step 3: Optimize INP (Interaction to Next Paint)
 
@@ -211,7 +219,7 @@ const handleClick = useCallback((id) => {
 
 **Expected impact:** INP reduced by 40-70%
 
-***
+---
 
 ### Step 4: Optimize CLS (Cumulative Layout Shift)
 
@@ -296,7 +304,7 @@ banner.style.transform = "translateY(0)";
 
 **Expected impact:** CLS reduced to < 0.1
 
-***
+---
 
 ### Step 5: Validate Improvements
 
@@ -412,6 +420,6 @@ lighthouse ${url} --budget-path=lighthouse-budget.json
 - [CLS Optimization](https://web.dev/optimize-cls/)
 - [web-vitals Library](https://github.com/GoogleChrome/web-vitals)
 
-***
+---
 
 **Focus on the worst-performing metric first** - the weakest link determines your overall Core Web Vitals score.

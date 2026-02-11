@@ -3,24 +3,38 @@ name: debug-session
 description: Structured debugging workflow using Chrome DevTools, logging strategies, and systematic problem isolation
 ---
 
-# Debug Session - Systematic Problem Solving
+Systematic debugging workflow for frontend issues.
 
-Structured debugging workflow for identifying and resolving frontend issues using Chrome DevTools, logging strategies, breakpoints, and performance profiling.
+**Philosophy**: Reproduce → Isolate → Hypothesize → Test → Fix → Verify
 
-## Debugging Philosophy
+**Workflow:**
 
-**Systematic Investigation:**
+1. **Reproduce**: Confirm issue occurs consistently
+2. **Gather Info**: Error messages, browser console, network tab, React DevTools
+3. **Isolate**: Narrow to specific component/function/line
+4. **Debug Tools**: Breakpoints, console.log, React DevTools Profiler
+5. **Fix**: Implement targeted solution
+6. **Verify**: Confirm fix, check for side effects
 
-1. **Reproduce** - Confirm the issue consistently occurs
-2. **Isolate** - Narrow down to specific component/function
-3. **Hypothesize** - Form theory about root cause
-4. **Test** - Validate hypothesis with evidence
-5. **Fix** - Implement targeted solution
-6. **Verify** - Confirm issue resolved without side effects
+**Chrome DevTools Shortcuts**:
+
+- `Cmd+Option+J` (Mac) / `Ctrl+Shift+J` (Windows): Console
+- `Cmd+Option+I` (Mac) / `Ctrl+Shift+I` (Windows): DevTools
+- `Cmd+P`: Source file search
+- `debugger;` statement: Force breakpoint
+
+**Common Issues**:
+
+- React re-render: Use React DevTools Profiler
+- Network error: Check Network tab, verify endpoint/CORS
+- State not updating: Check state mutation vs immutable update
+- Infinite loop: Check useEffect dependencies
+
+Provide debugging strategy specific to reported issue.
 
 **Avoid Random Changes:** Don't guess. Use data to guide decisions.
 
-***
+---
 
 ## Step 1: Issue Identification
 
@@ -52,7 +66,7 @@ npm run type-check  # If TypeScript
 - Look for uncaught errors, warnings, network failures
 - Note any CORS, CSP, or security errors
 
-***
+---
 
 ## Step 2: Reproduction Setup
 
@@ -104,7 +118,7 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
-***
+---
 
 ## Step 3: Chrome DevTools Debugging
 
@@ -302,7 +316,7 @@ function ExpensiveComponent() {
 }
 ```
 
-***
+---
 
 ## Step 4: Common Debugging Scenarios
 
@@ -527,7 +541,7 @@ function handleClick(event) {
 - Use box model visualization (margin/border/padding)
 - Check Flexbox/Grid overlays
 
-***
+---
 
 ## Step 5: Performance Debugging
 
@@ -617,7 +631,7 @@ useEffect(() => {
 - Closures holding large objects
 - Global variables never released
 
-***
+---
 
 ## Step 6: Debugging Tools & Techniques
 
@@ -747,7 +761,7 @@ const testResult = libraryFunction(testInput);
 console.log("Library result:", testResult);
 ```
 
-***
+---
 
 ## Step 7: Resolution & Verification
 
@@ -824,7 +838,7 @@ echo "## Debug Session: User Profile Fix" >> .github/memory/session-notes.md
 echo "### Pattern: Async Data Loading" >> .github/memory/patterns-discovered.md
 ```
 
-***
+---
 
 ## Variables
 
@@ -832,7 +846,7 @@ echo "### Pattern: Async Data Loading" >> .github/memory/patterns-discovered.md
 - `${file}` - Current file to debug (optional)
 - `${workspaceFolder}` - Project root directory
 
-***
+---
 
 ## Success Criteria
 
@@ -845,7 +859,7 @@ After running this prompt:
 ✅ Debugging process documented  
 ✅ Preventive patterns extracted
 
-***
+---
 
 ## Example Usage
 
@@ -867,7 +881,7 @@ Run debug-session prompt
 Find the bug in this code using the debug-session workflow
 ```
 
-***
+---
 
 ## Common Debugging Patterns
 
@@ -917,7 +931,7 @@ console.log("Broken input:", brokenData);
 // Broken:  { id: 2, name: "Bob" } ← Missing 'role' field!
 ```
 
-***
+---
 
 ## Follow-up Actions
 
@@ -929,7 +943,7 @@ After debugging session:
 4. **Add tests** - Write test cases that would have caught this bug
 5. **Update monitoring** - Add logging/tracking for this scenario
 
-***
+---
 
 ## References
 

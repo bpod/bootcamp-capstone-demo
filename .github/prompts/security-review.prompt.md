@@ -3,22 +3,36 @@ name: security-review
 description: Comprehensive security review covering OWASP Top 10, dependency vulnerabilities, and secure coding practices
 ---
 
-# Security Review - Vulnerability Assessment
+Perform security analysis of ${selection} or ${file} covering OWASP Top 10 and frontend security.
 
-Comprehensive security analysis covering OWASP Top 10 vulnerabilities, dependency security, authentication/authorization patterns, and secure coding practices for frontend applications.
+**Workflow:**
 
-## Security Review Dimensions
+1. **Scan**: Check for XSS, injection, auth issues, vulnerable deps, data exposure
+2. **Prioritize**: Rank by severity (Critical → Low)
+3. **Fix**: Provide secure code examples
+4. **Validate**: Suggest security testing tools
 
-This workflow evaluates security across 6 dimensions:
+**Security Dimensions**:
 
-1. **Input Validation & Sanitization** - XSS, injection attacks, malicious input
-2. **Authentication & Authorization** - Identity verification, access control
-3. **Dependency Security** - Third-party vulnerabilities, supply chain
-4. **Data Protection** - Sensitive data handling, encryption, storage
-5. **Network Security** - HTTPS, CORS, CSP, secure communication
-6. **Client-Side Security** - Token storage, XSS prevention, client secrets
+- **Input Validation**: XSS prevention, sanitization, CSP
+- **Authentication**: Token storage (httpOnly cookies > localStorage), session management
+- **Authorization**: Role checks, resource access control
+- **Dependencies**: Run `npm audit`, update vulnerable packages
+- **Data Protection**: No secrets in client code, encrypt sensitive data
+- **Network Security**: HTTPS only, proper CORS configuration
 
-***
+**Critical Issues** (fix immediately):
+
+- XSS vulnerabilities (unescaped user input)
+- Exposed API keys/secrets in client code
+- Missing authentication on sensitive endpoints
+- Critical dependency vulnerabilities
+
+**Tools**: npm audit, ESLint security plugins, Content Security Policy
+
+Provide specific fixes with security rationale.
+
+---
 
 ## Step 1: Automated Security Scanning
 
@@ -77,7 +91,7 @@ npx license-checker --summary
 npx eslint . --ext .js,.jsx,.ts,.tsx
 ```
 
-***
+---
 
 ## Step 2: OWASP Top 10 Analysis
 
@@ -736,7 +750,7 @@ async function fetchExternal(url) {
 - [ ] No access to internal networks via user input
 - [ ] Metadata endpoints blocked (169.254.169.254)
 
-***
+---
 
 ## Step 3: Authentication & Authorization Review
 
@@ -809,7 +823,7 @@ async function deletePost(postId) {
 }
 ```
 
-***
+---
 
 ## Step 4: Input Validation Review
 
@@ -886,7 +900,7 @@ if (containsSQLInjection(userInput)) {
 }
 ```
 
-***
+---
 
 ## Step 5: Secure Coding Practices
 
@@ -966,7 +980,7 @@ fetch("https://api.example.com/data", {
 });
 ```
 
-***
+---
 
 ## Step 6: Generate Security Report
 
@@ -1047,14 +1061,14 @@ npm audit fix
 3. Penetration testing
 ```
 
-***
+---
 
 ## Variables
 
 - `${workspaceFolder}` - Project root directory
 - `${selection}` - Selected code to review (optional)
 
-***
+---
 
 ## Success Criteria
 
@@ -1067,7 +1081,7 @@ After running this prompt:
 ✅ Security report generated with prioritized fixes  
 ✅ Action plan created with timeline
 
-***
+---
 
 ## Example Usage
 
@@ -1092,7 +1106,7 @@ Review this code for security vulnerabilities
 Check project for dependency vulnerabilities
 ```
 
-***
+---
 
 ## Security Checklist
 
@@ -1157,7 +1171,7 @@ Use this checklist for manual verification:
 - [ ] No sensitive data in logs
 - [ ] Alerts configured for anomalies
 
-***
+---
 
 ## Follow-up Actions
 
@@ -1170,7 +1184,7 @@ After security review:
 5. **Schedule Regular Reviews** - Monthly security audits
 6. **Update Memory System** - Document vulnerabilities found, preventive patterns
 
-***
+---
 
 ## References
 

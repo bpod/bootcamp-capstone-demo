@@ -3,28 +3,28 @@ name: document-api
 description: Generate comprehensive API endpoint documentation with request/response schemas, authentication, error codes, and usage examples
 ---
 
-# API Documentation Generator
+Generate API documentation for ${selection} or ${file} following OpenAPI/Swagger conventions.
 
-Generate comprehensive, developer-friendly API documentation including endpoint descriptions, request/response schemas, authentication requirements, error codes, and practical usage examples. Follows OpenAPI/Swagger conventions with clear examples.
+**Workflow:**
 
-**Focus**: Create documentation that helps developers integrate with the API correctly and handle all scenarios.
+1. **Analyze**: Extract HTTP method, endpoint, parameters, authentication
+2. **Schema**: Document request/response body with types
+3. **Examples**: Provide curl and JavaScript fetch examples
+4. **Errors**: List possible error codes and meanings
 
-***
+**Documentation Structure**:
 
-## API Documentation Workflow
+- **Endpoint**: Method + path
+- **Description**: What it does
+- **Authentication**: Required tokens/keys
+- **Parameters**: Query, path, body params with types
+- **Request Example**: curl + fetch
+- **Response Example**: Success + error cases
+- **Status Codes**: 200, 400, 401, 404, 500 meanings
 
-### Step 1: Analyze API Endpoint
+**Format**: Markdown compatible with API docs generators (OpenAPI, Swagger, Postman)
 
-**Understand endpoint structure:**
-
-1. **HTTP Method** - GET, POST, PUT, PATCH, DELETE
-2. **URL Path** - Route with parameters
-3. **Authentication** - Required headers, tokens
-4. **Request Body** - Shape and validation rules
-5. **Query Parameters** - Filtering, pagination, sorting
-6. **Response Format** - Success and error responses
-7. **Status Codes** - All possible HTTP status codes
-8. **Rate Limiting** - Request limits per time period
+Provide complete, copy-pasteable examples. 2. **URL Path** - Route with parameters 3. **Authentication** - Required headers, tokens 4. **Request Body** - Shape and validation rules 5. **Query Parameters** - Filtering, pagination, sorting 6. **Response Format** - Success and error responses 7. **Status Codes** - All possible HTTP status codes 8. **Rate Limiting** - Request limits per time period
 
 **Example Endpoint to Document:**
 
@@ -50,7 +50,7 @@ interface CreateUserResponse {
 }
 ```
 
-***
+---
 
 ### Step 2: Document Endpoint Overview
 
@@ -84,7 +84,7 @@ Creates a new user account in the system. Performs email validation and password
 - First and last name must not be empty
 ```
 
-***
+---
 
 ### Step 3: Document Authentication
 
@@ -671,7 +671,7 @@ GET /api/users?page=1&limit=20&role=user&sort=createdAt&order=desc
 
 **See:** [List Users Documentation](#list-users)
 
-***
+---
 
 #### Get User by ID
 
@@ -687,7 +687,7 @@ GET /api/users/usr_1a2b3c4d5e6f
 
 **See:** [Get User Documentation](#get-user)
 
-***
+---
 
 #### Update User
 
@@ -711,7 +711,7 @@ PATCH /api/users/usr_1a2b3c4d5e6f
 
 **See:** [Update User Documentation](#update-user)
 
-***
+---
 
 #### Delete User
 
@@ -815,7 +815,7 @@ body: JSON.stringify(data)
 \`\`\`
 ```
 
-***
+---
 
 ## Variables
 
@@ -823,7 +823,7 @@ body: JSON.stringify(data)
 - `${file}` - API route file path (optional)
 - `${workspaceFolder}` - Project root directory
 
-***
+---
 
 ## Success Criteria
 
@@ -838,7 +838,7 @@ After running this prompt:
 ✅ Rate limits and constraints specified  
 ✅ Related endpoints linked for discoverability
 
-***
+---
 
 ## Example Usage
 
@@ -862,7 +862,7 @@ Document the POST /api/users endpoint from src/routes/users.ts
 Generate OpenAPI 3.0 spec for all user management endpoints
 ```
 
-***
+---
 
 ## Follow-up Actions
 
@@ -875,7 +875,7 @@ After generating API documentation:
 5. **Create Postman Collection** - Import/export for testing
 6. **Update Client SDKs** - Regenerate if using code generation
 
-***
+---
 
 ## API Documentation Tools
 
@@ -909,7 +909,7 @@ npm run test:api
 npx @openapitools/openapi-generator-cli validate -i swagger.json
 ```
 
-***
+---
 
 ## References
 

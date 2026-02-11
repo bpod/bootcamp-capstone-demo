@@ -3,27 +3,27 @@ name: document-component
 description: Generate comprehensive component documentation with props, usage examples, accessibility notes, and TypeScript types
 ---
 
-# Component Documentation Generator
+Generate component documentation for React ${selection} or ${file}.
 
-Generate comprehensive, maintainable documentation for React components including props, usage examples, accessibility considerations, and TypeScript types. Follows JSDoc/TSDoc conventions with practical examples.
+**Workflow:**
 
-**Focus**: Create documentation that helps developers use the component correctly and efficiently.
+1. **Analyze**: Extract props, types, default values, children
+2. **Usage**: Provide basic and advanced examples
+3. **Accessibility**: Note ARIA usage, keyboard navigation
+4. **Types**: Include TypeScript interfaces
 
-***
+**Documentation Structure**:
 
-## Documentation Generation Workflow
+- **Component Name & Purpose**: Brief description
+- **Props Table**: Name, type, required, default, description
+- **Basic Example**: Simple usage
+- **Advanced Examples**: Edge cases, variants
+- **Accessibility**: Keyboard support, screen reader notes
+- **TypeScript**: Exported interfaces
 
-### Step 1: Analyze Component
+**Format**: JSDoc/TSDoc comments + README.md
 
-**Understand component structure:**
-
-1. **Component Name and Purpose** - What does this component do?
-2. **Props Interface** - What inputs does it accept?
-3. **Component Variants** - Does it support different modes/styles?
-4. **State Management** - Internal state or controlled props?
-5. **Side Effects** - API calls, events, timers?
-6. **Accessibility Features** - ARIA, keyboard support, focus management?
-7. **Dependencies** - External libraries, context providers?
+Generate copy-pasteable documentation following Storybook/Docusaurus conventions. 2. **Props Interface** - What inputs does it accept? 3. **Component Variants** - Does it support different modes/styles? 4. **State Management** - Internal state or controlled props? 5. **Side Effects** - API calls, events, timers? 6. **Accessibility Features** - ARIA, keyboard support, focus management? 7. **Dependencies** - External libraries, context providers?
 
 **Example Analysis:**
 
@@ -63,7 +63,7 @@ export function Button({
 - Accessibility: Proper disabled state, keyboard support
 - Customization: Icon support, full-width option
 
-***
+---
 
 ### Step 2: Generate Component Header Documentation
 
@@ -103,7 +103,7 @@ export function Button({ ... }: ButtonProps) {
 3. **@component** tag - Identifies as React component
 4. **@example** tags - Multiple usage examples (basic → advanced)
 
-***
+---
 
 ### Step 3: Document Props Interface
 
@@ -188,7 +188,7 @@ export interface ButtonProps {
 - Leave obvious props undocumented
 - Forget to document complex types
 
-***
+---
 
 ### Step 4: Create Usage Examples
 
@@ -283,7 +283,7 @@ export interface ButtonProps {
  */
 ```
 
-***
+---
 
 ### Step 5: Document Accessibility
 
@@ -382,7 +382,7 @@ None. Uses only standard HTML/CSS/React features.
 - Icon prop requires JavaScript (omitted in no-JS environment)
 ````
 
-***
+---
 
 ### Step 7: Add Implementation Notes
 
@@ -435,7 +435,7 @@ See `Button.test.tsx` for comprehensive test suite:
 - Accessibility checks pass
 ```
 
-***
+---
 
 ### Step 8: Create Standalone README (Optional)
 
@@ -622,7 +622,7 @@ export function useHookName(param: ParamType): ReturnType {
 }
 ```
 
-***
+---
 
 ## Style Guide
 
@@ -681,7 +681,7 @@ onSubmit: (data: FormData) => void;
 onSubmit: (data: FormData) => void;
 ```
 
-***
+---
 
 ## Variables
 
@@ -689,7 +689,7 @@ onSubmit: (data: FormData) => void;
 - `${file}` - Component file path (optional)
 - `${workspaceFolder}` - Project root directory
 
-***
+---
 
 ## Success Criteria
 
@@ -703,7 +703,7 @@ After running this prompt:
 ✅ Examples are copy-paste ready  
 ✅ Documentation follows JSDoc/TSDoc conventions
 
-***
+---
 
 ## Example Usage
 
@@ -727,7 +727,7 @@ Document the Button component in src/components/Button.tsx
 Generate comprehensive documentation with TypeScript types for the DataTable component
 ```
 
-***
+---
 
 ## Follow-up Actions
 
@@ -740,7 +740,7 @@ After generating documentation:
 5. **Generate Type Definitions** - Ensure .d.ts files are up-to-date
 6. **Update Component Tests** - Verify examples from docs are tested
 
-***
+---
 
 ## Documentation Tools
 
@@ -768,7 +768,7 @@ npx storybook
 npm run type-check
 ```
 
-***
+---
 
 ## Common Patterns
 
@@ -816,7 +816,7 @@ npm run type-check
  */
 ```
 
-***
+---
 
 ## References
 

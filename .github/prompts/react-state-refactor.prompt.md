@@ -1,49 +1,65 @@
 ---
 name: react-state-refactor
-description: "Improve React state management patterns - lift state, context, reducers, and external libraries"
+description: Improve React state management patterns - lift state, context, reducers, and external libraries
 ---
 
-# React State Management Refactoring
+Refactor state management in React ${selection} or ${file} using appropriate patterns.
 
-Comprehensive guide to refactoring state management in React applications. Covers state colocation, lifting state, Context API, useReducer, and when to reach for external libraries.
+**Decision Tree**:
 
-**Goal**: Right-size state management - use the simplest solution that solves the problem.
+1. One component needs it? → `useState` locally
+2. Few nearby components? → Lift state to common parent
+3. Deeply nested prop drilling? → Context API
+4. Complex state logic? → `useReducer`
+5. Global app-wide state? → External library (Zustand, Jotai)
 
-***
+**Workflow:**
 
-## State Management Decision Tree
+1. **Analyze**: Identify state that's too high/low in tree
+2. **Choose Pattern**: Apply simplest solution that works
+3. **Refactor**: Implement new pattern incrementally
+4. **Test**: Verify functionality unchanged
 
-```
-┌─────────────────────────────────────┐
-│ Does only ONE component need it?    │
-│ ✅ Yes → useState in that component │
-│ ❌ No → Continue                     │
+**Standards Reference**: [Vercel React Best Practices - State Management](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
+
+**Key Principle**: Keep state as local as possible. Lift only when needed.
+
+**Patterns**:
+
+- **Colocation**: State in component that uses it
+- **Lift State**: To nearest common ancestor
+- **Context**: For moderate sharing (theme, auth)
+- **useReducer**: For complex state with multiple actions
+- **External**: For truly global state
+
+Provide before/after code with rationale for pattern choice.
 └─────────────────────────────────────┘
-              ↓
+↓
 ┌─────────────────────────────────────┐
 │ Is state used by parent + children? │
-│ ✅ Yes → Lift state to parent       │
-│ ❌ No → Continue                     │
+│ ✅ Yes → Lift state to parent │
+│ ❌ No → Continue │
 └─────────────────────────────────────┘
-              ↓
+↓
 ┌─────────────────────────────────────┐
-│ Prop drilling becomes painful?      │
-│ ✅ Yes → Use Context API             │
-│ ❌ No → Keep lifting state           │
+│ Prop drilling becomes painful? │
+│ ✅ Yes → Use Context API │
+│ ❌ No → Keep lifting state │
 └─────────────────────────────────────┘
-              ↓
+↓
 ┌─────────────────────────────────────┐
-│ Complex state transitions?          │
-│ ✅ Yes → useReducer + Context        │
-│ ❌ No → Continue                     │
+│ Complex state transitions? │
+│ ✅ Yes → useReducer + Context │
+│ ❌ No → Continue │
 └─────────────────────────────────────┘
-              ↓
+↓
 ┌─────────────────────────────────────┐
-│ State shared across many features?  │
+│ State shared across many features? │
 │ ✅ Yes → External library (Zustand) │
-│ ❌ No → Context is sufficient        │
+│ ❌ No → Context is sufficient │
 └─────────────────────────────────────┘
-```
+
+````
 
 ***
 
@@ -77,7 +93,7 @@ function App() {
     </div>
   );
 }
-```
+````
 
 ### ✅ Better: Colocate State
 
@@ -116,7 +132,7 @@ function TabPanel() {
 - Easier to delete/move components
 - No unnecessary prop drilling
 
-***
+---
 
 ## 2. Lifting State Up
 
@@ -200,7 +216,7 @@ function SearchPage() {
 }
 ```
 
-***
+---
 
 ## 3. Context API (Avoid Prop Drilling)
 
@@ -379,7 +395,7 @@ function LoginButton() {
 }
 ```
 
-***
+---
 
 ## 4. useReducer (Complex State Logic)
 
@@ -556,7 +572,7 @@ function ShoppingCart() {
 - ✅ Clearer intent with action types
 - ✅ TypeScript-friendly (discriminated unions)
 
-***
+---
 
 ## 5. useReducer + Context (Global State)
 
@@ -638,7 +654,7 @@ function CartSidebar() {
 }
 ```
 
-***
+---
 
 ## 6. External Libraries (When Context Isn't Enough)
 
@@ -766,7 +782,7 @@ function CartSidebar() {
 }
 ```
 
-***
+---
 
 ## 7. Form State Management
 
@@ -826,7 +842,7 @@ function RegistrationForm() {
 }
 ```
 
-***
+---
 
 ## Refactoring Strategy
 
@@ -860,7 +876,7 @@ grep -r "useState" src/
 4. Verify tests still pass
 5. Move to next section
 
-***
+---
 
 ## Testing State Management
 
@@ -912,7 +928,7 @@ test("ADD_ITEM adds item to cart", () => {
 });
 ```
 
-***
+---
 
 ## Summary
 
