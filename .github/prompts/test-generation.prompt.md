@@ -1,4 +1,5 @@
 ---
+name: test-generation
 description: "Generate comprehensive tests for components using React Testing Library and TDD principles"
 ---
 
@@ -8,7 +9,7 @@ Generate high-quality, maintainable tests for React components using Testing Lib
 
 **Focus**: Test behavior, not implementation. Write tests users would understand.
 
----
+***
 
 ## Test Generation Workflow
 
@@ -31,7 +32,7 @@ Generate high-quality, maintainable tests for React components using Testing Lib
 5. What error states exist?
 6. Is this component accessible?
 
----
+***
 
 ### 2. Choose Testing Strategy
 
@@ -107,7 +108,7 @@ describe("formatCurrency", () => {
 });
 ```
 
----
+***
 
 ### 3. TDD Workflow (Optional but Recommended)
 
@@ -165,7 +166,7 @@ function Counter() {
 }
 ```
 
----
+***
 
 ## Testing Patterns
 
@@ -234,7 +235,7 @@ describe("ContactForm", () => {
 });
 ```
 
----
+***
 
 ### Pattern 2: Async Data Fetching
 
@@ -312,7 +313,7 @@ describe("UserProfile", () => {
 });
 ```
 
----
+***
 
 ### Pattern 3: User Interactions
 
@@ -399,7 +400,7 @@ describe("TodoList", () => {
 });
 ```
 
----
+***
 
 ### Pattern 4: Modal/Dialog Testing
 
@@ -477,7 +478,7 @@ describe("ConfirmDialog", () => {
 });
 ```
 
----
+***
 
 ### Pattern 5: Custom Hooks Testing
 
@@ -554,7 +555,7 @@ describe("useDebounce", () => {
 });
 ```
 
----
+***
 
 ### Pattern 6: Accessibility Testing
 
@@ -613,7 +614,7 @@ describe("SearchBar accessibility", () => {
 });
 ```
 
----
+***
 
 ## Edge Cases to Test
 
@@ -676,7 +677,7 @@ describe("Pagination", () => {
 });
 ```
 
----
+***
 
 ## Testing Best Practices
 
@@ -788,7 +789,7 @@ afterEach(() => {
 });
 ```
 
----
+***
 
 ## Common Test Smells to Avoid
 
@@ -847,7 +848,7 @@ afterEach(() => {
 });
 ```
 
----
+***
 
 ## Test File Structure
 
@@ -910,7 +911,7 @@ describe("ComponentName", () => {
 });
 ```
 
----
+***
 
 ## Test Coverage Guidelines
 
@@ -936,7 +937,7 @@ describe("ComponentName", () => {
 - Configuration files
 - Type definitions
 
----
+***
 
 ## Running Tests
 
@@ -972,7 +973,7 @@ npm test -- --testNamePattern="user login"
     files: ./coverage/coverage-final.json
 ```
 
----
+***
 
 ## Quick Reference
 
@@ -1047,7 +1048,7 @@ expect(mockFn).toHaveBeenCalledWith("arg1", "arg2");
 expect(mockFn).toHaveBeenCalledTimes(3);
 ```
 
----
+***
 
 ## Summary
 

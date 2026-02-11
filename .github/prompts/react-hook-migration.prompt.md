@@ -1,4 +1,5 @@
 ---
+name: react-hook-migration
 description: "Migrate React class components to functional components with hooks"
 ---
 
@@ -8,7 +9,7 @@ Systematic migration of React class components to functional components with hoo
 
 **Applies to**: React class components (.jsx, .tsx files)
 
----
+***
 
 ## Why Migrate to Hooks?
 
@@ -30,7 +31,7 @@ Systematic migration of React class components to functional components with hoo
 - ❌ Don't migrate blindly - focus on active codebases
 - ❌ Don't rush - test thoroughly
 
----
+***
 
 ## Migration Workflow
 
@@ -126,7 +127,7 @@ test("displays user name", async () => {
 git checkout -b migrate/user-profile-to-hooks
 ```
 
----
+***
 
 ### Phase 2: Migration Steps
 
@@ -523,7 +524,7 @@ function Welcome() {
 }
 ```
 
----
+***
 
 ### Phase 3: Advanced Patterns
 
@@ -657,7 +658,7 @@ function DataTable() {
 }
 ```
 
----
+***
 
 ### Phase 4: Testing After Migration
 
@@ -708,7 +709,7 @@ function onRenderCallback(id, phase, actualDuration) {
 - No unnecessary re-renders
 - Memory usage stable
 
----
+***
 
 ## Migration Checklist
 
@@ -738,7 +739,7 @@ function onRenderCallback(id, phase, actualDuration) {
 - [ ] Code review completed
 - [ ] Documentation updated
 
----
+***
 
 ## Common Pitfalls
 
@@ -828,7 +829,7 @@ function Timer() {
 }
 ```
 
----
+***
 
 ## TypeScript Migration Tips
 
@@ -871,7 +872,7 @@ const [state, dispatch] = useReducer<React.Reducer<State, Action>>(reducer, {
 });
 ```
 
----
+***
 
 ## Resources
 
@@ -891,7 +892,7 @@ const [state, dispatch] = useReducer<React.Reducer<State, Action>>(reducer, {
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - Testing hooks
 - [React Hooks Testing Library](https://react-hooks-testing-library.com/) - Testing custom hooks
 
----
+***
 
 ## Summary
 

@@ -1,4 +1,5 @@
 ---
+name: lighthouse-audit
 description: Run comprehensive Lighthouse audit and get actionable optimization recommendations
 ---
 

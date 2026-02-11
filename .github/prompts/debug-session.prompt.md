@@ -1,4 +1,5 @@
 ---
+name: debug-session
 description: Structured debugging workflow using Chrome DevTools, logging strategies, and systematic problem isolation
 ---
 
@@ -19,7 +20,7 @@ Structured debugging workflow for identifying and resolving frontend issues usin
 
 **Avoid Random Changes:** Don't guess. Use data to guide decisions.
 
----
+***
 
 ## Step 1: Issue Identification
 
@@ -51,7 +52,7 @@ npm run type-check  # If TypeScript
 - Look for uncaught errors, warnings, network failures
 - Note any CORS, CSP, or security errors
 
----
+***
 
 ## Step 2: Reproduction Setup
 
@@ -103,7 +104,7 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
----
+***
 
 ## Step 3: Chrome DevTools Debugging
 
@@ -301,7 +302,7 @@ function ExpensiveComponent() {
 }
 ```
 
----
+***
 
 ## Step 4: Common Debugging Scenarios
 
@@ -526,7 +527,7 @@ function handleClick(event) {
 - Use box model visualization (margin/border/padding)
 - Check Flexbox/Grid overlays
 
----
+***
 
 ## Step 5: Performance Debugging
 
@@ -616,7 +617,7 @@ useEffect(() => {
 - Closures holding large objects
 - Global variables never released
 
----
+***
 
 ## Step 6: Debugging Tools & Techniques
 
@@ -746,7 +747,7 @@ const testResult = libraryFunction(testInput);
 console.log("Library result:", testResult);
 ```
 
----
+***
 
 ## Step 7: Resolution & Verification
 
@@ -823,7 +824,7 @@ echo "## Debug Session: User Profile Fix" >> .github/memory/session-notes.md
 echo "### Pattern: Async Data Loading" >> .github/memory/patterns-discovered.md
 ```
 
----
+***
 
 ## Variables
 
@@ -831,7 +832,7 @@ echo "### Pattern: Async Data Loading" >> .github/memory/patterns-discovered.md
 - `${file}` - Current file to debug (optional)
 - `${workspaceFolder}` - Project root directory
 
----
+***
 
 ## Success Criteria
 
@@ -844,7 +845,7 @@ After running this prompt:
 ✅ Debugging process documented  
 ✅ Preventive patterns extracted
 
----
+***
 
 ## Example Usage
 
@@ -866,7 +867,7 @@ Run debug-session prompt
 Find the bug in this code using the debug-session workflow
 ```
 
----
+***
 
 ## Common Debugging Patterns
 
@@ -916,7 +917,7 @@ console.log("Broken input:", brokenData);
 // Broken:  { id: 2, name: "Bob" } ← Missing 'role' field!
 ```
 
----
+***
 
 ## Follow-up Actions
 
@@ -928,7 +929,7 @@ After debugging session:
 4. **Add tests** - Write test cases that would have caught this bug
 5. **Update monitoring** - Add logging/tracking for this scenario
 
----
+***
 
 ## References
 

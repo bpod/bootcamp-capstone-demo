@@ -1,4 +1,5 @@
 ---
+name: code-review
 description: "Comprehensive code review analyzing quality, maintainability, performance, and best practices"
 ---
 
@@ -19,7 +20,7 @@ This workflow evaluates code across 8 dimensions:
 7. **Maintainability** - Documentation, error handling, future-proofing
 8. **Best Practices** - Framework conventions, language idioms, anti-patterns
 
----
+***
 
 ## 1. Architecture & Design
 
@@ -82,7 +83,7 @@ const orderService = new OrderService(db);
 - [ ] Clear separation of concerns (data, logic, presentation)
 - [ ] Proper abstraction levels (not too abstract, not too concrete)
 
----
+***
 
 ## 2. Code Quality
 
@@ -168,7 +169,7 @@ function validateUserEmail(user) {
 - [ ] Clear, descriptive names (no abbreviations unless standard)
 - [ ] Consistent formatting and style
 
----
+***
 
 ## 3. Performance
 
@@ -238,7 +239,7 @@ const users = await db.users.findAll({
 - [ ] Database query optimization (no N+1 problems)
 - [ ] Lazy loading for heavy resources
 
----
+***
 
 ## 4. Security
 
@@ -325,7 +326,7 @@ app.get("/admin/users", requireAdmin, (req, res) => {
 - [ ] Sensitive data not logged or exposed
 - [ ] Dependencies up to date (no known vulnerabilities)
 
----
+***
 
 ## 5. Accessibility
 
@@ -398,7 +399,7 @@ app.get("/admin/users", requireAdmin, (req, res) => {
 - [ ] Color contrast meets WCAG AA standards (4.5:1)
 - [ ] Focus indicators visible
 
----
+***
 
 ## 6. Testing
 
@@ -467,7 +468,7 @@ function Component({ data, onTitleChange }) {
 - [ ] Code is testable (no tight coupling to globals)
 - [ ] Mocks used appropriately (external dependencies only)
 
----
+***
 
 ## 7. Maintainability
 
@@ -553,7 +554,7 @@ if (user.age > MINIMUM_AGE && user.accountAge > MINIMUM_ACCOUNT_DAYS) {
 - [ ] TODOs tracked with issue numbers
 - [ ] Deprecation warnings for legacy code
 
----
+***
 
 ## 8. Framework-Specific Best Practices
 
@@ -587,7 +588,7 @@ if (user.age > MINIMUM_AGE && user.accountAge > MINIMUM_ACCOUNT_DAYS) {
 - [ ] Rate limiting for public endpoints
 ```
 
----
+***
 
 ## Review Process
 
@@ -604,7 +605,7 @@ if (user.age > MINIMUM_AGE && user.accountAge > MINIMUM_ACCOUNT_DAYS) {
 9. **Framework Patterns**: Check framework-specific best practices
 10. **Prioritize Findings**: Critical → High → Medium → Low
 
----
+***
 
 ## Review Output Template
 
@@ -651,7 +652,7 @@ if (user.age > MINIMUM_AGE && user.accountAge > MINIMUM_ACCOUNT_DAYS) {
 2. [Action item]
 ```
 
----
+***
 
 ## Success Criteria
 
@@ -664,7 +665,7 @@ if (user.age > MINIMUM_AGE && user.accountAge > MINIMUM_ACCOUNT_DAYS) {
 ✅ **Maintainability**: Errors handled, code documented, no magic numbers  
 ✅ **Best Practices**: Framework conventions followed, no anti-patterns
 
----
+***
 
 ## Related Prompts
 
@@ -672,7 +673,7 @@ if (user.age > MINIMUM_AGE && user.accountAge > MINIMUM_ACCOUNT_DAYS) {
 - [accessibility-review.prompt.md](accessibility-review.prompt.md) - Detailed a11y audit
 - [performance-optimization.prompt.md](performance-optimization.prompt.md) - Performance improvements
 
----
+***
 
 ## Tools & Resources
 

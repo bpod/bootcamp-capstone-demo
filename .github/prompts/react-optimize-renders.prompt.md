@@ -1,4 +1,5 @@
 ---
+name: react-optimize-renders
 description: "Find and fix unnecessary React re-renders to improve performance"
 ---
 
@@ -23,7 +24,7 @@ Diagnose and fix unnecessary re-renders in React applications. This workflow hel
 - Parent re-renders triggering child re-renders
 - Context value changes affecting all consumers
 
----
+***
 
 ## 1. Identify Re-Render Issues
 
@@ -90,7 +91,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 ```
 
----
+***
 
 ## 2. Common Anti-Patterns & Fixes
 
@@ -134,7 +135,7 @@ function Dashboard({ userName, userRole }) {
 }
 ```
 
----
+***
 
 ### ❌ Anti-Pattern #2: Inline Function Definitions
 
@@ -212,7 +213,7 @@ const ProductCard = React.memo(function ProductCard({
 });
 ```
 
----
+***
 
 ### ❌ Anti-Pattern #3: Context Updates Triggering Unnecessary Renders
 
@@ -284,7 +285,7 @@ function Header() {
 }
 ```
 
----
+***
 
 ### ❌ Anti-Pattern #4: Not Using React.memo for Expensive Components
 
@@ -349,7 +350,7 @@ function Dashboard() {
 }
 ```
 
----
+***
 
 ## 3. Optimization Strategies
 
@@ -447,7 +448,7 @@ function LargeList({ items }) {
 }
 ```
 
----
+***
 
 ## 4. Debugging Workflow
 
@@ -528,7 +529,7 @@ function MyComponent(props) {
 }
 ```
 
----
+***
 
 ## 5. Performance Checklist
 
@@ -554,7 +555,7 @@ Before optimizing, verify the problem exists:
 - [ ] Simple components (render cost < memo overhead)
 - [ ] No user-visible performance issues
 
----
+***
 
 ## Success Criteria
 
@@ -565,7 +566,7 @@ Before optimizing, verify the problem exists:
 ✅ **Performance Improved**: Lighthouse performance score increased, UI feels snappier  
 ✅ **Measured Impact**: Before/after profiling shows concrete improvements
 
----
+***
 
 ## Common Mistakes to Avoid
 
@@ -575,7 +576,7 @@ Before optimizing, verify the problem exists:
 ❌ **Ignoring Root Cause**: Fixing symptoms instead of architectural issues  
 ❌ **Complex Memo Comparisons**: Custom comparison functions that are slow
 
----
+***
 
 ## Related Resources
 

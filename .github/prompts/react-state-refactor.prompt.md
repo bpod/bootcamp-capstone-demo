@@ -1,4 +1,5 @@
 ---
+name: react-state-refactor
 description: "Improve React state management patterns - lift state, context, reducers, and external libraries"
 ---
 
@@ -8,7 +9,7 @@ Comprehensive guide to refactoring state management in React applications. Cover
 
 **Goal**: Right-size state management - use the simplest solution that solves the problem.
 
----
+***
 
 ## State Management Decision Tree
 
@@ -44,7 +45,7 @@ Comprehensive guide to refactoring state management in React applications. Cover
 └─────────────────────────────────────┘
 ```
 
----
+***
 
 ## 1. State Colocation (Keep State Close)
 
@@ -115,7 +116,7 @@ function TabPanel() {
 - Easier to delete/move components
 - No unnecessary prop drilling
 
----
+***
 
 ## 2. Lifting State Up
 
@@ -199,7 +200,7 @@ function SearchPage() {
 }
 ```
 
----
+***
 
 ## 3. Context API (Avoid Prop Drilling)
 
@@ -378,7 +379,7 @@ function LoginButton() {
 }
 ```
 
----
+***
 
 ## 4. useReducer (Complex State Logic)
 
@@ -555,7 +556,7 @@ function ShoppingCart() {
 - ✅ Clearer intent with action types
 - ✅ TypeScript-friendly (discriminated unions)
 
----
+***
 
 ## 5. useReducer + Context (Global State)
 
@@ -637,7 +638,7 @@ function CartSidebar() {
 }
 ```
 
----
+***
 
 ## 6. External Libraries (When Context Isn't Enough)
 
@@ -765,7 +766,7 @@ function CartSidebar() {
 }
 ```
 
----
+***
 
 ## 7. Form State Management
 
@@ -825,7 +826,7 @@ function RegistrationForm() {
 }
 ```
 
----
+***
 
 ## Refactoring Strategy
 
@@ -859,7 +860,7 @@ grep -r "useState" src/
 4. Verify tests still pass
 5. Move to next section
 
----
+***
 
 ## Testing State Management
 
@@ -911,7 +912,7 @@ test("ADD_ITEM adds item to cart", () => {
 });
 ```
 
----
+***
 
 ## Summary
 

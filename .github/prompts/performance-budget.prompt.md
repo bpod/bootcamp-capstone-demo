@@ -1,4 +1,5 @@
 ---
+name: performance-budget
 description: Define and enforce performance budgets for assets, bundles, and metrics with CI/CD integration
 ---
 
@@ -40,7 +41,7 @@ grep -E '"(react|vue|angular|svelte)"' package.json
 
 **Budget configuration varies by tool** - adapt approach accordingly.
 
----
+***
 
 ### Step 2: Establish Baseline Metrics
 
@@ -79,7 +80,7 @@ Fonts: 270 KB
 Total requests: 47
 ```
 
----
+***
 
 ### Step 3: Define Performance Budgets
 
@@ -160,7 +161,7 @@ Total requests: 47
 }
 ```
 
----
+***
 
 ### Step 4: Configure Budget Enforcement (By Tool)
 
@@ -280,7 +281,7 @@ module.exports = nextConfig;
 }
 ```
 
----
+***
 
 ### Step 5: Create Budget Validation Script
 
@@ -421,7 +422,7 @@ checkBudgets().catch((err) => {
 npm run build:check
 ```
 
----
+***
 
 ### Step 6: Configure Lighthouse Budgets
 
@@ -502,7 +503,7 @@ lighthouse https://example.com --budget-path=./budget.json --output=json --outpu
 cat lighthouse-budget-report.json | jq '.audits["performance-budget"]'
 ```
 
----
+***
 
 ### Step 7: CI/CD Integration
 
@@ -613,7 +614,7 @@ jobs:
     lhci autorun
 ```
 
----
+***
 
 ### Step 8: Monitor Budget Health
 
@@ -664,7 +665,7 @@ generateDashboard();
 node scripts/budget-dashboard.js
 ```
 
----
+***
 
 ## Success Criteria
 
@@ -677,7 +678,7 @@ node scripts/budget-dashboard.js
 - [ ] Budget dashboard accessible to stakeholders
 - [ ] Process for reviewing and adjusting budgets established
 
----
+***
 
 ## Common Budget Violations and Fixes
 
@@ -735,7 +736,7 @@ import FaHome from "react-icons/fa/FaHome";
 3. Extract critical CSS above the fold
 4. Consider CSS-in-JS with dead code elimination
 
----
+***
 
 ## Tips for Maintaining Budgets
 
@@ -746,7 +747,7 @@ import FaHome from "react-icons/fa/FaHome";
 5. **Monitor trends** - Track bundle size over time (bundlesize.io, bundlephobia.com)
 6. **Educate team** - Regular performance reviews and training
 
----
+***
 
 ## References
 

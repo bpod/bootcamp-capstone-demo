@@ -1,4 +1,5 @@
 ---
+name: image-optimization
 description: "Optimize images for web performance - format selection, sizing, lazy loading, CDN delivery"
 ---
 
@@ -20,7 +21,7 @@ Optimize images to improve performance metrics (LCP, bundle size, bandwidth). Th
 - Proper optimization reduces bandwidth by 50-80%
 - Faster load times on slow networks
 
----
+***
 
 ## 1. Audit Current Image Usage
 
@@ -59,7 +60,7 @@ lighthouse https://your-app.com --only-categories=performance --view
 - "Serve images in modern formats"
 - "Defer offscreen images"
 
----
+***
 
 ## 2. Choose Optimal Image Formats
 
@@ -91,7 +92,7 @@ Does it need transparency?
 | **SVG**  | Icons, logos               | Vector (tiny)                | 100%            | ✅ Best for graphics |
 | **GIF**  | Animations                 | Poor compression             | 100%            | ⚠️ Use video instead |
 
----
+***
 
 ## 3. Implement Responsive Images
 
@@ -186,7 +187,7 @@ export function OptimizedImage({
 }
 ```
 
----
+***
 
 ## 4. Implement Lazy Loading
 
@@ -252,7 +253,7 @@ export function LazyImage({ src, alt, width, height, threshold = 0.1 }) {
 }
 ```
 
----
+***
 
 ## 5. Build Tool Integration
 
@@ -310,7 +311,7 @@ module.exports = {
 };
 ```
 
----
+***
 
 ## 6. CDN & Delivery Optimization
 
@@ -356,7 +357,7 @@ export function CDNImage({ src, alt, width, height, transforms = {} }) {
 <link rel="preload" as="image" href="/hero.webp" type="image/webp" />
 ```
 
----
+***
 
 ## 7. Prevent Cumulative Layout Shift (CLS)
 
@@ -416,7 +417,7 @@ export function AspectRatioImage({
 }
 ```
 
----
+***
 
 ## 8. Validation & Measurement
 
@@ -455,7 +456,7 @@ const imgObserver = new PerformanceObserver((list) => {
 imgObserver.observe({ type: "resource", buffered: true });
 ```
 
----
+***
 
 ## Success Criteria
 
@@ -489,7 +490,7 @@ imgObserver.observe({ type: "resource", buffered: true });
 - Total page size reduced by 30-60%
 - Lighthouse image audits show 90+ scores
 
----
+***
 
 ## Common Pitfalls to Avoid
 
@@ -501,7 +502,7 @@ imgObserver.observe({ type: "resource", buffered: true });
 ❌ **Forgetting alt text**: Required for accessibility  
 ❌ **Loading="lazy" on LCP image**: Use `eager` for above-fold critical images
 
----
+***
 
 ## Related Prompts
 
@@ -510,7 +511,7 @@ imgObserver.observe({ type: "resource", buffered: true });
 - [lighthouse-audit.prompt.md](lighthouse-audit.prompt.md) - Comprehensive audit workflow
 - [accessibility-review.prompt.md](accessibility-review.prompt.md) - Check image alt text compliance
 
----
+***
 
 ## Resources
 

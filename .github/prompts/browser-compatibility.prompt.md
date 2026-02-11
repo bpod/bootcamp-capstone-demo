@@ -1,4 +1,5 @@
 ---
+name: browser-compatibility
 description: Cross-browser compatibility testing, polyfills, and progressive enhancement strategies
 ---
 
@@ -67,7 +68,7 @@ npx browserslist
 }
 ```
 
----
+***
 
 ### Step 2: Audit Browser Compatibility Issues
 
@@ -119,7 +120,7 @@ npm install --save-dev caniuse-lite
 npx browserslist-useragent-regexp --browsers "defaults"
 ```
 
----
+***
 
 ### Step 3: Configure Transpilation and Polyfills
 
@@ -216,7 +217,7 @@ import App from "./App";
 // Rest of app
 ```
 
----
+***
 
 ### Step 4: Feature Detection (Progressive Enhancement)
 
@@ -284,7 +285,7 @@ if (Modernizr.fetchapi) {
 }
 ```
 
----
+***
 
 ### Step 5: CSS Fallbacks and Autoprefixer
 
@@ -367,7 +368,7 @@ npm install --save-dev autoprefixer postcss
 }
 ```
 
----
+***
 
 ### Step 6: Browser-Specific Testing
 
@@ -548,7 +549,7 @@ npx playwright test --project=firefox
 npx playwright test --debug
 ```
 
----
+***
 
 ### Step 7: Polyfill Strategy by Feature
 
@@ -623,7 +624,7 @@ if (!window.CSS || !window.CSS.supports("color", "var(--primary)")) {
 }
 ```
 
----
+***
 
 ### Step 8: Create Compatibility Report
 
@@ -671,7 +672,7 @@ function generateReport() {
 generateReport();
 ```
 
----
+***
 
 ## Common Compatibility Issues and Solutions
 
@@ -788,7 +789,7 @@ const buttonStyle = {
 };
 ```
 
----
+***
 
 ## Success Criteria
 
@@ -804,7 +805,7 @@ const buttonStyle = {
 - [ ] Progressive enhancement for Tier 2/3 browsers
 - [ ] Compatibility report generated
 
----
+***
 
 ## Testing Checklist
 
@@ -826,7 +827,7 @@ const buttonStyle = {
 - [ ] Performance budgets met across browsers
 - [ ] Accessibility tests pass on all browsers
 
----
+***
 
 ## References
 

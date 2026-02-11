@@ -1,4 +1,5 @@
 ---
+name: document-api
 description: Generate comprehensive API endpoint documentation with request/response schemas, authentication, error codes, and usage examples
 ---
 
@@ -8,7 +9,7 @@ Generate comprehensive, developer-friendly API documentation including endpoint 
 
 **Focus**: Create documentation that helps developers integrate with the API correctly and handle all scenarios.
 
----
+***
 
 ## API Documentation Workflow
 
@@ -49,7 +50,7 @@ interface CreateUserResponse {
 }
 ```
 
----
+***
 
 ### Step 2: Document Endpoint Overview
 
@@ -83,7 +84,7 @@ Creates a new user account in the system. Performs email validation and password
 - First and last name must not be empty
 ```
 
----
+***
 
 ### Step 3: Document Authentication
 
@@ -142,7 +143,7 @@ X-API-Key: sk_live_1234567890abcdef
 
 ````
 
----
+***
 
 ### Step 4: Document Request Format
 
@@ -240,7 +241,7 @@ interface CreateUserRequest {
 
 ````
 
----
+***
 
 ### Step 5: Document Response Format
 
@@ -303,7 +304,7 @@ interface CreateUserResponse {
 
 ````
 
----
+***
 
 ### Step 6: Document Error Responses
 
@@ -462,7 +463,7 @@ interface ErrorResponse {
 
 ````
 
----
+***
 
 ### Step 7: Provide Code Examples
 
@@ -641,7 +642,7 @@ async function createUserWithRetry(
 
 ````
 
----
+***
 
 ### Step 8: Document Related Endpoints
 
@@ -670,7 +671,7 @@ GET /api/users?page=1&limit=20&role=user&sort=createdAt&order=desc
 
 **See:** [List Users Documentation](#list-users)
 
----
+***
 
 #### Get User by ID
 
@@ -686,7 +687,7 @@ GET /api/users/usr_1a2b3c4d5e6f
 
 **See:** [Get User Documentation](#get-user)
 
----
+***
 
 #### Update User
 
@@ -710,7 +711,7 @@ PATCH /api/users/usr_1a2b3c4d5e6f
 
 **See:** [Update User Documentation](#update-user)
 
----
+***
 
 #### Delete User
 
@@ -728,7 +729,7 @@ DELETE /api/users/usr_1a2b3c4d5e6f
 
 ````
 
----
+***
 
 ## Documentation Templates
 
@@ -814,7 +815,7 @@ body: JSON.stringify(data)
 \`\`\`
 ```
 
----
+***
 
 ## Variables
 
@@ -822,7 +823,7 @@ body: JSON.stringify(data)
 - `${file}` - API route file path (optional)
 - `${workspaceFolder}` - Project root directory
 
----
+***
 
 ## Success Criteria
 
@@ -837,7 +838,7 @@ After running this prompt:
 ✅ Rate limits and constraints specified  
 ✅ Related endpoints linked for discoverability
 
----
+***
 
 ## Example Usage
 
@@ -861,7 +862,7 @@ Document the POST /api/users endpoint from src/routes/users.ts
 Generate OpenAPI 3.0 spec for all user management endpoints
 ```
 
----
+***
 
 ## Follow-up Actions
 
@@ -874,7 +875,7 @@ After generating API documentation:
 5. **Create Postman Collection** - Import/export for testing
 6. **Update Client SDKs** - Regenerate if using code generation
 
----
+***
 
 ## API Documentation Tools
 
@@ -908,7 +909,7 @@ npm run test:api
 npx @openapitools/openapi-generator-cli validate -i swagger.json
 ```
 
----
+***
 
 ## References
 

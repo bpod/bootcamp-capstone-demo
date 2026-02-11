@@ -1,4 +1,5 @@
 ---
+name: accessibility-quick
 description: Quick accessibility audit - find top 5 WCAG 2.1 Level AA violations
 ---
 
@@ -95,6 +96,6 @@ Focus on **quick wins** - issues that are easy to fix with high impact.
 
 **Why it matters**: Screen reader users hear "image" with no context. They can't understand page content.
 
----
+***
 
 Keep it focused, actionable, and quick to implement.

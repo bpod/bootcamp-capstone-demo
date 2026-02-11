@@ -1,4 +1,5 @@
 ---
+name: bundle-analysis
 description: "Analyze and optimize JavaScript bundle size - code splitting, tree shaking, lazy loading"
 ---
 
@@ -26,7 +27,7 @@ Reduce JavaScript bundle sizes to improve load times, Time to Interactive (TTI),
 - FID (First Input Delay): Large bundles delay input response
 - Smaller bundles = faster, more responsive apps
 
----
+***
 
 ## 1. Detect Build Tool & Analyze Current Bundle
 
@@ -131,7 +132,7 @@ du -sh node_modules/* | sort -hr | head -20
 # Visit: https://bundlephobia.com
 ```
 
----
+***
 
 ## 2. Code Splitting Strategies
 
@@ -255,7 +256,7 @@ function UserProfile() {
 }
 ```
 
----
+***
 
 ## 3. Tree Shaking & Dead Code Elimination
 
@@ -327,7 +328,7 @@ import Modal from "@mui/material/Modal";
 }
 ```
 
----
+***
 
 ## 4. Replace Heavy Dependencies
 
@@ -382,7 +383,7 @@ const filtered = users.filter((user) => user.active);
 const mapped = filtered.map((user) => user.name);
 ```
 
----
+***
 
 ## 5. Dynamic Imports for Large Libraries
 
@@ -427,7 +428,7 @@ loadPolyfills().then(() => {
 });
 ```
 
----
+***
 
 ## 6. Optimize Third-Party Scripts
 
@@ -487,7 +488,7 @@ wget https://www.google-analytics.com/analytics.js -O public/analytics.js
 - Reduce DNS lookups
 - Avoid render-blocking from third-party domains
 
----
+***
 
 ## 7. Set Performance Budgets
 
@@ -540,7 +541,7 @@ module.exports = {
 }
 ```
 
----
+***
 
 ## 8. Measure & Validate
 
@@ -589,7 +590,7 @@ window.addEventListener("load", () => {
 });
 ```
 
----
+***
 
 ## Success Criteria
 
@@ -618,7 +619,7 @@ window.addEventListener("load", () => {
 - Lighthouse "Reduce unused JavaScript" scoring 90+
 - TBT (Total Blocking Time) ≤ 300ms
 
----
+***
 
 ## Common Pitfalls to Avoid
 
@@ -630,7 +631,7 @@ window.addEventListener("load", () => {
 ❌ **Optimizing without measuring**: Run bundle analyzer first  
 ❌ **Splitting too aggressively**: Balance bundle count with HTTP/2 multiplexing
 
----
+***
 
 ## Related Prompts
 
@@ -638,7 +639,7 @@ window.addEventListener("load", () => {
 - [core-web-vitals.prompt.md](core-web-vitals.prompt.md) - INP/FID optimization
 - [lighthouse-audit.prompt.md](lighthouse-audit.prompt.md) - Comprehensive audit workflow
 
----
+***
 
 ## Resources
 

@@ -1,4 +1,5 @@
 ---
+name: performance-optimization
 description: Guided performance optimization workflow using Measure-Optimize-Validate loop
 ---
 
@@ -351,6 +352,6 @@ After completing each optimization:
 - [Testing Guidelines](../../docs/testing-guidelines.md)
 - [Project Overview](../../docs/project-overview.md)
 
----
+***
 
 **Remember**: Performance optimization is iterative. Complete one optimization, validate impact, then move to the next. Quality over speed.

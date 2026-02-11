@@ -1,4 +1,5 @@
 ---
+name: core-web-vitals
 description: Check and optimize Core Web Vitals (LCP, INP, CLS) to meet thresholds
 ---
 
@@ -121,7 +122,7 @@ For React/Vue/Angular apps with slow FCP:
 
 **Expected impact:** LCP reduced by 30-60%
 
----
+***
 
 ### Step 3: Optimize INP (Interaction to Next Paint)
 
@@ -210,7 +211,7 @@ const handleClick = useCallback((id) => {
 
 **Expected impact:** INP reduced by 40-70%
 
----
+***
 
 ### Step 4: Optimize CLS (Cumulative Layout Shift)
 
@@ -295,7 +296,7 @@ banner.style.transform = "translateY(0)";
 
 **Expected impact:** CLS reduced to < 0.1
 
----
+***
 
 ### Step 5: Validate Improvements
 
@@ -411,6 +412,6 @@ lighthouse ${url} --budget-path=lighthouse-budget.json
 - [CLS Optimization](https://web.dev/optimize-cls/)
 - [web-vitals Library](https://github.com/GoogleChrome/web-vitals)
 
----
+***
 
 **Focus on the worst-performing metric first** - the weakest link determines your overall Core Web Vitals score.

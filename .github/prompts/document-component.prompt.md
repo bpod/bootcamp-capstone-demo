@@ -1,4 +1,5 @@
 ---
+name: document-component
 description: Generate comprehensive component documentation with props, usage examples, accessibility notes, and TypeScript types
 ---
 
@@ -8,7 +9,7 @@ Generate comprehensive, maintainable documentation for React components includin
 
 **Focus**: Create documentation that helps developers use the component correctly and efficiently.
 
----
+***
 
 ## Documentation Generation Workflow
 
@@ -62,7 +63,7 @@ export function Button({
 - Accessibility: Proper disabled state, keyboard support
 - Customization: Icon support, full-width option
 
----
+***
 
 ### Step 2: Generate Component Header Documentation
 
@@ -102,7 +103,7 @@ export function Button({ ... }: ButtonProps) {
 3. **@component** tag - Identifies as React component
 4. **@example** tags - Multiple usage examples (basic → advanced)
 
----
+***
 
 ### Step 3: Document Props Interface
 
@@ -187,7 +188,7 @@ export interface ButtonProps {
 - Leave obvious props undocumented
 - Forget to document complex types
 
----
+***
 
 ### Step 4: Create Usage Examples
 
@@ -282,7 +283,7 @@ export interface ButtonProps {
  */
 ```
 
----
+***
 
 ### Step 5: Document Accessibility
 
@@ -347,7 +348,7 @@ export interface ButtonProps {
 
 ````
 
----
+***
 
 ### Step 6: Document Browser Support
 
@@ -381,7 +382,7 @@ None. Uses only standard HTML/CSS/React features.
 - Icon prop requires JavaScript (omitted in no-JS environment)
 ````
 
----
+***
 
 ### Step 7: Add Implementation Notes
 
@@ -434,7 +435,7 @@ See `Button.test.tsx` for comprehensive test suite:
 - Accessibility checks pass
 ```
 
----
+***
 
 ### Step 8: Create Standalone README (Optional)
 
@@ -529,7 +530,7 @@ npm test Button.test.tsx
 
 ````
 
----
+***
 
 ## Documentation Templates
 
@@ -621,7 +622,7 @@ export function useHookName(param: ParamType): ReturnType {
 }
 ```
 
----
+***
 
 ## Style Guide
 
@@ -680,7 +681,7 @@ onSubmit: (data: FormData) => void;
 onSubmit: (data: FormData) => void;
 ```
 
----
+***
 
 ## Variables
 
@@ -688,7 +689,7 @@ onSubmit: (data: FormData) => void;
 - `${file}` - Component file path (optional)
 - `${workspaceFolder}` - Project root directory
 
----
+***
 
 ## Success Criteria
 
@@ -702,7 +703,7 @@ After running this prompt:
 ✅ Examples are copy-paste ready  
 ✅ Documentation follows JSDoc/TSDoc conventions
 
----
+***
 
 ## Example Usage
 
@@ -726,7 +727,7 @@ Document the Button component in src/components/Button.tsx
 Generate comprehensive documentation with TypeScript types for the DataTable component
 ```
 
----
+***
 
 ## Follow-up Actions
 
@@ -739,7 +740,7 @@ After generating documentation:
 5. **Generate Type Definitions** - Ensure .d.ts files are up-to-date
 6. **Update Component Tests** - Verify examples from docs are tested
 
----
+***
 
 ## Documentation Tools
 
@@ -767,7 +768,7 @@ npx storybook
 npm run type-check
 ```
 
----
+***
 
 ## Common Patterns
 
@@ -815,7 +816,7 @@ npm run type-check
  */
 ```
 
----
+***
 
 ## References
 

@@ -1,4 +1,5 @@
 ---
+name: readme-generator
 description: Generate comprehensive project README with setup instructions, architecture overview, usage examples, and deployment guides
 ---
 
@@ -8,7 +9,7 @@ Generate comprehensive, well-structured project README files including project o
 
 **Focus**: Create README that helps new developers understand, set up, and contribute to the project quickly.
 
----
+***
 
 ## README Generation Workflow
 
@@ -43,7 +44,7 @@ cat package.json | jq '.devDependencies | keys[]' | grep -E "(vitest|jest|mocha)
 ls -1 | grep -E "(vercel.json|netlify.toml|Dockerfile)"
 ```
 
----
+***
 
 ### Step 2: Create Project Header
 
@@ -61,7 +62,7 @@ ls -1 | grep -E "(vercel.json|netlify.toml|Dockerfile)"
 
 [Live Demo](https://demo.example.com) · [Documentation](https://docs.example.com) · [Report Bug](https://github.com/username/repo/issues) · [Request Feature](https://github.com/username/repo/issues)
 
----
+***
 
 ## Overview
 
@@ -99,7 +100,7 @@ _[Caption describing what the screenshot shows]_
 - Outdated or broken badges
 - Vanity metrics without value
 
----
+***
 
 ### Step 3: Write Table of Contents
 
@@ -124,14 +125,14 @@ _[Caption describing what the screenshot shows]_
 - [FAQ](#faq)
 - [License](#license)
 
----
+***
 ```
 
 **For Short READMEs (<500 lines):**
 
 Skip TOC - keep it simple and scannable without extra navigation.
 
----
+***
 
 ### Step 4: Document Prerequisites
 
@@ -172,7 +173,7 @@ git --version   # Any recent version
 
 ````
 
----
+***
 
 ### Step 5: Write Installation Instructions
 
@@ -269,7 +270,7 @@ The application should now be running at:
 **API:** http://localhost:3000/api  
 **API Docs:** http://localhost:3000/api-docs
 
----
+***
 
 ## Verification
 
@@ -296,7 +297,7 @@ See [Troubleshooting](#troubleshooting) section below for common issues.
 
 ````
 
----
+***
 
 ### Step 6: Write Usage Documentation
 
@@ -363,7 +364,7 @@ npm run format      # Format all files with Prettier
 npm run type-check  # Run TypeScript compiler
 ```
 
----
+***
 
 ## Examples
 
@@ -417,7 +418,7 @@ function LoginPage() {
 }
 ```
 
----
+***
 
 ## Documentation
 
@@ -437,7 +438,7 @@ For more detailed documentation, see:
 
 ````
 
----
+***
 
 ### Step 7: Document Architecture
 
@@ -560,7 +561,7 @@ Response flows back up the chain
 - Suspense for loading states
 ```
 
----
+***
 
 ### Step 8: Write Development Guide
 
@@ -705,7 +706,7 @@ describe('ComponentName', () => {
 - Source maps disabled (optional)
 - Error tracking (Sentry)
 
----
+***
 
 ## Scripts Reference
 
@@ -723,7 +724,7 @@ describe('ComponentName', () => {
 
 ````
 
----
+***
 
 ### Step 9: Document Deployment
 
@@ -826,7 +827,7 @@ curl https://app.example.com/health
 
 ````
 
----
+***
 
 ### Step 10: Add Troubleshooting Section
 
@@ -913,7 +914,7 @@ npm run build
 
 ````
 
----
+***
 
 ### Step 11: Add Contributing Section
 
@@ -976,13 +977,13 @@ PRs require:
 
 Be respectful and inclusive. See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
----
+***
 
 ## License
 
 This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
 
----
+***
 
 ## Acknowledgments
 
@@ -991,7 +992,7 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 - [TypeScript](https://www.typescriptlang.org) - Type safety
 - All [contributors](https://github.com/username/repo/graphs/contributors)
 
----
+***
 
 ## Contact
 
@@ -1002,7 +1003,7 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 **Website:** https://example.com
 ```
 
----
+***
 
 ## README Templates
 
@@ -1084,7 +1085,7 @@ See [Deployment Guide](./docs/deployment.md)
 MIT
 ```
 
----
+***
 
 ## Variables
 
@@ -1092,7 +1093,7 @@ MIT
 - `${input:projectName}` - Project name (prompts if not provided)
 - `${input:description}` - Project description (prompts if not provided)
 
----
+***
 
 ## Success Criteria
 
@@ -1108,7 +1109,7 @@ After running this prompt:
 ✅ Contributing guidelines provided  
 ✅ License and contact information added
 
----
+***
 
 ## Example Usage
 
@@ -1130,7 +1131,7 @@ Review and update the README.md with current project information
 Add deployment section to README for Vercel hosting
 ```
 
----
+***
 
 ## Follow-up Actions
 
@@ -1143,7 +1144,7 @@ After generating README:
 5. **Add to Website** - Display README on project website
 6. **Keep Updated** - README should reflect current state
 
----
+***
 
 ## References
 

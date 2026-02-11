@@ -1,5 +1,6 @@
 ---
-description: Comprehensive accessibility audit using WCAG 2.1 Level AA standards
+name: accessibility-review
+description: Comprehensive accessibility review following WCAG 2.1 Level AA standards
 ---
 
 # Accessibility Review and Remediation

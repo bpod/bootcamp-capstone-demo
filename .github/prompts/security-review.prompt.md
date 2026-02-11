@@ -1,4 +1,5 @@
 ---
+name: security-review
 description: Comprehensive security review covering OWASP Top 10, dependency vulnerabilities, and secure coding practices
 ---
 
@@ -17,7 +18,7 @@ This workflow evaluates security across 6 dimensions:
 5. **Network Security** - HTTPS, CORS, CSP, secure communication
 6. **Client-Side Security** - Token storage, XSS prevention, client secrets
 
----
+***
 
 ## Step 1: Automated Security Scanning
 
@@ -76,7 +77,7 @@ npx license-checker --summary
 npx eslint . --ext .js,.jsx,.ts,.tsx
 ```
 
----
+***
 
 ## Step 2: OWASP Top 10 Analysis
 
@@ -735,7 +736,7 @@ async function fetchExternal(url) {
 - [ ] No access to internal networks via user input
 - [ ] Metadata endpoints blocked (169.254.169.254)
 
----
+***
 
 ## Step 3: Authentication & Authorization Review
 
@@ -808,7 +809,7 @@ async function deletePost(postId) {
 }
 ```
 
----
+***
 
 ## Step 4: Input Validation Review
 
@@ -885,7 +886,7 @@ if (containsSQLInjection(userInput)) {
 }
 ```
 
----
+***
 
 ## Step 5: Secure Coding Practices
 
@@ -965,7 +966,7 @@ fetch("https://api.example.com/data", {
 });
 ```
 
----
+***
 
 ## Step 6: Generate Security Report
 
@@ -1046,14 +1047,14 @@ npm audit fix
 3. Penetration testing
 ```
 
----
+***
 
 ## Variables
 
 - `${workspaceFolder}` - Project root directory
 - `${selection}` - Selected code to review (optional)
 
----
+***
 
 ## Success Criteria
 
@@ -1066,7 +1067,7 @@ After running this prompt:
 ✅ Security report generated with prioritized fixes  
 ✅ Action plan created with timeline
 
----
+***
 
 ## Example Usage
 
@@ -1091,7 +1092,7 @@ Review this code for security vulnerabilities
 Check project for dependency vulnerabilities
 ```
 
----
+***
 
 ## Security Checklist
 
@@ -1156,7 +1157,7 @@ Use this checklist for manual verification:
 - [ ] No sensitive data in logs
 - [ ] Alerts configured for anomalies
 
----
+***
 
 ## Follow-up Actions
 
@@ -1169,7 +1170,7 @@ After security review:
 5. **Schedule Regular Reviews** - Monthly security audits
 6. **Update Memory System** - Document vulnerabilities found, preventive patterns
 
----
+***
 
 ## References
 

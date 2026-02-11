@@ -1,4 +1,5 @@
 ---
+name: react-accessibility
 description: "React-specific accessibility patterns, testing, and WCAG compliance in JSX"
 ---
 
@@ -8,7 +9,7 @@ Comprehensive guide to implementing accessible React components. Covers JSX-spec
 
 **Focus**: React implementation patterns for WCAG 2.1 Level AA compliance
 
----
+***
 
 ## Why React Accessibility Matters
 
@@ -29,7 +30,7 @@ Comprehensive guide to implementing accessible React components. Covers JSX-spec
 - Legal compliance (ADA, Section 508, WCAG)
 - Better component design (accessibility forces good patterns)
 
----
+***
 
 ## 1. Semantic HTML in JSX
 
@@ -126,7 +127,7 @@ function ProductCard({ level = 2 }) {
 }
 ```
 
----
+***
 
 ## 2. ARIA in React
 
@@ -350,7 +351,7 @@ function SearchResults({ query }) {
 }
 ```
 
----
+***
 
 ## 3. Focus Management
 
@@ -471,7 +472,7 @@ function App() {
 }
 ```
 
----
+***
 
 ## 4. Keyboard Navigation
 
@@ -570,7 +571,7 @@ function Dropdown({ label, options, value, onChange }) {
 }
 ```
 
----
+***
 
 ## 5. React Hooks for Accessibility
 
@@ -718,7 +719,7 @@ function Modal({ isOpen, onClose, children }) {
 }
 ```
 
----
+***
 
 ## 6. Testing Accessibility in React
 
@@ -929,7 +930,7 @@ function AlertMessage({ type, message }) {
 // □ Test with screen reader shortcuts (H for headings, etc.)
 ```
 
----
+***
 
 ## 7. Common React A11y Anti-Patterns
 
@@ -1008,7 +1009,7 @@ function BadModal({ isOpen, children }) {
 // ✅ GOOD: Full accessibility support (see Modal example in section 2)
 ```
 
----
+***
 
 ## 8. Accessibility Checklist for React Components
 
@@ -1026,7 +1027,7 @@ function BadModal({ isOpen, children }) {
 - [ ] **Live Regions**: Dynamic content changes announced (aria-live)
 - [ ] **Testing**: Passes jest-axe, manual keyboard testing, screen reader testing
 
----
+***
 
 ## 9. Tools and Resources
 
@@ -1064,7 +1065,7 @@ npm install --save-dev @testing-library/react @testing-library/user-event
 - [Inclusive Components](https://inclusive-components.design/)
 - [A11y Project](https://www.a11yproject.com/)
 
----
+***
 
 ## Summary
 
