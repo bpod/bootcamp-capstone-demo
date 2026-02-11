@@ -119,7 +119,7 @@ This document tracks what remains to be implemented to complete the project visi
   - [x] `react-hook-migration.prompt.md` - Migrate class to functional components ✅
   - [x] `react-state-refactor.prompt.md` - Improve state management ✅
   - [x] `react-accessibility.prompt.md` - React-specific a11y patterns ✅
-x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
+  - [x] `react-component.instructions.md` (applyTo: "**/*.jsx,**/*.tsx") ✅
   - [ ] Additional React-specific instructions (hooks, testing) folded into react-component.instructions.md
   - [ ] `react-hooks.instructions.md` (applyTo: "**/*.jsx,**/*.tsx")
   - [ ] `react-testing.instructions.md` (applyTo: "**/*.test.jsx,**/*.test.tsx")
