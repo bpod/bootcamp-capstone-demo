@@ -12,7 +12,7 @@ An AI-native development toolkit combining Google Lighthouse guidelines, Core We
 
 ## ✨ What This Toolkit Provides
 
-### 🚀 **21 Ready-to-Use Prompts** (140% of target!)
+### 🚀 **22 Ready-to-Use Prompts** (147% of target!)
 Reusable workflows for common development tasks:
 - **Web Quality**: Lighthouse audits, accessibility reviews, performance optimization, Core Web Vitals
 - **React**: Component reviews, render optimization, hook migration, state refactoring
@@ -21,9 +21,9 @@ Reusable workflows for common development tasks:
 - **Documentation**: Component docs, API docs, README generation
 - **Performance**: Budget enforcement, browser compatibility testing
 
-**[→ Browse All Prompts](.github/prompts/CATALOG.md)**
+**[→ Browse All Prompts](.github/prompts/)**
 
-### 🤖 **5 Specialized AI Agents** (83% complete)
+### 🤖 **5 Specialized AI Agents** (Complete!)
 Expert AI assistants for specific workflows:
 - **frontend-developer**: General development, web quality, performance (default)
 - **accessibility-expert**: WCAG compliance, a11y testing
@@ -31,7 +31,7 @@ Expert AI assistants for specific workflows:
 - **testing-specialist**: TDD, test generation, RTL patterns
 - **copilot-customization**: Extending this toolkit
 
-**[→ Browse All Agents](.github/agents/CATALOG.md)**
+**[→ Browse All Agents](.github/agents/)**
 
 ### 📋 **6 Auto-Apply Instructions** (120% of target!)
 Context-aware guidance that automatically activates:
@@ -42,7 +42,7 @@ Context-aware guidance that automatically activates:
 - **Config Files**: Build tools, linting, environment variables
 - **Markdown**: Documentation structure and formatting
 
-**[→ Browse All Instructions](.github/instructions/CATALOG.md)**
+**[→ Browse All Instructions](.github/instructions/)**
 
 ---
 
@@ -72,13 +72,15 @@ Context-aware guidance that automatically activates:
 - ❌ BAD / ✅ GOOD pattern comparisons
 - Multi-step workflows with success criteria
 
-### 🔧 **MCP Server Automation**
-- **Automated tool execution** - One-click Lighthouse audits, accessibility checks, React analysis
-- **Pattern references** - Responses cite [web-quality-skills](https://github.com/addyosmani/web-quality-skills) and [Vercel React patterns](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
-- **Intelligent suggestions** - Context-aware recommendations from authoritative sources
-- **Seamless integration** - Tools automatically available in Copilot Chat
+### 🔧 **MCP Server Automation** (12 Tools)
+- **Automated tool execution** - Lighthouse audits, accessibility checks, React analysis
+- **Authoritative pattern integration** - Responses reference [web-quality-skills](https://github.com/addyosmani/web-quality-skills) (Google Chrome Team) and [Vercel React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
+- **Intelligent recommendations** - Context-aware suggestions from industry-standard sources
+- **Two MCP servers**: web-quality-skills (6 tools) + react-best-practices (6 tools)
 
-**[→ MCP Servers Documentation](scripts/mcp-servers/README.md)**
+> **Note**: MCP features require VS Code Insiders or pre-release GitHub Copilot Chat extension. See [MCP Setup Guide](docs/mcp-setup.md) for details.
+
+**[→ MCP Server Documentation](scripts/mcp-servers/README.md)**
 
 ---
 
@@ -87,8 +89,9 @@ Context-aware guidance that automatically activates:
 ### Prerequisites
 
 - **Node.js** 16+ and npm/pnpm/yarn
-- **VS Code** with GitHub Copilot extension
+- **VS Code** (Stable or Insiders) with GitHub Copilot extension
 - **GitHub Copilot subscription** (Individual, Business, or Enterprise)
+- **Optional**: VS Code Insiders or pre-release Copilot Chat extension for MCP automation and experimental prompt features
 
 ### Installation
 
@@ -111,15 +114,20 @@ cp -r bootcamp-capstone-demo/docs your-project/
 2. Search for "Copilot"
 3. Enable these settings:
    - ✅ `github.copilot.chat.codeGeneration.useInstructionFiles`
-   - ✅ `chat.promptFiles` (experimental)
+   - ✅ `chat.experimental.promptFiles.enabled` (requires VS Code Insiders or pre-release extension)
+   - ✅ `chat.experimental.chatModes.enabled` (for agents/modes)
+
+> **Tip**: For full MCP and prompt file support, install [VS Code Insiders](https://code.visualstudio.com/insiders/) or switch GitHub Copilot Chat to pre-release version.
 
 ### Verify Setup
 
 1. Open GitHub Copilot Chat (`Cmd+Shift+I` on Mac, `Ctrl+Shift+I` on Windows/Linux)
 2. Type `@` to see available agents
 3. You should see: `@frontend-developer`, `@accessibility-expert`, `@performance-tuner`, etc.
-4. Press `Cmd+Shift+P` and search "Chat: Run Prompt"
-5. You should see all 21 prompts available
+4. Type `#` to see available prompts (22 prompts if experimental features enabled)
+5. Check View → Output → MCP dropdown to verify MCP servers loaded (if using Insiders)
+
+**Fallback**: If prompts don't appear with `#`, use `#file:.github/prompts/prompt-name.prompt.md` to attach directly.
 
 **[→ Detailed Quick Start Guide](docs/quick-start.md)**
 
@@ -165,13 +173,14 @@ cp -r bootcamp-capstone-demo/docs your-project/
 - **[Implementation Roadmap](docs/implementation-roadmap.md)** - Progress and future plans
 - **[Workflow Patterns](docs/workflow-patterns.md)** - Agentic development cycles
 - **[Testing Guidelines](docs/testing-guidelines.md)** - Quality validation strategies
+- **[MCP Setup Guide](docs/mcp-setup.md)** - Configure MCP servers for automation
 - **[Solution Evaluation](docs/solution-evaluation.md)** - Comprehensive analysis and roadmap
 
 ### Catalogs
 
-- **[Prompts Catalog](.github/prompts/CATALOG.md)** - All 21 prompts with use cases
-- **[Agents Catalog](.github/agents/CATALOG.md)** - All 5 agents with specializations
-- **[Instructions Catalog](.github/instructions/CATALOG.md)** - All 6 auto-apply instructions
+- **[Prompts](.github/prompts/)** - All 22 prompts with use cases
+- **[Agents](.github/agents/)** - All 5 agents with specializations
+- **[Instructions](.github/instructions/)** - All 6 auto-apply instructions
 
 ---
 
@@ -215,11 +224,12 @@ cp -r bootcamp-capstone-demo/docs your-project/
 ## 📊 Quality Metrics
 
 ### Current State (as of Feb 2026)
-- ✅ **21 Prompts** (140% of target) - Exceeds goal by 40%
+- ✅ **22 Prompts** (147% of target) - Exceeds goal by 47%
 - ✅ **6 Instructions** (120% of target) - Exceeds goal by 20%
-- ✅ **5 Agents** (83% of target) - Near complete
+- ✅ **5 Agents** (100% complete) - All implemented
+- ✅ **12 MCP Tools** (6 web-quality + 6 react-dev)
 - ✅ **~24,000 lines** of expert guidance
-- ✅ **42 configuration files** total
+- ✅ **Authoritative pattern integration** - web-quality-skills & Vercel React patterns
 
 ### Performance Goals
 - **Lighthouse Performance Score**: 90+ (target: 100)
@@ -253,10 +263,11 @@ This project is free and open-source. Use it, modify it, share it!
 
 ## 🙏 Acknowledgments
 
-Inspired by:
+Built with industry standards:
+- [Web Quality Skills](https://github.com/addyosmani/web-quality-skills) - Addy Osmani (Google Chrome Team)
+- [Vercel Agent Skills - React Best Practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices)
 - [Google Lighthouse](https://developers.google.com/web/tools/lighthouse)
 - [GitHub Copilot](https://github.com/features/copilot)
-- [React Testing Library](https://testing-library.com/react)
 - [WCAG Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [Core Web Vitals](https://web.dev/vitals/)
 
