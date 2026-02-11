@@ -230,6 +230,124 @@ The working memory system tracks three types of information:
 
 **For Complete Documentation**: See [memory/README.md](memory/README.md) for detailed workflows, examples, and best practices.
 
+## Tool Sets
+
+This project uses **tool sets** to organize and control which tools are available in different contexts. Tool sets group related capabilities to reduce noise and improve focus during specialized workflows.
+
+### Configured Tool Sets
+
+Three tool sets are defined in `.vscode/settings.json`:
+
+#### 1. `readonly` - Code Exploration
+
+**Purpose**: Safe, non-mutating operations for code analysis and search.
+
+**Tools**:
+
+- `codebase` - Semantic search across workspace
+- `search` - Text/regex search in files
+- `fetch` - Retrieve web content
+- `usages` - Find references/definitions
+- `problems` - View compile/lint errors
+
+**When to Use**:
+
+- Code review workflows
+- Understanding existing codebases
+- Planning refactoring without making changes
+- Documentation generation
+
+#### 2. `web-quality` - Performance & Accessibility
+
+**Purpose**: Web quality optimization and validation workflows.
+
+**Tools** (requires MCP server implementation):
+
+- `lighthouse_audit` - Run Lighthouse performance audits
+- `analyze_performance` - Core Web Vitals analysis
+- `check_accessibility` - WCAG 2.1 Level AA compliance checks
+- `optimize_images` - Image format and loading recommendations
+- `analyze_bundle` - JavaScript bundle size analysis
+
+**When to Use**:
+
+- Performance optimization workflows
+- Accessibility audits
+- Pre-deployment quality checks
+- Core Web Vitals monitoring
+
+**Status**: Infrastructure ready, awaiting MCP server implementation. See [mcp-setup.md](../docs/mcp-setup.md) for details.
+
+#### 3. `react-dev` - React Development
+
+**Purpose**: React-specific development assistance and pattern recommendations.
+
+**Tools** (requires MCP server implementation):
+
+- `review_component` - React component best practices analysis
+- `suggest_hooks` - Hook usage patterns and recommendations
+- `detect_anti_patterns` - Identify React anti-patterns
+- `optimize_renders` - Find unnecessary re-renders
+- `suggest_state_management` - State management strategy recommendations
+
+**When to Use**:
+
+- React component development
+- Performance optimization (React-specific)
+- Code review for React patterns
+- Refactoring class components to hooks
+
+**Status**: Infrastructure ready, awaiting MCP server implementation. See [mcp-setup.md](../docs/mcp-setup.md) for details.
+
+### Using Tool Sets in Chat Modes
+
+Chat modes can specify which tool sets to use via the `tools` property in their frontmatter:
+
+```markdown
+---
+description: "Performance optimization specialist"
+tools: ["readonly", "web-quality"]
+---
+```
+
+This restricts the mode to only tools from those sets, keeping the interaction focused.
+
+### Using Tool Sets in Prompts
+
+Prompt files can also specify tool sets:
+
+```markdown
+---
+description: "Run Lighthouse audit"
+tools: ["web-quality"]
+---
+```
+
+### Adding New Tool Sets
+
+To create a new tool set, add it to `.vscode/settings.json`:
+
+```jsonc
+"chat.toolSets": {
+  "my-custom-set": [
+    "codebase",
+    "my_mcp_tool"
+  ]
+}
+```
+
+Then reference it in chat modes or prompts by name.
+
+### MCP Integration
+
+Tool sets can include both built-in VS Code tools and MCP server tools. When MCP servers are configured in `.vscode/mcp.json`, their tools become available and can be grouped into tool sets for easier management.
+
+**See Also**:
+
+- [MCP Setup Guide](../docs/mcp-setup.md) - Configure MCP servers
+- [Chat Modes](chatmodes/) - Specialized agents using tool sets
+- [Prompt Files](prompts/) - On-demand workflows with tool sets
+
 ## Code Generation Guidelines
 
 ### When Suggesting Optimizations

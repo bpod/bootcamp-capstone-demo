@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo App - Web Quality Testing</title>
+
+    <!-- ISSUE: Render-blocking CSS (not minified, not inlined for critical CSS) -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- ISSUE: Render-blocking JavaScript -->
+    <script src="script.js"></script>
+
+    <!-- ISSUE: Missing resource hints for external resources -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ISSUE: Missing skip navigation link -->
+
+    <header>
+      <!-- ISSUE: Non-semantic div instead of nav -->
+      <div class="navigation">
+        <!-- ISSUE: Links without descriptive text -->
+        <a href="#" onclick="navigate('home')">Home</a>
+        <a href="#" onclick="navigate('about')">About</a>
+        <a href="#" onclick="navigate('products')">Products</a>
+        <a href="#" onclick="navigate('contact')">Contact</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Welcome to Our Demo App</h1>
+
+        <!-- ISSUE: Image without width/height causing CLS -->
+        <!-- ISSUE: Not using modern format (WebP/AVIF) -->
+        <!-- ISSUE: Not lazy loaded -->
+        <!-- ISSUE: Missing alt text -->
+        <img
+          src="https://via.placeholder.com/1200x600.jpg"
+          class="hero-image"
+        />
+
+        <!-- ISSUE: Inline onclick instead of event listener -->
+        <button onclick="showModal()">Learn More</button>
+      </section>
+
+      <section class="features">
+        <h2>Our Features</h2>
+
+        <div class="feature-grid">
+          <!-- ISSUE: Multiple large images without lazy loading -->
+          <div class="feature-card">
+            <!-- ISSUE: Poor color contrast -->
+            <h3 style="color: #aaa">Fast Performance</h3>
+            <img src="https://via.placeholder.com/400x300.jpg" />
+            <p>Lightning fast load times</p>
+          </div>
+
+          <div class="feature-card">
+            <h3 style="color: #999">Great Design</h3>
+            <img src="https://via.placeholder.com/400x300.jpg" />
+            <p>Beautiful and modern</p>
+          </div>
+
+          <div class="feature-card">
+            <h3 style="color: #888">Easy to Use</h3>
+            <img src="https://via.placeholder.com/400x300.jpg" />
+            <p>Intuitive interface</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="testimonials">
+        <h2>What Our Users Say</h2>
+
+        <!-- ISSUE: Using div instead of blockquote -->
+        <div class="testimonial">
+          <p>"This is amazing!" - Customer 1</p>
+        </div>
+
+        <div class="testimonial">
+          <p>"Best product ever!" - Customer 2</p>
+        </div>
+      </section>
+
+      <!-- ISSUE: Form without proper labels and validation -->
+      <section class="contact-form">
+        <h2>Contact Us</h2>
+
+        <form onsubmit="submitForm(event)">
+          <!-- ISSUE: Input without associated label -->
+          <input type="text" placeholder="Your name" id="name" />
+
+          <!-- ISSUE: Input without label and poor accessibility -->
+          <input type="email" placeholder="your@email.com" id="email" />
+
+          <!-- ISSUE: Textarea without label -->
+          <textarea placeholder="Your message" id="message"></textarea>
+
+          <!-- ISSUE: Button without type attribute -->
+          <!-- ISSUE: Generic "click here" style text -->
+          <button>Submit</button>
+        </form>
+      </section>
+
+      <!-- ISSUE: Nested divs instead of proper semantic structure -->
+      <div class="products">
+        <div class="product-header">
+          <div class="product-title">Our Products</div>
+        </div>
+
+        <div class="product-list">
+          <!-- ISSUE: Clickable div instead of button/link -->
+          <div class="product-item" onclick="viewProduct(1)">
+            <span>Product 1</span>
+            <span class="price">$99</span>
+          </div>
+
+          <div class="product-item" onclick="viewProduct(2)">
+            <span>Product 2</span>
+            <span class="price">$149</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ISSUE: Modal without proper focus management -->
+    <div id="modal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Modal Title</h2>
+        <p>Modal content goes here</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Demo App. All rights reserved.</p>
+
+      <!-- ISSUE: Social media links without aria-labels -->
+      <div class="social-links">
+        <a href="#"><img src="https://via.placeholder.com/30x30.png" /></a>
+        <a href="#"><img src="https://via.placeholder.com/30x30.png" /></a>
+        <a href="#"><img src="https://via.placeholder.com/30x30.png" /></a>
+      </div>
+    </footer>
+
+    <!-- ISSUE: Large JavaScript library loaded but only small portion used -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+  </body>
+</html>
