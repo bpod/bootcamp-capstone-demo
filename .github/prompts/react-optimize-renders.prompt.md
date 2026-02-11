@@ -1,6 +1,7 @@
 ---
-name: react-optimize-renders
 description: Find and fix unnecessary React re-renders to improve performance
+agent: frontend-developer
+tools: ["readonly", "react-dev"]
 ---
 
 Diagnose and fix unnecessary re-renders in React ${selection} or ${file}.

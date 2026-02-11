@@ -1,6 +1,7 @@
 ---
-name: react-accessibility
 description: React-specific accessibility patterns, testing, and WCAG compliance in JSX
+agent: frontend-developer
+tools: ["readonly", "react-dev", "web-quality"]
 ---
 
 Implement accessible React components following WCAG 2.1 Level AA.

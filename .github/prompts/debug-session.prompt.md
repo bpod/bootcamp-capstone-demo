@@ -1,6 +1,7 @@
 ---
-name: debug-session
 description: Structured debugging workflow using Chrome DevTools, logging strategies, and systematic problem isolation
+agent: agent
+tools: ["readonly"]
 ---
 
 Systematic debugging workflow for frontend issues.

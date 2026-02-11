@@ -44,48 +44,95 @@ Copy this template when documenting a new pattern:
 
 ## Pattern: Prompt File Agent Specification
 
-**Context**: All prompt files (`.prompt.md`) should specify which agent should execute them via the `agent:` frontmatter property.
+**Context**: All prompt files (`.prompt.md`) should specify which specialized agent should execute them via the `agent:` frontmatter property.
 
-**Problem**: Using the generic `agent: "agent"` doesn't leverage the specialized context, tools, and instructions of custom agents we've created (frontend-developer, accessibility-expert, copilot-customization).
+**Problem**: Using the generic `agent: "agent"` doesn't leverage the specialized context, tools, and instructions of custom agents we've defined in `.github/agents/`.
 
-**Solution**: Map each prompt to the most appropriate specialized agent based on the prompt's domain:
+**Solution**: Map each prompt to the most appropriate specialized agent based on the prompt's domain expertise. We have 5 custom agents defined:
 
-- **Accessibility prompts** → `accessibility-expert`
-  - accessibility-review.prompt.md
-  - react-accessibility.prompt.md
-  
-- **Frontend/React/Performance prompts** → `frontend-developer`
-  - lighthouse-audit.prompt.md
-  - performance-optimization.prompt.md
-  - core-web-vitals.prompt.md
-  - image-optimization.prompt.md
-  - bundle-analysis.prompt.md
-  - react-component-review.prompt.md
-  - react-optimize-renders.prompt.md
-  - react-hook-migration.prompt.md
-  - react-state-refactor.prompt.md
+### Agent Mapping (Complete as of Feb 2026)
 
-- **Testing prompts** → `testing-specialist`
-  - test-generation.prompt.md (planned)
-  - Any TDD or React Testing Library focused prompts
+**Performance Tuner** (`performance-tuner`) - 6 prompts:
+- lighthouse-audit.prompt.md
+- performance-optimization.prompt.md
+- core-web-vitals.prompt.md
+- image-optimization.prompt.md
+- bundle-analysis.prompt.md
+- performance-budget.prompt.md
 
-- **General code quality** → `agent` (keep generic)
-  - code-review.prompt.md (applies across all languages/frameworks)
+**Accessibility Expert** (`accessibility-expert`) - 2 prompts:
+- accessibility-review.prompt.md
+- accessibility-quick.prompt.md
 
-**Benefits**:
+**Frontend Developer** (`frontend-developer`) - 9 prompts:
+- react-component-review.prompt.md
+- react-accessibility.prompt.md (React + a11y hybrid)
+- react-optimize-renders.prompt.md
+- react-hook-migration.prompt.md
+- react-state-refactor.prompt.md
+- code-review.prompt.md
+- refactor-guide.prompt.md
+- browser-compatibility.prompt.md
+- document-component.prompt.md
+- readme-generator.prompt.md
 
-1. **Automatic Context**: Prompt inherits the agent's specialized instructions and knowledge
-2. **Appropriate Tools**: Agent's configured tool set is available (e.g., accessibility-expert has runCommands for axe-core)
-3. **Consistent Expertise**: Same agent context whether invoked via chat or prompt file
-4. **Better Results**: Specialized agents have deeper domain knowledge and better patterns
+**Testing Specialist** (`testing-specialist`) - 1 prompt:
+- test-generation.prompt.md
+
+**Generic Agent** (`agent`) - 2 prompts (cross-cutting concerns):
+- security-review.prompt.md (security is language/framework agnostic)
+- debug-session.prompt.md (debugging applies universally)
+- document-api.prompt.md (API docs are backend-focused)
+
+### Decision Rationale
+
+**Why specialized agents?**
+1. **Deeper Context**: Agent brings specialized domain knowledge and patterns
+2. **Appropriate Tools**: Agent has domain-specific MCP tools pre-configured
+3. **Consistent Expertise**: Same specialized context whether invoked via chat or prompt
+4. **Better Results**: Domain-focused agents produce higher-quality recommendations
+
+**Why some stay generic?**
+- Security, debugging, and API documentation are cross-cutting concerns
+- They apply across languages, frameworks, and tech stacks
+- No single specialized agent owns these domains
+- Generic `agent` provides flexibility without losing context
+
+### Frontmatter Format
+
+**Correct format** (note: `agent` not `mode`):
+
+```yaml
+---
+description: "Brief description of prompt purpose"
+agent: performance-tuner  # ✅ Specialized agent
+tools: ["readonly", "web-quality"]
+---
+```
+
+**Deprecated format**:
+
+```yaml
+---
+name: prompt-name  # ❌ Redundant - filename is the identifier
+mode: agent        # ❌ Deprecated property - use 'agent:' instead
+---
+```
+
+### Benefits Observed
+
+1. **Automatic Tool Access**: Prompts inherit agent's MCP tool configuration
+2. **Contextual Expertise**: Agent's specialized instructions augment prompt guidance
+3. **Consistent Behavior**: Same agent behavior in chat and prompt invocation
+4. **Better Discoverability**: Users know which agent handles which domain
 
 **Example**:
 
 ```yaml
 ---
-description: "Review React component for best practices"
-agent: "frontend-developer"  # ✅ Uses frontend-developer context
-tools: ["codebase", "search", "problems"]
+description: "Optimize Core Web Vitals"
+agent: performance-tuner  # ✅ Gets performance tuning context, Lighthouse tools
+tools: ["readonly", "web-quality"]
 ---
 ```
 
@@ -93,11 +140,138 @@ tools: ["codebase", "search", "problems"]
 
 ```yaml
 ---
-description: "Review React component for best practices"
-agent: "agent"  # ❌ Generic agent lacks React-specific context
-tools: ["codebase", "search", "problems"]
+description: "Optimize Core Web Vitals"
+agent: agent  # ❌ Misses specialized performance tuning context
+tools: ["readonly", "web-quality"]
 ---
 ```
+
+---
+
+## Pattern: Prompt File Frontmatter Format
+
+**Context**: GitHub Copilot prompt files (`.prompt.md`) use YAML frontmatter to configure behavior. The format has evolved and certain properties are deprecated or redundant.
+
+**Problem**: Older documentation shows `name:` and `mode:` properties that are either redundant or deprecated, leading to incorrect prompt file configuration.
+
+**Solution**: Use the current GitHub Copilot prompt frontmatter format (as of Feb 2026):
+
+### Required Properties
+
+```yaml
+---
+description: "Brief description shown in prompt picker"  # REQUIRED
+agent: agent-name                                        # REQUIRED (or ask/edit)
+tools: ["tool1", "tool2"]                               # OPTIONAL but recommended
+---
+```
+
+### Property Details
+
+**`description:`** (REQUIRED)
+- Brief description shown when user browses prompts
+- Shown in `#` autocomplete menu in Copilot Chat
+- Keep concise but descriptive (50-100 characters ideal)
+
+**`agent:`** (REQUIRED)
+- Specifies execution mode and/or custom agent
+- Values:
+  - `agent` - Multi-turn conversational workflow (generic)
+  - `ask` - Single-response query (no follow-up conversation)
+  - `edit` - Direct code editing workflow
+  - Custom agent name: `performance-tuner`, `accessibility-expert`, `frontend-developer`, `testing-specialist`
+
+**`tools:`** (OPTIONAL)
+- Array of available tools for this prompt
+- Can reference tool sets defined in [.vscode/settings.json](../../.vscode/settings.json)
+- Can list individual MCP tools or built-in VS Code tools
+- Example: `["readonly", "web-quality"]` references two tool sets
+
+### Deprecated/Removed Properties
+
+**`name:`** - ❌ DEPRECATED
+- Redundant - filename serves as the identifier
+- Prompt accessed via `#lighthouse-audit` not `#name-field-value`
+- Remove from all prompts
+
+**`mode:`** - ❌ DEPRECATED (renamed to `agent:`)
+- Older property name for specifying execution mode
+- Replaced by `agent:` property
+- If present, rename to `agent:`
+
+### Format Examples
+
+**Multi-turn workflow with custom agent:**
+
+```yaml
+---
+description: Optimize Core Web Vitals (LCP, INP, CLS)
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
+---
+```
+
+**Quick single-response query:**
+
+```yaml
+---
+description: Quick accessibility scan
+agent: ask
+tools: ["readonly", "web-quality"]
+---
+```
+
+**Code editing workflow:**
+
+```yaml
+---
+description: Refactor component to use hooks
+agent: edit
+tools: ["readonly", "react-dev"]
+---
+```
+
+**Generic multi-turn (cross-cutting concerns):**
+
+```yaml
+---
+description: Security review covering OWASP Top 10
+agent: agent
+tools: ["readonly"]
+---
+```
+
+### Anti-Patterns
+
+```yaml
+---
+name: lighthouse-audit              # ❌ Redundant - remove
+mode: agent                         # ❌ Deprecated - use 'agent:' instead
+description: Run Lighthouse audit
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
+---
+```
+
+### Benefits
+
+1. **Simpler frontmatter**: Fewer required fields
+2. **Clear intent**: `agent:` property explicitly shows execution mode
+3. **Better tooling**: VS Code recognizes current format for validation
+4. **Future-proof**: Aligns with latest GitHub Copilot customization features
+
+**When to Use Each Agent Value**:
+
+- `agent: agent` - Generic multi-turn workflow for cross-cutting concerns
+- `agent: ask` - Quick single-answer queries that don't need follow-up
+- `agent: edit` - Direct code modifications (rare for our toolkit)
+- `agent: <custom-name>` - Specialized workflows that benefit from domain expertise
+
+**Related Files**:
+- [.github/prompts/*.prompt.md](../../prompts/) - All prompt files follow this format
+- [GitHub Copilot Prompt Files Docs](https://code.visualstudio.com/docs/copilot/customization/prompt-files)
+
+---
 
 **When to Use Generic Agent**:
 

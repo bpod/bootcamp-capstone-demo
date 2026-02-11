@@ -1,6 +1,7 @@
 ---
-name: core-web-vitals
 description: Check and optimize Core Web Vitals (LCP, INP, CLS) to meet thresholds
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
 ---
 
 Optimize Core Web Vitals for ${input:url} to meet "good" thresholds.

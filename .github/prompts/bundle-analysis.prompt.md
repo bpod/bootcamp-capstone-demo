@@ -1,6 +1,7 @@
 ---
-name: bundle-analysis
 description: Analyze and optimize JavaScript bundle size - code splitting, tree shaking, lazy loading
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
 ---
 
 Reduce JavaScript bundle size to improve TTI and load performance.

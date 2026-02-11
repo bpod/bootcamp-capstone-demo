@@ -1,6 +1,7 @@
 ---
-name: code-review
 description: Comprehensive code review analyzing quality, maintainability, performance, and best practices
+agent: frontend-developer
+tools: ["readonly"]
 ---
 
 Perform multi-dimensional code review of ${selection} or ${file}.

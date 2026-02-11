@@ -1,6 +1,7 @@
 ---
-name: document-component
 description: Generate comprehensive component documentation with props, usage examples, accessibility notes, and TypeScript types
+agent: frontend-developer
+tools: ["readonly"]
 ---
 
 Generate component documentation for React ${selection} or ${file}.

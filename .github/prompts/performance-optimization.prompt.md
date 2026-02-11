@@ -1,6 +1,7 @@
 ---
-name: performance-optimization
 description: Guided performance optimization workflow using Measure-Optimize-Validate loop
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
 ---
 
 Systematic performance improvement following **Measure-Optimize-Validate** loop.

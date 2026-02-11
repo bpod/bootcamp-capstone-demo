@@ -1,6 +1,7 @@
 ---
-name: performance-budget
 description: Define and enforce performance budgets for assets, bundles, and metrics with CI/CD integration
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
 ---
 
 Define and enforce performance budgets to prevent regressions.

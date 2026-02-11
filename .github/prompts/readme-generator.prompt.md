@@ -1,6 +1,7 @@
 ---
-name: readme-generator
 description: Generate comprehensive project README with setup instructions, architecture overview, usage examples, and deployment guides
+agent: frontend-developer
+tools: ["readonly"]
 ---
 
 Generate comprehensive README.md for ${workspaceFolder}.

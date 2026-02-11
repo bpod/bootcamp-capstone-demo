@@ -1,6 +1,7 @@
 ---
-name: react-state-refactor
 description: Improve React state management patterns - lift state, context, reducers, and external libraries
+agent: frontend-developer
+tools: ["readonly", "react-dev"]
 ---
 
 Refactor state management in React ${selection} or ${file} using appropriate patterns.

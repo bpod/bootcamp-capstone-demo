@@ -1,6 +1,7 @@
 ---
-name: react-component-review
 description: Review React component against Vercel best practices and performance patterns
+agent: frontend-developer
+tools: ["readonly", "react-dev"]
 ---
 
 Review React component(s) for best practices, performance, accessibility, and maintainability.

@@ -1,6 +1,7 @@
 ---
-name: test-generation
 description: Generate comprehensive tests for components using React Testing Library and TDD principles
+agent: testing-specialist
+tools: ["readonly"]
 ---
 
 Generate tests for ${selection} or ${file} following Testing Library principles.

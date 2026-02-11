@@ -1,6 +1,7 @@
 ---
-name: security-review
 description: Comprehensive security review covering OWASP Top 10, dependency vulnerabilities, and secure coding practices
+agent: agent
+tools: ["readonly"]
 ---
 
 Perform security analysis of ${selection} or ${file} covering OWASP Top 10 and frontend security.

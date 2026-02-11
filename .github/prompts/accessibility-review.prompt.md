@@ -1,6 +1,7 @@
 ---
-name: accessibility-review
 description: Comprehensive accessibility review following WCAG 2.1 Level AA standards
+agent: accessibility-expert
+tools: ["readonly", "web-quality"]
 ---
 
 Perform accessibility audit of ${selection}, ${file}, or ${input:url} following WCAG 2.1 Level AA standards.

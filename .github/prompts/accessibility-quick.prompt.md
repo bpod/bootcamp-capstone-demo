@@ -1,6 +1,7 @@
 ---
-name: accessibility-quick
-description: Quick accessibility audit - find top 5 WCAG 2.1 Level AA violations
+description: Quick accessibility scan identifying top 5 critical WCAG violations
+agent: accessibility-expert
+tools: ["readonly", "web-quality"]
 ---
 
 Identify **top 5 most critical** WCAG 2.1 Level AA violations in ${file} or ${selection}.

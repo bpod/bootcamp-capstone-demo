@@ -1,6 +1,7 @@
 ---
-name: browser-compatibility
 description: Cross-browser compatibility testing, polyfills, and progressive enhancement strategies
+agent: frontend-developer
+tools: ["readonly"]
 ---
 
 Ensure cross-browser compatibility for ${workspaceFolder} or ${selection}.

@@ -1,6 +1,7 @@
 ---
-name: lighthouse-audit
 description: Run comprehensive Lighthouse audit and get actionable optimization recommendations
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
 ---
 
 Run a Lighthouse audit and provide prioritized optimization recommendations.

@@ -1,6 +1,7 @@
 ---
-name: image-optimization
 description: Optimize images for web performance - format selection, sizing, lazy loading, CDN delivery
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
 ---
 
 Optimize images to improve LCP and reduce page weight.

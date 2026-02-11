@@ -1,6 +1,7 @@
 ---
-name: document-api
 description: Generate comprehensive API endpoint documentation with request/response schemas, authentication, error codes, and usage examples
+agent: agent
+tools: ["readonly"]
 ---
 
 Generate API documentation for ${selection} or ${file} following OpenAPI/Swagger conventions.

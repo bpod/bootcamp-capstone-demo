@@ -1,6 +1,7 @@
 ---
-name: refactor-guide
-description: "Step-by-step refactoring guide with safety nets, code smell detection, and incremental improvements"
+description: Strategic code refactoring guidance
+agent: frontend-developer
+tools: ["readonly"]
 ---
 
 Guide me through safely refactoring code using test-driven refactoring principles.

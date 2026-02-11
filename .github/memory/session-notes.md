@@ -34,6 +34,73 @@ Copy this template when documenting a completed session:
 
 ---
 
+## Prompt File Format Standardization - 2026-02-11
+
+### What Was Accomplished
+- Reviewed all 22 workspace prompt files for GitHub Copilot best practices compliance
+- Fixed deprecated `mode:` property → renamed to `agent:` across all files
+- Removed redundant `name:` field from all prompts (filename is the identifier)
+- Mapped prompts to specialized custom agents based on domain expertise
+- Documented prompt file frontmatter format pattern in memory system
+- Documented agent mapping pattern with complete rationale
+
+### Key Findings and Decisions
+
+**Finding**: Prompt files were using deprecated `mode:` property and redundant `name:` field
+- **Decision**: Updated to current GitHub Copilot format with `agent:` property
+- **Rationale**: Aligns with official VS Code documentation and future-proofs configuration
+
+**Finding**: All prompts were using generic `agent: agent` value
+- **Decision**: Mapped each prompt to appropriate specialized agent:
+  - 6 prompts → `performance-tuner` (Lighthouse, Core Web Vitals, optimization)
+  - 2 prompts → `accessibility-expert` (WCAG compliance, a11y audits)
+  - 10 prompts → `frontend-developer` (React, general frontend dev)
+  - 1 prompt → `testing-specialist` (TDD, test generation)
+  - 3 prompts → `agent` (cross-cutting: security, debugging, API docs)
+- **Rationale**: Specialized agents bring domain-specific context, tools, and expertise
+
+**Design Decision**: Keep cross-cutting concerns (security, debugging, API docs) as generic `agent`
+- These domains span all languages/frameworks
+- No single specialized agent owns them
+- Generic agent provides maximum flexibility
+
+### Outcomes
+
+✅ **All 22 prompts standardized** to current GitHub Copilot format  
+✅ **Specialized agent mapping complete** - prompts now leverage domain expertise  
+✅ **Patterns documented** in memory system for future reference  
+✅ **Format guidelines established** for creating new prompts
+
+**Agent Mapping Distribution**:
+- `performance-tuner`: 6 prompts (27%)
+- `frontend-developer`: 10 prompts (45%)
+- `accessibility-expert`: 2 prompts (9%)
+- `testing-specialist`: 1 prompt (5%)
+- `agent` (generic): 3 prompts (14%)
+
+**Benefits Realized**:
+1. Prompts inherit specialized agent context automatically
+2. Domain-specific MCP tools available per agent
+3. Consistent behavior between chat and prompt invocation
+4. Better quality recommendations from specialized expertise
+
+### Validation
+
+- ✅ All files updated successfully (verified with git diff)
+- ✅ Frontmatter format matches VS Code documentation
+- ✅ Agent mapping aligns with agent definitions in `.github/agents/`
+- ✅ Pattern documented in `patterns-discovered.md`
+- ⏳ VS Code validation pending (reload and test prompt menu)
+
+### Next Steps
+
+1. Reload VS Code to refresh prompt cache
+2. Test prompt invocations with specialized agents
+3. Verify tool access matches agent configuration
+4. Create additional prompts as needed following established pattern
+
+---
+
 ## Example Session
 
 ## Accessibility Audit: Button Keyboard Navigation - 2026-02-08

@@ -1,6 +1,7 @@
 ---
-name: react-hook-migration
 description: Migrate React class components to functional components with hooks
+agent: frontend-developer
+tools: ["readonly", "react-dev"]
 ---
 
 Migrate React class component ${selection} or ${file} to functional component with hooks.
