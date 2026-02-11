@@ -1,7 +1,5 @@
 ---
 description: "Analyze and optimize JavaScript bundle size - code splitting, tree shaking, lazy loading"
-agent: "frontend-developer"
-tools: ["codebase", "search", "problems"]
 ---
 
 # JavaScript Bundle Optimization Workflow

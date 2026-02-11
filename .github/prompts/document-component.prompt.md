@@ -1,7 +1,5 @@
 ---
 description: Generate comprehensive component documentation with props, usage examples, accessibility notes, and TypeScript types
-agent: frontend-developer
-tools: ["codebase", "search", "problems"]
 ---
 
 # Component Documentation Generator

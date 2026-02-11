@@ -1,15 +1,5 @@
 ---
 description: Comprehensive security review covering OWASP Top 10, dependency vulnerabilities, and secure coding practices
-agent: frontend-developer
-tools:
-  [
-    "codebase",
-    "search",
-    "problems",
-    "runCommands",
-    "getTerminalOutput",
-    "editFiles",
-  ]
 ---
 
 # Security Review - Vulnerability Assessment

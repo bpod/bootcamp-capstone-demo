@@ -1,7 +1,5 @@
 ---
 description: "Generate comprehensive tests for components using React Testing Library and TDD principles"
-agent: "testing-specialist"
-tools: ["codebase", "search", "problems", "runCommands", "testFailure"]
 ---
 
 # Test Generation

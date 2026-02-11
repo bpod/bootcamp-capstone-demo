@@ -1,7 +1,5 @@
 ---
 description: "React-specific accessibility patterns, testing, and WCAG compliance in JSX"
-agent: "frontend-developer"
-tools: ["codebase", "search", "problems", "runCommands"]
 ---
 
 # React Accessibility Patterns

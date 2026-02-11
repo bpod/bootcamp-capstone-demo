@@ -1,15 +1,5 @@
 ---
 description: Structured debugging workflow using Chrome DevTools, logging strategies, and systematic problem isolation
-agent: frontend-developer
-tools:
-  [
-    "codebase",
-    "search",
-    "problems",
-    "runCommands",
-    "getTerminalOutput",
-    "editFiles",
-  ]
 ---
 
 # Debug Session - Systematic Problem Solving

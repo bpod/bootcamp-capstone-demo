@@ -1,7 +1,5 @@
 ---
 description: "Improve React state management patterns - lift state, context, reducers, and external libraries"
-agent: "frontend-developer"
-tools: ["codebase", "search", "problems"]
 ---
 
 # React State Management Refactoring

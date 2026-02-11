@@ -1,7 +1,5 @@
 ---
 description: "Optimize images for web performance - format selection, sizing, lazy loading, CDN delivery"
-agent: "frontend-developer"
-tools: ["codebase", "search", "problems"]
 ---
 
 # Image Optimization Workflow

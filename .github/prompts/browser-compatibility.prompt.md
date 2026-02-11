@@ -1,8 +1,5 @@
 ---
 description: Cross-browser compatibility testing, polyfills, and progressive enhancement strategies
-agent: frontend-developer
-tools:
-  ["codebase", "search", "runCommands", "editFiles", "createFile", "problems"]
 ---
 
 # Browser Compatibility Testing and Strategy

@@ -1,7 +1,5 @@
 ---
 description: Generate comprehensive API endpoint documentation with request/response schemas, authentication, error codes, and usage examples
-agent: frontend-developer
-tools: ["codebase", "search", "problems"]
 ---
 
 # API Documentation Generator

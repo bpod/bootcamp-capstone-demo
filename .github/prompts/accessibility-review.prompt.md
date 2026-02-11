@@ -1,15 +1,5 @@
 ---
 description: Comprehensive accessibility audit using WCAG 2.1 Level AA standards
-agent: accessibility-expert
-tools:
-  [
-    "codebase",
-    "search",
-    "runCommands",
-    "getTerminalOutput",
-    "editFiles",
-    "problems",
-  ]
 ---
 
 # Accessibility Review and Remediation

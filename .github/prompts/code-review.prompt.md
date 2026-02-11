@@ -1,7 +1,5 @@
 ---
 description: "Comprehensive code review analyzing quality, maintainability, performance, and best practices"
-agent: "agent"
-tools: ["codebase", "search", "problems"]
 ---
 
 # Comprehensive Code Review

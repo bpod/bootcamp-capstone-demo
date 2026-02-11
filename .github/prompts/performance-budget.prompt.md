@@ -1,15 +1,5 @@
 ---
 description: Define and enforce performance budgets for assets, bundles, and metrics with CI/CD integration
-agent: performance-tuner
-tools:
-  [
-    "codebase",
-    "search",
-    "runCommands",
-    "getTerminalOutput",
-    "editFiles",
-    "createFile",
-  ]
 ---
 
 # Performance Budget Definition and Enforcement

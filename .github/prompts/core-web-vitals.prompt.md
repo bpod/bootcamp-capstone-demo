@@ -1,7 +1,5 @@
 ---
 description: Check and optimize Core Web Vitals (LCP, INP, CLS) to meet thresholds
-agent: frontend-developer
-tools: ["codebase", "search", "runCommands", "getTerminalOutput", "editFiles"]
 ---
 
 # Core Web Vitals Optimization

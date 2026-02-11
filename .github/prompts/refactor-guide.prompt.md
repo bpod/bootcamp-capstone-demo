@@ -1,7 +1,5 @@
 ---
 description: "Step-by-step refactoring guide with safety nets, code smell detection, and incremental improvements"
-agent: "frontend-developer"
-tools: ["codebase", "search", "problems", "usages", "runCommands"]
 ---
 
 # Refactoring Guide

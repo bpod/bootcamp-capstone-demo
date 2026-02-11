@@ -1,15 +1,5 @@
 ---
 description: Guided performance optimization workflow using Measure-Optimize-Validate loop
-agent: frontend-developer
-tools:
-  [
-    "codebase",
-    "search",
-    "runCommands",
-    "getTerminalOutput",
-    "editFiles",
-    "problems",
-  ]
 ---
 
 # Performance Optimization Workflow

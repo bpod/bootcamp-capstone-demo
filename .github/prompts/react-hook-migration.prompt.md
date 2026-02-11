@@ -1,7 +1,5 @@
 ---
 description: "Migrate React class components to functional components with hooks"
-agent: "frontend-developer"
-tools: ["codebase", "search", "problems"]
 ---
 
 # React Hook Migration

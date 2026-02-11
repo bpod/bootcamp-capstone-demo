@@ -1,7 +1,5 @@
 ---
 description: Run comprehensive Lighthouse audit and get actionable optimization recommendations
-agent: frontend-developer
-tools: ["codebase", "runCommands", "getTerminalOutput", "editFiles", "search"]
 ---
 
 # Lighthouse Audit and Optimization

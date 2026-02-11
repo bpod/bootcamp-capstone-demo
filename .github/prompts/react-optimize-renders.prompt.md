@@ -1,7 +1,5 @@
 ---
 description: "Find and fix unnecessary React re-renders to improve performance"
-agent: "frontend-developer"
-tools: ["codebase", "search", "problems"]
 ---
 
 # React Re-Render Optimization
