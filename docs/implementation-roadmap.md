@@ -73,6 +73,35 @@ This document tracks what remains to be implemented to complete the project visi
 
 ---
 
+## 🚧 Currently Blocked
+
+### Testing & Validation - BLOCKED ⚠️
+
+**Status**: Infrastructure complete, testing blocked by VS Code environment  
+**Priority**: High  
+**Blocker**: Requires VS Code Insiders or pre-release GitHub Copilot Chat extension
+
+**What's Complete**:
+- ✅ Test plan created (TEST-PLAN.md)
+- ✅ Baseline Lighthouse audit run (scores: Perf 95, A11y 74, BP 96, SEO 82)
+- ✅ Test infrastructure ready (demo server running on port 8080)
+- ✅ Testing documentation structure (TEST-RESULTS.md, BASELINE-RESULTS.md)
+
+**Current Blocker**:
+- ❌ Prompt file invocation not working in VS Code Stable 1.109.2
+- ❌ MCP servers not loading in VS Code (no MCP in Output dropdown)
+- ⚠️ Experimental features require VS Code Insiders or pre-release Copilot Chat extension
+
+**Resolution Steps**:
+1. Install VS Code Insiders OR switch GitHub Copilot Chat to pre-release version
+2. Reload VS Code and verify MCP appears in Output dropdown
+3. Test `#lighthouse-audit http://localhost:8080` invocation
+4. Resume systematic testing of all 22 prompts
+
+**See**: [TESTING-SESSION-SUMMARY.md](../TESTING-SESSION-SUMMARY.md) for complete status and next steps
+
+---
+
 ## 🚧 In Progress / To Do
 ✅ COMPLETE (MCP server implemented and operational)  
 **Priority**: High  
