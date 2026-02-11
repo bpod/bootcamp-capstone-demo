@@ -161,9 +161,8 @@ import { axe } from 'axe-core';
 
 test('component should have no accessibility violations', async () => {
   const { container } = render(<YourComponent />);
-  const results = await axe(container);
+  const results = await axe.run(container);
   expect(results.violations).toHaveLength(0);
-  expect(results).toHaveNoViolations();
 });
 ```
 
