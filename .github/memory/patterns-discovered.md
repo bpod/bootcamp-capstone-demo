@@ -42,47 +42,174 @@ Copy this template when documenting a new pattern:
 
 ---
 
+## Pattern: Simple Conversational Prompt Format
+
+**Context**: When creating `.prompt.md` files for GitHub Copilot Chat workflows.
+
+**Problem**: Complex documentation-style prompts with nested headers (##, ###, ####) cause:
+1. VS Code UI navigation issues (prompts show up as navigable sections)
+2. Prompts read like technical specs instead of actionable instructions
+3. Too much structure makes prompts hard to maintain and update
+4. Users struggle to understand what the prompt actually does
+
+**Solution**: Use simple, conversational instructions with minimal structure
+
+**Correct Format**:
+```markdown
+---
+description: "Brief, clear description"
+agent: specialized-agent-name
+tools: ["codebase", "search", "fetch", "usages", "problems"]
+---
+
+Direct, conversational instruction about what to analyze.
+
+Check for:
+- Key point 1 (brief, actionable)
+- Key point 2 (brief, actionable)
+- Key point 3 (brief, actionable)
+
+Provide output in this format: [brief description]. Include line numbers and code examples.
+
+Reference: [link to authoritative source]
+```
+
+**Anti-Pattern** (Overly Complex):
+```markdown
+---
+description: "Description"
+mode: "agent"  # ❌ Deprecated
+tools: ["readonly"]  # ❌ Tool set name, not actual tools
+---
+
+# Main Heading  # ❌ Adds navigation noise
+
+Long introductory paragraph explaining the prompt's purpose...
+
+## What to Review  # ❌ Nested structure
+
+### 1. Category One  # ❌ Too much nesting
+- Detailed explanation
+- Multiple sub-points
+- Complex descriptions
+
+### 2. Category Two
+...
+
+## Output Format  # ❌ Over-documentation
+
+Provide:
+1. Thing one
+2. Thing two
+...
+
+## Success Criteria  # ❌ Unnecessary sections
+...
+
+## References
+...
+```
+
+**Key Principles**:
+1. **No heading hierarchy** - Just frontmatter and plain text/bullets
+2. **Conversational tone** - "Review X for Y" not "This prompt reviews X by analyzing Y"
+3. **Action-focused** - Tell the AI what to do, not how the prompt works
+4. **Brief** - 10-15 lines ideal, 20 max
+5. **Specific output format** - Clear expectations without over-structuring
+
+**Examples from Fresh Start (2026-02-16)**:
+
+✅ **Good** (code-review.prompt.md - 16 lines):
+```markdown
+---
+description: "General code quality and best practices review"
+agent: frontend-developer
+tools: ["codebase", "search", "fetch", "usages", "problems"]
+---
+
+Review the selected code for quality, maintainability, and best practices.
+
+Check for:
+- Code quality (clear naming, small functions, DRY principle)
+- Error handling and security (no hardcoded secrets, input validation)
+- Performance (efficient algorithms, no bottlenecks)
+- Testing and maintainability (testable code, consistent style)
+
+Adapt your review to the framework if applicable (React, TypeScript, Node.js, CSS).
+
+Provide a brief summary, then list issues in order of priority: Critical (must fix), Important (should fix), and Suggestions (nice-to-have). Include line numbers and code snippets. Also mention what's done well.
+```
+
+❌ **Bad** (previous version - 82 lines):
+```markdown
+# Code Review
+
+Perform a comprehensive code review focusing on quality, maintainability, and best practices.
+
+## What to Review
+
+### 1. Code Quality
+- Clear and descriptive naming (variables, functions, classes)
+- Functions are small and focused (single responsibility)
+...
+
+### 2. Error Handling
+...
+
+## Framework-Specific Checks
+...
+
+## Output Format
+...
+
+## Success Criteria
+...
+```
+
+**When to Use**:
+- All new prompt files
+- When refactoring existing prompts
+- When users report prompt UI/navigation issues
+
+**When to Avoid**:
+- Complex multi-step workflows that genuinely need structure (rare)
+- Variable-heavy prompts with many ${substitutions} (but still minimize headings)
+
+**Related Patterns**:
+- Pattern: Prompt File Agent Specification (assign to specialized agents)
+- Pattern: Tool Set vs Individual Tools (use actual tool names, not set names)
+
+**Performance Impact**: 
+- Reduced prompt token count by 70-85%
+- Faster comprehension by LLM
+- Better UI/UX in VS Code (no navigation clutter)
+
+---
+
 ## Pattern: Prompt File Agent Specification
 
 **Context**: All prompt files (`.prompt.md`) should specify which specialized agent should execute them via the `agent:` frontmatter property.
 
 **Problem**: Using the generic `agent: "agent"` doesn't leverage the specialized context, tools, and instructions of custom agents we've defined in `.github/agents/`.
 
-**Solution**: Map each prompt to the most appropriate specialized agent based on the prompt's domain expertise. We have 5 custom agents defined:
+**Solution**: Map each prompt to the most appropriate specialized agent based on the prompt's domain expertise. We have 5 custom agents defined.
 
-### Agent Mapping (Complete as of Feb 2026)
+### Agent Mapping (Current as of Feb 16, 2026 - Fresh Start)
 
-**Performance Tuner** (`performance-tuner`) - 6 prompts:
+**5 Essential Prompts with Agent Assignments**:
+
+**Performance Tuner** (`performance-tuner`) - 2 prompts:
 - lighthouse-audit.prompt.md
-- performance-optimization.prompt.md
-- core-web-vitals.prompt.md
-- image-optimization.prompt.md
-- bundle-analysis.prompt.md
-- performance-budget.prompt.md
+- performance-check.prompt.md
 
-**Accessibility Expert** (`accessibility-expert`) - 2 prompts:
-- accessibility-review.prompt.md
-- accessibility-quick.prompt.md
+**Accessibility Expert** (`accessibility-expert`) - 1 prompt:
+- accessibility-check.prompt.md
 
-**Frontend Developer** (`frontend-developer`) - 9 prompts:
-- react-component-review.prompt.md
-- react-accessibility.prompt.md (React + a11y hybrid)
-- react-optimize-renders.prompt.md
-- react-hook-migration.prompt.md
-- react-state-refactor.prompt.md
+**Frontend Developer** (`frontend-developer`) - 2 prompts:
+- component-review.prompt.md
 - code-review.prompt.md
-- refactor-guide.prompt.md
-- browser-compatibility.prompt.md
-- document-component.prompt.md
-- readme-generator.prompt.md
 
-**Testing Specialist** (`testing-specialist`) - 1 prompt:
-- test-generation.prompt.md
-
-**Generic Agent** (`agent`) - 2 prompts (cross-cutting concerns):
-- security-review.prompt.md (security is language/framework agnostic)
-- debug-session.prompt.md (debugging applies universally)
-- document-api.prompt.md (API docs are backend-focused)
+**Note**: Previous 22 prompts archived to `.github/prompts_archived_20260216_140539/`
 
 ### Decision Rationale
 

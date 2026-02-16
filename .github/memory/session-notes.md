@@ -34,6 +34,80 @@ Copy this template when documenting a completed session:
 
 ---
 
+## Fresh Start: Prompt Reset and Simplification - 2026-02-16
+
+### What Was Accomplished
+- **Archived 22 previous prompts** to `.github/prompts_archived_20260216_140539/`
+- **Created 5 minimal, essential starter prompts** following industry best practices:
+  - lighthouse-audit.prompt.md (performance-tuner)
+  - accessibility-check.prompt.md (accessibility-expert)
+  - component-review.prompt.md (frontend-developer)
+  - code-review.prompt.md (frontend-developer)
+  - performance-check.prompt.md (performance-tuner)
+- **Simplified prompt format** from 60-80 line documentation-style to 10-15 line conversational instructions
+- **Fixed formatting errors**:
+  - Removed deprecated `mode:` property
+  - Replaced `tools: ["readonly"]` (tool set) with actual tools: `["codebase", "search", "fetch", "usages", "problems"]`
+  - Added `agent:` property to assign each prompt to specialized agent
+- **Updated all documentation** (README.md, CATALOG.md, FRESH-START-SUMMARY.md)
+- **Created new prompts README** with "start small, build gradually" philosophy
+
+### Key Findings and Decisions
+
+**Problem**: Complex nested heading structures (##, ###, ####) in prompts caused UI navigation issues and made prompts read like technical documentation rather than instructions.
+
+**Solution**: Complete format simplification
+- Conversational, direct instructions
+- No nested headings - just simple bullet points
+- Focus on "what to do" not "how the prompt works"
+- 10-15 lines vs 60-80 lines
+
+**Decision Rationale**:
+1. **Quality over quantity**: 5 great prompts > 22 problematic prompts
+2. **Industry standards**: Follow VS Code/Copilot prompt best practices
+3. **Maintainability**: Simple prompts are easier to test, validate, and update
+4. **Incremental growth**: Add prompts only when proven need exists
+
+**Agent Assignment Pattern**:
+- Each prompt assigned to most appropriate specialized agent
+- Ensures prompts inherit agent's domain expertise and tools
+- Maps to agent capabilities (performance-tuner for perf, accessibility-expert for a11y, etc.)
+
+### Outcomes
+- ✅ **Zero errors** in all 5 prompts (validated with VS Code)
+- ✅ **Clean foundation** for future prompt expansion
+- ✅ **Clear philosophy** documented for adding new prompts
+- ✅ **Simple, testable prompts** ready for validation with demo-app
+- ✅ **All previous work preserved** in archive folder
+- ✅ **Updated memory system** with new patterns and this session
+
+### Lessons Learned
+1. **Start minimal and grow** - Easier to add than remove complexity
+2. **Prompt formatting matters** - Simple, conversational > documentation-style
+3. **Test early, test often** - VS Code errors caught immediately with proper tooling
+4. **Preserve history** - Archive rather than delete for future reference
+5. **Agent assignments are critical** - Matching prompt to agent ensures optimal results
+
+### Files Changed
+**Created** (7 files):
+- `.github/prompts/README.md`
+- `.github/prompts/lighthouse-audit.prompt.md`
+- `.github/prompts/accessibility-check.prompt.md`
+- `.github/prompts/component-review.prompt.md`
+- `.github/prompts/code-review.prompt.md`
+- `.github/prompts/performance-check.prompt.md`
+- `FRESH-START-SUMMARY.md`
+
+**Modified** (3 files):
+- `.github/agents/CATALOG.md`
+- `.github/agents/performance-tuner.agent.md`
+- `README.md`
+
+**Archived** (1 directory):
+- `.github/prompts/` → `.github/prompts_archived_20260216_140539/` (22 prompts + docs)
+
+---
+
 ## Prompt File Format Simplification (Body Structure) - 2026-02-11 (Part 2)
 
 ### What Was Accomplished
