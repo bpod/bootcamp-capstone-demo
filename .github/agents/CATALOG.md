@@ -64,10 +64,10 @@ Switch to frontend-developer agent for general development work
 ### Recommended Prompts
 
 - lighthouse-audit.prompt.md
-- performance-optimization.prompt.md
-- react-component-review.prompt.md
+- accessibility-check.prompt.md
+- component-review.prompt.md
 - code-review.prompt.md
-- browser-compatibility.prompt.md
+- performance-check.prompt.md
 
 ---
 
@@ -118,8 +118,8 @@ Switch to accessibility-expert for a11y-focused work
 
 ### Recommended Prompts
 
-- accessibility-review.prompt.md
-- react-accessibility.prompt.md
+- accessibility-check.prompt.md
+- component-review.prompt.md (for React component accessibility)
 
 ### Key Patterns
 
@@ -179,11 +179,7 @@ Switch to performance-tuner for speed optimization
 ### Recommended Prompts
 
 - lighthouse-audit.prompt.md
-- performance-optimization.prompt.md
-- core-web-vitals.prompt.md
-- image-optimization.prompt.md
-- bundle-analysis.prompt.md
-- performance-budget.prompt.md
+- performance-check.prompt.md
 
 ### Performance Thresholds
 
@@ -242,7 +238,7 @@ Switch to testing-specialist for test-related work
 
 ### Recommended Prompts
 
-- test-generation.prompt.md
+- code-review.prompt.md (includes testing recommendations)
 
 ### Testing Principles
 

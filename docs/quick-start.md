@@ -76,8 +76,175 @@ Press `Cmd+Shift+P`, search "Open User Settings (JSON)", add:
 1. Open GitHub Copilot Chat: `Cmd+Shift+I` (Mac) or `Ctrl+Shift+I` (Windows/Linux)
 2. Type `@` in the chat input
 3. You should see:
-   - `@frontend-developer`
-   - `@accessibility-expert`
+   - `@frontend-developer` - General development, web quality, TDD
+   - `@accessibility-expert` - WCAG compliance, a11y audits
+   - `@performance-tuner` - Core Web Vitals, bundle optimization
+   - `@testing-specialist` - Test generation, RTL patterns
+   - `@copilot-customization` - Toolkit customization
+
+### Check Available Prompts
+
+1. In Copilot Chat, type `#`
+2. You should see 6 essential prompts:
+   - `#lighthouse-audit` / `#run-lighthouse` - Performance and accessibility audit
+   - `#accessibility-check` - WCAG 2.1 Level AA compliance
+   - `#component-review` - React component best practices
+   - `#code-review` - General code quality review
+   - `#performance-check` - Performance analysis
+
+**✅ Success**: If you see agents and prompts, setup is complete!
+
+---
+
+## Step 4: Try Your First Workflow (1 minute)
+
+### Quick Web Quality Check
+
+1. Open any HTML, JavaScript, or React file
+2. In Copilot Chat, run:
+   ```
+   #accessibility-check
+   ```
+3. Review suggestions for accessibility improvements
+
+### Or Ask an Agent
+
+1. In Copilot Chat:
+   ```
+   @performance-tuner how can I improve my app's load time?
+   ```
+2. Get personalized guidance based on your code
+
+---
+
+## Common First Tasks
+
+### 1. Lighthouse Audit
+
+**Goal**: Comprehensive performance and accessibility analysis
+
+**Workflow**:
+```
+#lighthouse-audit http://localhost:3000
+```
+
+**What you get**:
+- Performance, Accessibility, Best Practices, SEO scores
+- Core Web Vitals (LCP, INP, CLS)
+- Prioritized optimization recommendations
+
+**Note**: Requires Lighthouse CLI installed globally:
+```bash
+npm install -g lighthouse
+```
+
+---
+
+### 2. Accessibility Review (Beads Pattern)
+
+**Goal**: Find and fix WCAG 2.1 Level AA violations
+
+**The beads pattern** uses progressive disclosure to prevent timeouts:
+
+**Stage 1 - Quick Scan**:
+```
+@accessibility-expert scan my project for accessibility issues
+```
+
+Get a fast table summary (~30 seconds):
+| Category | Issues | Severity | Top Issue |
+|----------|--------|----------|-----------|
+| Images | 8 | Critical | Missing alt text |
+| Forms | 3 | High | Missing labels |
+| Colors | 5 | Medium | Low contrast |
+
+**Stage 2 - Details**:
+```
+show me the image issues
+```
+
+Get a detailed list with file:line references:
+1. **Missing alt text** - [index.html:45](index.html#L45)
+2. **Missing alt text** - [about.html:22](about.html#L22)
+...
+
+**Stage 3 - Fix**:
+```
+fix issue 1
+```
+
+Get before/after code with explanation:
+```html
+<!-- ❌ Before -->
+<img src="hero.jpg">
+
+<!-- ✅ After -->
+<img src="hero.jpg" alt="Team collaborating in modern office">
+```
+
+**Why beads pattern?**
+- ✅ No timeouts (Stage 1 is fast)
+- ✅ No manual selection needed (smart scope detection)
+- ✅ You control depth (explore what matters)
+- ✅ Conversational (natural language commands)
+
+---
+
+### 3. React Component Review
+
+**Goal**: Analyze React component for best practices
+
+**Workflow**:
+```
+#component-review
+```
+
+*(Works on currently open React component)*
+
+**What you get**:
+- Hook usage patterns
+- Performance optimization opportunities (React.memo, useMemo, useCallback)
+- Accessibility issues (semantic HTML, ARIA attributes)
+- Testing suggestions
+- References to Vercel React Best Practices
+
+---
+
+### 4. Code Quality Review
+
+**Goal**: General code quality and maintainability check
+
+**Workflow**:
+```
+#code-review
+```
+
+**What you get**:
+- Code smells and anti-patterns
+- Complexity analysis
+- Naming conventions
+- Documentation suggestions
+- Security considerations
+
+---
+
+### 5. Performance Optimization
+
+**Goal**: Improve Core Web Vitals and load time
+
+**Workflow**:
+```
+#performance-check
+```
+
+**What you get**:
+- LCP, INP, CLS analysis
+- Bundle size optimization
+- Image optimization strategies
+- Code splitting recommendations
+- Render performance tips
+
+---
    - `@performance-tuner`
    - `@testing-specialist`
    - `@copilot-customization`
@@ -86,11 +253,12 @@ Press `Cmd+Shift+P`, search "Open User Settings (JSON)", add:
 
 1. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
 2. Search **"Chat: Run Prompt"**
-3. You should see 21 prompts:
-   - lighthouse-audit
-   - accessibility-review
-   - performance-optimization
-   - (and 18 more...)
+3. You should see 6 essential prompts:
+   - lighthouse-audit / run-lighthouse
+   - accessibility-check
+   - component-review
+   - code-review
+   - performance-check
 
 **✅ If you see agents and prompts, you're ready to go!**
 
@@ -262,7 +430,7 @@ Now that you're set up, try these common workflows:
 
 ### Catalogs (Browse Available Tools)
 
-- **[Prompts Catalog](.github/prompts/CATALOG.md)** - All 21 prompts with descriptions
+- **[Prompts Directory](.github/prompts/)** - All 6 prompts with descriptions
 - **[Agents Catalog](.github/agents/CATALOG.md)** - All 5 agents with specializations
 - **[Instructions Catalog](.github/instructions/CATALOG.md)** - All 6 auto-apply instructions
 

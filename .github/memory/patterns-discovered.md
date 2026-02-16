@@ -42,50 +42,224 @@ Copy this template when documenting a new pattern:
 
 ---
 
+## Pattern: Simple Conversational Prompt Format
+
+**Context**: When creating `.prompt.md` files for GitHub Copilot Chat workflows.
+
+**Problem**: Complex documentation-style prompts with nested headers (##, ###, ####) cause:
+1. VS Code UI navigation issues (prompts show up as navigable sections)
+2. Prompts read like technical specs instead of actionable instructions
+3. Too much structure makes prompts hard to maintain and update
+4. Users struggle to understand what the prompt actually does
+
+**Solution**: Use simple, conversational instructions with minimal structure
+
+**Correct Format**:
+```markdown
+---
+description: "Brief, clear description"
+agent: specialized-agent-name
+tools: ["codebase", "search", "fetch", "usages", "problems"]
+---
+
+Direct, conversational instruction about what to analyze.
+
+Check for:
+- Key point 1 (brief, actionable)
+- Key point 2 (brief, actionable)
+- Key point 3 (brief, actionable)
+
+Provide output in this format: [brief description]. Include line numbers and code examples.
+
+Reference: [link to authoritative source]
+```
+
+**Anti-Pattern** (Overly Complex):
+```markdown
+---
+description: "Description"
+mode: "agent"  # ❌ Deprecated
+tools: ["readonly"]  # ❌ Tool set name, not actual tools
+---
+
+# Main Heading  # ❌ Adds navigation noise
+
+Long introductory paragraph explaining the prompt's purpose...
+
+## What to Review  # ❌ Nested structure
+
+### 1. Category One  # ❌ Too much nesting
+- Detailed explanation
+- Multiple sub-points
+- Complex descriptions
+
+### 2. Category Two
+...
+
+## Output Format  # ❌ Over-documentation
+
+Provide:
+1. Thing one
+2. Thing two
+...
+
+## Success Criteria  # ❌ Unnecessary sections
+...
+
+## References
+...
+```
+
+**Key Principles**:
+1. **No heading hierarchy** - Just frontmatter and plain text/bullets
+2. **Conversational tone** - "Review X for Y" not "This prompt reviews X by analyzing Y"
+3. **Action-focused** - Tell the AI what to do, not how the prompt works
+4. **Brief** - 10-15 lines ideal, 20 max
+5. **Specific output format** - Clear expectations without over-structuring
+
+**Examples from Fresh Start (2026-02-16)**:
+
+✅ **Good** (code-review.prompt.md - 16 lines):
+```markdown
+---
+description: "General code quality and best practices review"
+agent: frontend-developer
+tools: ["codebase", "search", "fetch", "usages", "problems"]
+---
+
+Review the selected code for quality, maintainability, and best practices.
+
+Check for:
+- Code quality (clear naming, small functions, DRY principle)
+- Error handling and security (no hardcoded secrets, input validation)
+- Performance (efficient algorithms, no bottlenecks)
+- Testing and maintainability (testable code, consistent style)
+
+Adapt your review to the framework if applicable (React, TypeScript, Node.js, CSS).
+
+Provide a brief summary, then list issues in order of priority: Critical (must fix), Important (should fix), and Suggestions (nice-to-have). Include line numbers and code snippets. Also mention what's done well.
+```
+
+❌ **Bad** (previous version - 82 lines):
+```markdown
+# Code Review
+
+Perform a comprehensive code review focusing on quality, maintainability, and best practices.
+
+## What to Review
+
+### 1. Code Quality
+- Clear and descriptive naming (variables, functions, classes)
+- Functions are small and focused (single responsibility)
+...
+
+### 2. Error Handling
+...
+
+## Framework-Specific Checks
+...
+
+## Output Format
+...
+
+## Success Criteria
+...
+```
+
+**When to Use**:
+- All new prompt files
+- When refactoring existing prompts
+- When users report prompt UI/navigation issues
+
+**When to Avoid**:
+- Complex multi-step workflows that genuinely need structure (rare)
+- Variable-heavy prompts with many ${substitutions} (but still minimize headings)
+
+**Related Patterns**:
+- Pattern: Prompt File Agent Specification (assign to specialized agents)
+- Pattern: Tool Set vs Individual Tools (use actual tool names, not set names)
+
+**Performance Impact**: 
+- Reduced prompt token count by 70-85%
+- Faster comprehension by LLM
+- Better UI/UX in VS Code (no navigation clutter)
+
+---
+
 ## Pattern: Prompt File Agent Specification
 
-**Context**: All prompt files (`.prompt.md`) should specify which agent should execute them via the `agent:` frontmatter property.
+**Context**: All prompt files (`.prompt.md`) should specify which specialized agent should execute them via the `agent:` frontmatter property.
 
-**Problem**: Using the generic `agent: "agent"` doesn't leverage the specialized context, tools, and instructions of custom agents we've created (frontend-developer, accessibility-expert, copilot-customization).
+**Problem**: Using the generic `agent: "agent"` doesn't leverage the specialized context, tools, and instructions of custom agents we've defined in `.github/agents/`.
 
-**Solution**: Map each prompt to the most appropriate specialized agent based on the prompt's domain:
+**Solution**: Map each prompt to the most appropriate specialized agent based on the prompt's domain expertise. We have 5 custom agents defined.
 
-- **Accessibility prompts** → `accessibility-expert`
-  - accessibility-review.prompt.md
-  - react-accessibility.prompt.md
-  
-- **Frontend/React/Performance prompts** → `frontend-developer`
-  - lighthouse-audit.prompt.md
-  - performance-optimization.prompt.md
-  - core-web-vitals.prompt.md
-  - image-optimization.prompt.md
-  - bundle-analysis.prompt.md
-  - react-component-review.prompt.md
-  - react-optimize-renders.prompt.md
-  - react-hook-migration.prompt.md
-  - react-state-refactor.prompt.md
+### Agent Mapping (Current as of Feb 16, 2026 - Fresh Start)
 
-- **Testing prompts** → `testing-specialist`
-  - test-generation.prompt.md (planned)
-  - Any TDD or React Testing Library focused prompts
+**5 Essential Prompts with Agent Assignments**:
 
-- **General code quality** → `agent` (keep generic)
-  - code-review.prompt.md (applies across all languages/frameworks)
+**Performance Tuner** (`performance-tuner`) - 2 prompts:
+- lighthouse-audit.prompt.md
+- performance-check.prompt.md
 
-**Benefits**:
+**Accessibility Expert** (`accessibility-expert`) - 1 prompt:
+- accessibility-check.prompt.md
 
-1. **Automatic Context**: Prompt inherits the agent's specialized instructions and knowledge
-2. **Appropriate Tools**: Agent's configured tool set is available (e.g., accessibility-expert has runCommands for axe-core)
-3. **Consistent Expertise**: Same agent context whether invoked via chat or prompt file
-4. **Better Results**: Specialized agents have deeper domain knowledge and better patterns
+**Frontend Developer** (`frontend-developer`) - 2 prompts:
+- component-review.prompt.md
+- code-review.prompt.md
+
+**Note**: Previous 22 prompts archived to `.github/prompts_archived_20260216_140539/`
+
+### Decision Rationale
+
+**Why specialized agents?**
+1. **Deeper Context**: Agent brings specialized domain knowledge and patterns
+2. **Appropriate Tools**: Agent has domain-specific MCP tools pre-configured
+3. **Consistent Expertise**: Same specialized context whether invoked via chat or prompt
+4. **Better Results**: Domain-focused agents produce higher-quality recommendations
+
+**Why some stay generic?**
+- Security, debugging, and API documentation are cross-cutting concerns
+- They apply across languages, frameworks, and tech stacks
+- No single specialized agent owns these domains
+- Generic `agent` provides flexibility without losing context
+
+### Frontmatter Format
+
+**Correct format** (note: `agent` not `mode`):
+
+```yaml
+---
+description: "Brief description of prompt purpose"
+agent: performance-tuner  # ✅ Specialized agent
+tools: ["readonly", "web-quality"]
+---
+```
+
+**Deprecated format**:
+
+```yaml
+---
+name: prompt-name  # ❌ Redundant - filename is the identifier
+mode: agent        # ❌ Deprecated property - use 'agent:' instead
+---
+```
+
+### Benefits Observed
+
+1. **Automatic Tool Access**: Prompts inherit agent's MCP tool configuration
+2. **Contextual Expertise**: Agent's specialized instructions augment prompt guidance
+3. **Consistent Behavior**: Same agent behavior in chat and prompt invocation
+4. **Better Discoverability**: Users know which agent handles which domain
 
 **Example**:
 
 ```yaml
 ---
-description: "Review React component for best practices"
-agent: "frontend-developer"  # ✅ Uses frontend-developer context
-tools: ["codebase", "search", "problems"]
+description: "Optimize Core Web Vitals"
+agent: performance-tuner  # ✅ Gets performance tuning context, Lighthouse tools
+tools: ["readonly", "web-quality"]
 ---
 ```
 
@@ -93,11 +267,364 @@ tools: ["codebase", "search", "problems"]
 
 ```yaml
 ---
-description: "Review React component for best practices"
-agent: "agent"  # ❌ Generic agent lacks React-specific context
-tools: ["codebase", "search", "problems"]
+description: "Optimize Core Web Vitals"
+agent: agent  # ❌ Misses specialized performance tuning context
+tools: ["readonly", "web-quality"]
 ---
 ```
+
+---
+
+## Pattern: Prompt File Frontmatter Format
+
+**Context**: GitHub Copilot prompt files (`.prompt.md`) use YAML frontmatter to configure behavior. The format has evolved and certain properties are deprecated or redundant.
+
+**Problem**: Older documentation shows `name:` and `mode:` properties that are either redundant or deprecated, leading to incorrect prompt file configuration.
+
+**Solution**: Use the current GitHub Copilot prompt frontmatter format (as of Feb 2026):
+
+### Required Properties
+
+```yaml
+---
+name: Display Name                                      # REQUIRED for UI visibility
+description: "Brief description shown in prompt picker" # REQUIRED
+agent: agent-name                                       # REQUIRED (or ask/edit)
+tools: ["tool1", "tool2"]                              # OPTIONAL but recommended
+---
+```
+
+### Property Details
+
+**`name:`** (REQUIRED) ⚠️ **CRITICAL**
+- **Display name shown in VS Code's prompt picker UI**
+- **Without this, prompts will NOT appear in the UI**
+- Should be clear and descriptive (3-5 words ideal)
+- Examples: "Lighthouse Performance Audit", "Accessibility Review", "Performance Optimization"
+- **MUST NOT be duplicated as H1 heading in prompt body** (causes symbol parsing issues)
+
+**`description:`** (REQUIRED)
+- Brief description shown when user browses prompts
+- Shown in `#` autocomplete menu in Copilot Chat
+- Keep concise but descriptive (50-100 characters ideal)
+
+**`agent:`** (REQUIRED)
+- Specifies execution mode and/or custom agent
+- Values:
+  - `agent` - Multi-turn conversational workflow (generic)
+  - `ask` - Single-response query (no follow-up conversation)
+  - `edit` - Direct code editing workflow
+  - Custom agent name: `performance-tuner`, `accessibility-expert`, `frontend-developer`, `testing-specialist`
+
+**`tools:`** (OPTIONAL)
+- Array of available tools for this prompt
+- Can reference tool sets defined in [.vscode/settings.json](../../.vscode/settings.json)
+- Can list individual MCP tools or built-in VS Code tools
+- Example: `["readonly", "web-quality"]` references two tool sets
+
+### Deprecated/Removed Properties
+
+**`mode:`** - ❌ DEPRECATED (renamed to `agent:`)
+- Older property name for specifying execution mode
+- Replaced by `agent:` property
+- If present, rename to `agent:`
+
+### Format Examples
+
+**Multi-turn workflow with custom agent:**
+
+```yaml
+---
+name: Core Web Vitals Optimization
+description: Optimize Core Web Vitals (LCP, INP, CLS)
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
+---
+```
+
+**Quick single-response query:**
+
+```yaml
+---
+name: Quick Accessibility Scan
+description: Quick accessibility scan
+agent: ask
+tools: ["readonly", "web-quality"]
+---
+```
+
+**Code editing workflow:**
+
+```yaml
+---
+name: Refactor to Hooks
+description: Refactor component to use hooks
+agent: edit
+tools: ["readonly", "react-dev"]
+---
+```
+
+**Generic multi-turn (cross-cutting concerns):**
+
+```yaml
+---
+name: Security Review
+description: Security review covering OWASP Top 10
+agent: agent
+tools: ["readonly"]
+---
+```
+
+### Anti-Patterns
+
+```yaml
+---
+# ❌ Missing name - prompt won't appear in UI
+description: Run Lighthouse audit
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
+---
+```
+
+```yaml
+---
+name: lighthouse-audit              # ✓ Good - has name
+mode: agent                         # ❌ Deprecated - use 'agent:' instead
+description: Run Lighthouse audit
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
+---
+```
+
+### Benefits
+
+1. **UI Visibility**: `name:` ensures prompts appear in VS Code's prompt picker
+2. **Clear intent**: `agent:` property explicitly shows execution mode
+3. **Better tooling**: VS Code recognizes current format for validation
+4. **Organized workflows**: Tool sets group related capabilities
+5. **Future-proof**: Aligns with latest GitHub Copilot customization features
+
+**When to Use Each Agent Value**:
+
+- `agent: agent` - Generic multi-turn workflow for cross-cutting concerns
+- `agent: ask` - Quick single-answer queries that don't need follow-up
+- `agent: edit` - Direct code modifications (rare for our toolkit)
+- `agent: <custom-name>` - Specialized workflows that benefit from domain expertise
+
+**Related Files**:
+- [.github/prompts/*.prompt.md](../../prompts/) - All prompt files follow this format
+- [GitHub Copilot Prompt Files Docs](https://code.visualstudio.com/docs/copilot/customization/prompt-files)
+
+---
+
+## Pattern: Prompt File Body Structure (Industry Standard)
+
+**Context**: GitHub Copilot prompt files need a specific body structure to display correctly in VS Code. After frontmatter, the body should contain simple focused instructions, NOT complex documentation with section headers.
+
+**Problem**: Using markdown section headers (`##`, `###`) in prompt file bodies causes VS Code to parse each section as a separate menu item. For example, a prompt with `## Workflow`, `## Common Pitfalls`, `## Example Usage` sections would appear as 4+ separate items in the `#` autocomplete menu instead of 1 prompt.
+
+**Solution**: Follow the official GitHub Copilot prompt file format from VS Code documentation and the github/awesome-copilot repository:
+1. **YAML frontmatter** (description, agent, tools)
+2. **Simple task instructions** - NO `##` or `###` section headers
+3. **Structure with bold text, bullets, code blocks** - NOT markdown headings
+4. **Length: 20-40 lines** typically sufficient (not hundreds)
+
+### Official Format (VS Code Documentation)
+
+**Source**: [VS Code - Prompt Files](https://code.visualstudio.com/docs/copilot/customization/prompt-files)
+
+```markdown
+---
+description: Brief description
+agent: agent-name
+tools: ["tool1", "tool2"]
+---
+
+[Task description in sentence form, using ${selection} or ${file} variables]
+
+**Your Task**: [Clear objective statement]
+
+**Category 1**: [Guidance using bold, bullets, inline code examples]
+
+**Category 2**: [More guidance]
+
+**Tool Usage**: [Specific tool instructions]
+
+**Success Criteria**: [Measurable outcomes]
+```
+
+### Industry Examples (github/awesome-copilot)
+
+**Real-world examples from production repos**:
+
+```markdown
+---
+description: Create Python quickstart for Dataverse API
+agent: ask
+tools: ["codebase"]
+---
+
+Create Python quickstart code for dataverse api using ${file}.
+```
+*(13 lines total - simple and focused)*
+
+```markdown
+---
+description: Optimize React component for performance
+agent: frontend-developer
+tools: ["readonly", "react-dev"]
+---
+
+Analyze ${selection} for React performance anti-patterns: unnecessary re-renders, missing memoization, expensive computations in render.
+
+**Your Task**: Profile component, identify bottlenecks, suggest optimizations (React.memo, useMemo, useCallback) with profiler data justification.
+
+**Check For**:
+- Inline object/function definitions in JSX
+- Missing dependency arrays in useEffect/useCallback
+- Large component trees without code splitting
+
+**Success Criteria**: Profiler shows 50%+ reduction in render time, no prop drilling beyond 2 levels.
+```
+*(~25 lines - comprehensive but concise)*
+
+### Structure Without Headers
+
+**Use bold text and bullets** for organization, NOT `##` headers:
+
+```markdown
+**Workflow**: Measure → Optimize → Validate cycle for all changes.
+
+**Performance Priorities**:
+- Optimize images (WebP, lazy loading)
+- Minimize JavaScript bundles
+- Eliminate render-blocking resources
+
+**Tools**: Run `lighthouse https://site.com` for baseline metrics.
+```
+
+**Anti-Pattern (causes menu fragmentation)**:
+
+```markdown
+## Workflow
+
+Measure → Optimize → Validate cycle for all changes.
+
+### Step 1: Measure
+
+Run Lighthouse audit...
+
+### Step 2: Optimize
+
+Implement fixes...
+
+## Success Criteria
+
+- LCP < 2.5s
+- INP < 200ms
+```
+*This would create 5+ separate menu items in VS Code!*
+
+### Length Guidelines
+
+**Target: 20-40 lines** (excluding frontmatter)
+
+Most prompts can be simplified to this range while preserving all essential information:
+- Before: 700-1200 lines of documentation-style content
+- After: 25-35 lines of focused instructions
+- **90%+ reduction** with NO loss of essential guidance
+
+**What to Include**:
+- Clear task objective
+- Key strategies/patterns (bulleted)
+- Tool usage instructions (inline)
+- Standards references (links)
+- Success criteria (measurable)
+
+**What to Omit**:
+- Extensive examples (link to docs instead)
+- Step-by-step walkthroughs (AI can infer)
+- Detailed subsections with headers
+- Verbose explanations (be concise)
+
+### Benefits
+
+1. **Correct VS Code Display**: Prompts appear as single items in menu
+2. **Faster Loading**: Less text to parse and display
+3. **Better UX**: Users see concise descriptions, not overwhelming documentation
+4. **Maintainability**: Easier to update and keep consistent
+5. **Industry Alignment**: Follows official GitHub Copilot conventions
+
+### Real Before/After Examples
+
+**Before** (359 lines - fragmented into 7+ menu items):
+```markdown
+---
+description: Optimize Core Web Vitals
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
+---
+
+Optimize Core Web Vitals for ${selection} or ${file}.
+
+## Workflow
+
+### Step 1: Measure Baseline
+Run Lighthouse audit to establish baseline metrics...
+
+### Step 2: Analyze Results
+Review Core Web Vitals scores...
+
+## Core Web Vitals Thresholds
+
+### Largest Contentful Paint (LCP)
+...100+ lines of detailed explanation...
+
+### Interaction to Next Paint (INP)
+...100+ lines of detailed explanation...
+
+## Optimization Strategies
+
+### Image Optimization
+...detailed subsections...
+
+## Success Criteria
+...
+```
+
+**After** (30 lines - single cohesive prompt):
+```markdown
+---
+description: Optimize Core Web Vitals
+agent: performance-tuner
+tools: ["readonly", "web-quality"]
+---
+
+Optimize Core Web Vitals (LCP, INP, CLS) for ${selection} or ${file} following Measure → Optimize → Validate workflow.
+
+**Your Task**: Run Lighthouse audit, identify worst-performing metrics, implement optimizations targeting LCP < 2.5s, INP < 200ms, CLS < 0.1.
+
+**LCP Optimization**: Optimize images (WebP, lazy loading, responsive sizing), eliminate render-blocking resources (critical CSS, async scripts), use CDN for static assets.
+
+**INP Optimization**: Debounce expensive handlers, code-split large bundles, use web workers for heavy computation, optimize JavaScript execution time.
+
+**CLS Optimization**: Set explicit width/height on images/videos, reserve space for dynamic content, avoid inserting content above existing, use font-display: swap.
+
+**Tools**: `lighthouse https://site.com --output=json` for baseline, Chrome DevTools Performance tab for profiling, web.dev/vitals for thresholds.
+
+**Success Criteria**: All Core Web Vitals in "Good" range (green), Lighthouse Performance score ≥90, no layout shifts on load.
+```
+
+**Related Files**:
+- [.github/prompts/*.prompt.md](../../prompts/) - All 22 prompts follow this format
+- [VS Code Docs - Prompt Files](https://code.visualstudio.com/docs/copilot/customization/prompt-files)
+- [github/awesome-copilot](https://github.com/github/awesome-copilot) - Real-world prompt examples
+
+**When to Use**: **ALWAYS** when creating or updating prompt files. This is the official standard.
+
+**When to Avoid**: Never - this is the required format for VS Code compatibility.
+
+---
 
 **When to Use Generic Agent**:
 
