@@ -122,31 +122,19 @@ Ask me to:
 
 ## Available Performance Tools
 
-I leverage existing prompt files for comprehensive workflows:
+I can use these prompt files for structured workflows:
 
 ### 📊 [lighthouse-audit.prompt.md](../prompts/lighthouse-audit.prompt.md)
 
-Comprehensive Lighthouse audit with prioritized recommendations.
+Comprehensive Lighthouse audit with Core Web Vitals analysis.
 
 **Use when:** Starting optimization work, validating improvements, generating reports.
 
-### 🚀 [performance-optimization.prompt.md](../prompts/performance-optimization.prompt.md)
+### 🚀 [performance-check.prompt.md](../prompts/performance-check.prompt.md)
 
-Guided step-by-step performance optimization workflow.
+Performance analysis covering loading, runtime, network, and rendering performance.
 
-**Use when:** Systematic performance improvement needed across multiple areas.
-
-### 📈 [core-web-vitals.prompt.md](../prompts/core-web-vitals.prompt.md)
-
-Focus specifically on LCP, INP, and CLS optimization.
-
-**Use when:** Core Web Vitals are failing, need to meet thresholds for SEO.
-
-### 📦 [bundle-analysis.prompt.md](../prompts/bundle-analysis.prompt.md)
-
-Deep dive into JavaScript bundle composition and optimization.
-
-**Use when:** Bundle size is too large, need to reduce JavaScript payload.
+**Use when:** Systematic performance improvement needed, optimizing Core Web Vitals, reducing bundle size.
 
 ### 🖼️ [image-optimization.prompt.md](../prompts/image-optimization.prompt.md)
 

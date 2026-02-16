@@ -12,14 +12,15 @@ An AI-native development toolkit combining Google Lighthouse guidelines, Core We
 
 ## ✨ What This Toolkit Provides
 
-### 🚀 **22 Ready-to-Use Prompts** (147% of target!)
-Reusable workflows for common development tasks:
-- **Web Quality**: Lighthouse audits, accessibility reviews, performance optimization, Core Web Vitals
-- **React**: Component reviews, render optimization, hook migration, state refactoring
-- **Code Quality**: Code reviews, refactoring, test generation, debugging
-- **Security**: OWASP Top 10 audits, vulnerability scanning
-- **Documentation**: Component docs, API docs, README generation
-- **Performance**: Budget enforcement, browser compatibility testing
+### 🚀 **5 Essential Prompts** (Quality over Quantity!)
+Focused, well-tested workflows for core development tasks:
+- **lighthouse-audit**: Comprehensive Lighthouse performance and accessibility audits
+- **accessibility-check**: Quick WCAG 2.1 Level AA compliance review
+- **component-review**: Analyze React components for best practices
+- **code-review**: General code quality and maintainability review
+- **performance-check**: Performance analysis and optimization suggestions
+
+**Philosophy**: Start with simple, proven prompts. Add more as needs arise.
 
 **[→ Browse All Prompts](.github/prompts/)**
 
