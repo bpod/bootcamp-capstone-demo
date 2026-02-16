@@ -11,18 +11,21 @@ This is a **fresh start** with a minimal set of well-tested, essential prompts. 
 - **Incremental growth**: Add new prompts only when you have a proven need
 - **Stack-agnostic**: Work with any frontend framework or build tool
 
-## 📋 Available Prompts (5)
+## 📋 Available Prompts (6)
+
+**All prompts optimized for speed: analyze selection only, top 3 issues, under 300 words**
 
 ### Web Quality
-- **lighthouse-audit** - Run Lighthouse performance and accessibility audit
-- **accessibility-check** - Quick WCAG 2.1 accessibility review
+- **lighthouse-audit** - Quick Lighthouse scan (images, labels, contrast, blocking resources)
+- **run-lighthouse** - Execute full CLI audit (30-60s, generates reports) - *Use in terminal instead*
+- **accessibility-check** - WCAG 2.1 quick scan (labels, contrast, alt text, focus)
 
 ### React Development  
-- **component-review** - Analyze React component for best practices
+- **component-review** - React quick analysis (waterfalls, re-renders, semantic HTML)
 
 ### Code Quality
-- **code-review** - General code quality review
-- **performance-check** - Performance analysis and optimization suggestions
+- **code-review** - General code quality (framework-agnostic)
+- **performance-check** - Core Web Vitals quick check (CLS, LCP, INP)
 
 ## 🚀 Usage
 

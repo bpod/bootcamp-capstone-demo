@@ -49,7 +49,7 @@ Copy this template when documenting a completed session:
   - Removed deprecated `mode:` property
   - Replaced `tools: ["readonly"]` (tool set) with actual tools: `["codebase", "search", "fetch", "usages", "problems"]`
   - Added `agent:` property to assign each prompt to specialized agent
-- **Updated all documentation** (README.md, CATALOG.md, FRESH-START-SUMMARY.md)
+- **Updated all documentation** (README.md, CATALOG.md, docs/_archive/2026-02-16-fresh-start.md)
 - **Created new prompts README** with "start small, build gradually" philosophy
 
 ### Key Findings and Decisions
@@ -96,7 +96,7 @@ Copy this template when documenting a completed session:
 - `.github/prompts/component-review.prompt.md`
 - `.github/prompts/code-review.prompt.md`
 - `.github/prompts/performance-check.prompt.md`
-- `FRESH-START-SUMMARY.md`
+- `docs/_archive/2026-02-16-fresh-start.md`
 
 **Modified** (3 files):
 - `.github/agents/CATALOG.md`

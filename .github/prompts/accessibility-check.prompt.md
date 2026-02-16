@@ -1,20 +1,27 @@
 ---
-description: "Quick WCAG 2.1 Level AA accessibility review"
+description: "Quick accessibility scan of selected code"
 agent: accessibility-expert
-tools: ["codebase", "search", "fetch", "usages", "problems"]
+tools: ["codebase", "search"]
 ---
 
-Review the selected code for accessibility issues targeting WCAG 2.1 Level AA compliance.
+Scan ONLY the selected/visible code for the top 3 accessibility violations.
 
-Check for:
+**Priority checks:**
 
-- Semantic HTML (proper headings, buttons, nav elements)
-- Keyboard navigation and focus management
-- ARIA attributes (only when semantic HTML isn't sufficient)
-- Color contrast (4.5:1 for text, 3:1 for large text)
-- Alt text for images and labels for form inputs
-- Screen reader compatibility
+- Form inputs missing `<label for="">` → WCAG 3.3.2 (-10 pts)
+- Text contrast < 4.5:1 (check #666, #888, #999) → WCAG 1.4.3 (-10 pts)
+- Images missing `alt` → WCAG 1.1.1 (-10 pts)
+- Buttons/links without accessible names → WCAG 4.1.2 (-8 pts)
+- Missing focus styles (`outline: none`) → WCAG 2.4.7 (-5 pts)
 
-List critical issues first, then important issues. Include specific line numbers and code fixes. Mention which WCAG success criteria each issue violates.
+**Output (keep concise):**
 
-Reference: https://www.w3.org/WAI/WCAG21/quickref/
+```
+1. [Issue] WCAG X.X.X (Line Y)
+   Fix: <code>
+   Impact: +X pts
+
+2-3. [Next issues]...
+```
+
+**Constraint: Max 250 words. Top 3 only. No long explanations.**

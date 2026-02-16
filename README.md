@@ -12,9 +12,9 @@ An AI-native development toolkit combining Google Lighthouse guidelines, Core We
 
 ## ✨ What This Toolkit Provides
 
-### 🚀 **5 Essential Prompts** (Quality over Quantity!)
+### 🚀 **6 Essential Prompts** (Quality over Quantity!)
 Focused, well-tested workflows for core development tasks:
-- **lighthouse-audit**: Comprehensive Lighthouse performance and accessibility audits
+- **lighthouse-audit / run-lighthouse**: Comprehensive Lighthouse performance and accessibility audits
 - **accessibility-check**: Quick WCAG 2.1 Level AA compliance review
 - **component-review**: Analyze React components for best practices
 - **code-review**: General code quality and maintainability review
@@ -34,7 +34,7 @@ Expert AI assistants for specific workflows:
 
 **[→ Browse All Agents](.github/agents/)**
 
-### 📋 **6 Auto-Apply Instructions** (120% of target!)
+### 📋 **6 Auto-Apply Instructions** (Complete!)
 Context-aware guidance that automatically activates:
 - **TypeScript**: Type safety, interfaces, generics
 - **Testing**: Framework-agnostic testing patterns
@@ -125,7 +125,7 @@ cp -r bootcamp-capstone-demo/docs your-project/
 1. Open GitHub Copilot Chat (`Cmd+Shift+I` on Mac, `Ctrl+Shift+I` on Windows/Linux)
 2. Type `@` to see available agents
 3. You should see: `@frontend-developer`, `@accessibility-expert`, `@performance-tuner`, etc.
-4. Type `#` to see available prompts (22 prompts if experimental features enabled)
+4. Type `#` to see available prompts (6 prompts available)
 5. Check View → Output → MCP dropdown to verify MCP servers loaded (if using Insiders)
 
 **Fallback**: If prompts don't appear with `#`, use `#file:.github/prompts/prompt-name.prompt.md` to attach directly.
@@ -175,11 +175,11 @@ cp -r bootcamp-capstone-demo/docs your-project/
 - **[Workflow Patterns](docs/workflow-patterns.md)** - Agentic development cycles
 - **[Testing Guidelines](docs/testing-guidelines.md)** - Quality validation strategies
 - **[MCP Setup Guide](docs/mcp-setup.md)** - Configure MCP servers for automation
-- **[Solution Evaluation](docs/solution-evaluation.md)** - Comprehensive analysis and roadmap
+- **[Project Status](STATUS.md)** - Current status, blockers, and next steps
 
 ### Catalogs
 
-- **[Prompts](.github/prompts/)** - All 22 prompts with use cases
+- **[Prompts](.github/prompts/)** - All 6 prompts with use cases
 - **[Agents](.github/agents/)** - All 5 agents with specializations
 - **[Instructions](.github/instructions/)** - All 6 auto-apply instructions
 
@@ -225,10 +225,10 @@ cp -r bootcamp-capstone-demo/docs your-project/
 ## 📊 Quality Metrics
 
 ### Current State (as of Feb 2026)
-- ✅ **22 Prompts** (147% of target) - Exceeds goal by 47%
-- ✅ **6 Instructions** (120% of target) - Exceeds goal by 20%
-- ✅ **5 Agents** (100% complete) - All implemented
-- ✅ **12 MCP Tools** (6 web-quality + 6 react-dev)
+- ✅ **6 Prompts** (Complete) - Focused, production-ready workflows
+- ✅ **5 Agents** (Complete) - All specialized assistants implemented
+- ✅ **6 Instructions** (Complete) - Context-aware auto-apply guidance
+- ✅ **12 MCP Tools** (6 web-quality + 6 react-dev) - Automated execution
 - ✅ **~24,000 lines** of expert guidance
 - ✅ **Authoritative pattern integration** - web-quality-skills & Vercel React patterns
 

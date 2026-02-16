@@ -47,6 +47,159 @@ This toolkit uses a **dual-layer architecture** for AI assistance:
 
 ---
 
+## 🔮 The Beads Pattern (Progressive Disclosure)
+
+**Problem**: Traditional prompts that analyze entire projects timeout. Selection-based approaches defeat ease-of-use.
+
+**Solution**: Beads pattern—progressive disclosure in 3 tiers that prevents timeouts while maximizing value.
+
+### Three-Tier Structure
+
+```
+Stage 1: QUICK SCAN (30 seconds)
+├─> Fast table summary
+├─> Issue counts by category
+├─> No deep analysis (just counts)
+└─> Commands: "show [category] issues"
+
+Stage 2: CATEGORY DETAILS (on demand)
+├─> User runs: "show accessibility issues"
+├─> Compact list with file:line references
+├─> Brief descriptions, no code yet
+└─> Commands: "fix issue N"
+
+Stage 3: SPECIFIC FIX (on demand)
+├─> User runs: "fix issue 2"
+├─> Before/after code with explanation
+├─> Include audit IDs, WCAG references
+└─> Learn More links to authoritative sources
+```
+
+### Smart Scope Detection
+
+Beads prompts automatically detect project size and adjust scope:
+
+| Project Size | Scope | Rationale |
+|--------------|-------|-----------|
+| **< 10 files** | Analyze all files | Small enough for full scan |
+| **10-50 files** | Current file + imports | Medium project, focus on context |
+| **> 50 files** | Current file only | Large project, prevent timeout |
+
+**Example Scope Logic**:
+```markdown
+**Scope Detection**: Count relevant files (*.js, *.ts, *.jsx, *.tsx, *.html, *.css).
+- Found 8 files → Analyzing whole project
+- Found 35 files → Analyzing current file + dependencies
+- Found 120 files → Analyzing current file only
+
+Display scope to user: "Analyzing 3 files (whole project mode)"
+```
+
+### Beads Pattern Example
+
+**Stage 1 - Quick Scan Prompt** (lighthouse-scan.prompt.md):
+```markdown
+---
+description: Quick Lighthouse scan (Stage 1 of 3)
+agent: performance-tuner
+tools: ["codebase", "search"]
+---
+
+Fast Lighthouse scan of ${input:url} - counts only, no deep analysis.
+
+**Scope Detection**: Detect project size, adjust scope (all/current+imports/current only).
+
+**Output Format**:
+| Category | Issues | Severity | Top Issue |
+|----------|--------|----------|-----------|
+| Accessibility | 12 | 🔴 Critical | Images without alt text |
+| Performance | 8 | 🟠 High | Render-blocking resources |
+
+**Next Steps**: "show accessibility issues" for details, "fix issue 1" for code.
+```
+
+**Stage 2 - Detail Prompt** (show-accessibility-issues.prompt.md):
+```markdown
+---
+description: Show accessibility issues (Stage 2 of 3)
+agent: accessibility-expert
+tools: ["codebase", "search"]
+---
+
+List all accessibility issues found in previous scan.
+
+**Output Format**: Numbered list with file:line, severity, brief description.
+
+1. **Images without alt text** - `image-alt` (WCAG 1.1.1)
+   - [index.html:45](index.html#L45) - `<img src="hero.jpg">`
+   - Impact: Screen readers cannot describe images
+
+**Next Steps**: "fix issue 1" to get code solution.
+```
+
+**Stage 3 - Fix Prompt** (fix-issue.prompt.md):
+```markdown
+---
+description: Generate fix for specific issue (Stage 3 of 3)
+agent: frontend-developer
+tools: ["codebase", "search"]
+---
+
+Fix issue #${input:issueNumber} identified in previous scan.
+
+**Output Format**:
+- Current code (before)
+- Fixed code (after)
+- Explanation of fix
+- Best practices
+- Learn More links
+
+Reference web-quality-skills or Vercel patterns for authoritative guidance.
+```
+
+### Benefits of Beads Pattern
+
+✅ **No Timeouts**: Stage 1 completes in ~30 seconds, no risk  
+✅ **No Manual Selection**: Smart scope detection handles it automatically  
+✅ **Maximum Value**: User explores what matters to them via progressive disclosure  
+✅ **Context Efficient**: Only load detailed context when requested  
+✅ **Conversational**: Natural commands like "show performance issues", "fix issue 2"
+
+### Conversational Follow-up
+
+Beads pattern supports natural language commands:
+
+```
+User: Run a Lighthouse scan
+[Stage 1 output - table of issues]
+
+User: show me the accessibility problems
+[Stage 2 output - issue list]
+
+User: fix the first issue
+[Stage 3 output - before/after code]
+
+User: what about performance?
+[Stage 2 output - performance issues]
+```
+
+### When to Use Beads Pattern
+
+**Use beads for**:
+- ✅ Web quality audits (Lighthouse, accessibility, performance)
+- ✅ Multi-file analysis (React component review across project)
+- ✅ Long-running operations (bundle analysis, test generation)
+- ✅ Complex results (many issues to triage)
+
+**Skip beads for**:
+- ❌ Single-file operations (refactoring current file)
+- ❌ Simple queries (what is Core Web Vitals?)
+- ❌ Quick validations (check this component for hooks issues)
+
+**See**: [BEADS-IMPLEMENTATION-PLAN.md](../BEADS-IMPLEMENTATION-PLAN.md) for complete implementation guide.
+
+---
+
 ## Critical Format Requirements
 
 ### 🚨 RULE 1: NO Section Headers in Body
@@ -567,4 +720,4 @@ Agent: [Detailed guidance, testing strategies, alternative approaches]
 - [.github/memory/patterns-discovered.md](../.github/memory/patterns-discovered.md) - Documented patterns including prompt format
 - [Project Overview](./project-overview.md) - Overall architecture
 
-**All 22 prompts in this project follow this standard**.
+**All prompts in this project follow this standard**.

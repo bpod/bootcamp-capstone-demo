@@ -2,8 +2,10 @@
 
 **Date Created**: 2026-02-11  
 **Branch**: feature/test-implementation  
-**Total Prompts**: 22  
+**Total Prompts**: 6  
 **Test Subject**: `/demo-app` - Intentionally flawed web application
+
+**Note**: This test plan was originally created for 22 prompts. After the 2026-02-16 fresh start, we now have 6 essential prompts. Test cases below may reference archived prompts.
 
 ---
 
