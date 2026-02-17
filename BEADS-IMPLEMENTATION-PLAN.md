@@ -1,27 +1,45 @@
-# Beads Pattern Implementation Plan
+# Beads CLI Integration Plan
 
-**Date**: 2026-02-16  
-**Branch**: `feature/beads-pattern`  
-**Status**: Approved for Implementation  
+**Date**: 2026-02-17 (Updated)  
+**Branch**: `feature/beads-integration`  
+**Status**: Ready for Implementation  
 
 ---
 
 ## Executive Summary
 
-**Problem**: Current prompts timeout when analyzing entire projects due to comprehensive multi-file analysis. Selection-based approach was rejected as it defeats ease-of-use.
+**Problem**: Current system has two critical issues:
+1. Prompts timeout when analyzing entire projects (no progressive disclosure)
+2. No persistent memory across sessions (fixes are lost, must re-scan)
 
-**Solution**: Implement beads pattern (progressive disclosure) with smart scope detection.
+**Solution**: Dual integration of [beads CLI](https://github.com/steveyegge/beads) tool:
+1. **Progressive Disclosure Pattern** - Avoid timeouts with 3-stage workflow
+2. **Task Persistence** - Track web quality issues, memory, and patterns across sessions
+
+### Progressive Disclosure (UX Pattern)
 - **Stage 1 (Quick Scan)**: 30-second table summary → No timeout risk  
 - **Stage 2 (Category Details)**: Issue list on demand → User controls depth  
 - **Stage 3 (Specific Fix)**: Code examples only when requested → Minimal context use  
+
+### Beads CLI Integration (Task Persistence)
+- **Git-backed task tracker** specifically designed for AI agents
+- **JSON API** for every command (agent-native)
+- **Structured memory** replaces markdown files (2,109 + 874 lines)
+- **Dependency tracking** for blocking relationships
+- **Cross-session state** - persistent context across agent sessions
+- **Zero-conflict merges** using Dolt (versioned SQL) + hash IDs
 
 **Benefits**:
 - ✅ No timeouts (Stage 1 completes quickly)
 - ✅ No manual selection required (automatic smart scope)
 - ✅ Maximum value (user explores what matters to them)
 - ✅ Context efficient (only load details on demand)
+- ✅ **Persistent memory** - Track issues across sessions
+- ✅ **No re-scanning** - Query beads instead of re-running audits
+- ✅ **Dependency tracking** - "Fix A before B" relationships
+- ✅ **Multi-agent coordination** - Shared task database
 
-**Reference Implementation**: [steveyegge/beads](https://github.com/steveyegge/beads) - Original beads pattern by Steve Yegge with examples and best practices
+**What is Beads**: Distributed, git-backed issue tracker designed for AI agents. Provides structured, versioned task management with JSON API, automatic git sync, and cell-level conflict resolution.
 
 ---
 
@@ -30,12 +48,14 @@
 1. [Competitive Analysis](#competitive-analysis)
 2. [Integration with Core Sources of Truth](#integration-with-core-sources-of-truth)
 3. [Technical Architecture](#technical-architecture)
-4. [Memory System Enhancement with Beads](#memory-system-enhancement-with-beads)
-5. [Implementation Phases](#implementation-phases)
-6. [Prompt Structure](#prompt-structure)
-7. [Testing Strategy](#testing-strategy)
-8. [Success Metrics](#success-metrics)
-9. [Timeline & Milestones](#timeline--milestones)
+4. [Beads CLI Overview](#beads-cli-overview)
+5. [Web Quality Integration with Beads CLI](#web-quality-integration-with-beads-cli)
+6. [Memory System with Beads CLI](#memory-system-with-beads-cli)
+7. [Implementation Phases](#implementation-phases)
+8. [Prompt Structure](#prompt-structure)
+9. [Testing Strategy](#testing-strategy)
+10. [Success Metrics](#success-metrics)
+11. [Timeline & Milestones](#timeline--milestones)
 
 ---
 
@@ -666,7 +686,452 @@ Or copy the fixed code above and replace the current code manually.
 
 ---
 
-## Memory System Enhancement with Beads
+## Beads CLI Overview
+
+### What is Beads?
+
+**Beads** (`bd`) is a distributed, git-backed issue tracker designed specifically for AI agents. Created by Steve Yegge, it provides persistent, structured memory for long-horizon tasks.
+
+**Key Features**:
+- **Dolt-Powered**: Versioned SQL database with cell-level merge (no conflicts)
+- **Git Integration**: Automatic JSONL export/import via git hooks
+- **Agent-Optimized**: Every command has `--json` flag for parsing
+- **Dependency Tracking**: `bd dep add <child> <parent>` for blocking relationships
+- **Hash-Based IDs**: `bd-a1b2` format prevents merge collisions
+- **Hierarchical Tasks**: Epic → Task → Sub-task (`bd-abc.1.2`)
+- **Auto-Ready Detection**: `bd ready` shows only unblocked tasks
+- **Zero Configuration**: `bd init` in any project, works immediately
+
+### Core Commands
+
+```bash
+# Initialize in project
+bd init
+
+# Create tasks
+bd create "Fix accessibility issues" -p 1 -t bug --label web-quality --json
+
+# List ready tasks (no blockers)
+bd ready --json
+bd ready --label web-quality --json
+
+# Claim and track work
+bd update bd-abc --claim --json
+bd update bd-abc --status in_progress --json
+
+# Add dependencies
+bd dep add bd-xyz bd-abc  # xyz blocks abc
+
+# Close completed work
+bd close bd-abc --reason "Fixed all alt text" --json
+
+# Sync with git (export, commit, push)
+bd sync
+
+# View task details
+bd show bd-abc --json
+```
+
+### Why Use Beads for This Project?
+
+**Problem 1: No Cross-Session Memory**
+- Current: Run Lighthouse → Find 27 issues → Fix 5 → **No record of which 5**
+- Next session: Must remember what was fixed or re-scan everything
+
+**Solution with Beads**:
+- Lighthouse scan creates 27 beads tasks (one per issue)
+- Fix 5 issues → Close 5 beads tasks
+- Next session: `bd ready --label web-quality` shows 22 remaining
+- **No re-scanning needed** - Query beads database
+
+**Problem 2: No Dependency Tracking**
+- Some optimizations depend on others (e.g., LCP improvement requires fixing render-blocking CSS)
+- Current: Manual tracking in prose ("must fix X before Y")
+
+**Solution with Beads**:
+- `bd dep add bd-lcp bd-render` (LCP blocks on render-blocking fix)
+- `bd ready` automatically excludes blocked tasks
+- Natural progression through optimization hierarchy
+
+**Problem 3: Large Markdown Files**
+- `session-notes.md`: 2,109 lines (growing)
+- `patterns-discovered.md`: 874 lines
+- Hard to query, expensive to load, merge conflicts
+
+**Solution with Beads**:
+- Structured SQL database for session/pattern data
+- JSON API for queries
+- Cell-level merge (no conflicts)
+
+### Installation
+
+```bash
+# Via curl (recommended)
+curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+
+# Via npm
+npm install -g @beads/bd
+
+# Via Homebrew
+brew install beads
+
+# Verify
+bd version
+```
+
+---
+
+## Web Quality Integration with Beads CLI
+
+### Problem: No Persistence for Web Quality Findings
+
+**Current Workflow (Without Beads)**:
+1. Session 1: Run Lighthouse → Find 27 issues → Fix 5 critical
+2. Session 2: Run Lighthouse again → Shows 22 issues, but **no context** about:
+   - Which 5 were fixed
+   - Which issues are in progress
+   - What dependencies exist ("fix A before B")
+   - Historical improvements
+3. Every session requires full re-scan or manual note-keeping
+
+**Problem**: No structured, persistent tracking of web quality issues across sessions.
+
+---
+
+### Solution: Beads CLI + Progressive Disclosure
+
+**Dual Integration**:
+1. **Progressive Disclosure Pattern** - Avoid timeouts during initial scan
+2. **Beads CLI** - Persist findings as tasks for cross-session tracking
+
+---
+
+### Integrated Workflow
+
+#### Stage 1: Initial Scan + Create Tasks
+
+**Prompt**: `#web-quality-scan` or "run lighthouse audit"
+
+**What Happens**:
+1. Progressive scan (Stage 1: Quick overview, <30 seconds)
+2. For each finding, create a beads task:
+
+```bash
+# Accessibility issues
+bd create "Fix: Images without alt text (8 occurrences)" \
+  -p 1 -t bug --label web-quality --label accessibility \
+  --description "index.html lines 45, 67, 78, etc. Missing alt attributes" \
+  --json
+# Returns: bd-a1b2
+
+bd create "Fix: Form inputs without labels (2 occurrences)" \
+  -p 1 -t bug --label web-quality --label accessibility \
+  --description "index.html lines 120, 125" \
+  --json
+# Returns: bd-c3d4
+
+# Performance issues
+bd create "Fix: Render-blocking CSS (3 files)" \
+  -p 1 -t bug --label web-quality --label performance \
+  --description "style.css, theme.css, vendor.css blocking LCP" \
+  --json
+# Returns: bd-e5f6
+
+bd create "Improve: LCP to < 2.5s" \
+  -p 0 -t task --label web-quality --label performance \
+  --description "Current: 3.2s, Target: 2.5s" \
+  --json
+# Returns: bd-g7h8
+
+# Add dependency: LCP improvement depends on fixing render-blocking
+bd dep add bd-g7h8 bd-e5f6  # g7h8 (LCP) blocks on e5f6 (render-blocking)
+```
+
+**Output to User**:
+```markdown
+# Web Quality Scan Complete ✅
+
+**Scope**: Analyzed 3 files (whole project)
+**Tasks Created**: 27 beads tasks filed
+
+## Results Summary
+
+| Category | Issues | Tasks Filed | Top Issue |
+|----------|--------|-------------|--------|
+| Accessibility | 12 | bd-a1b2 to bd-m13n | Images without alt text |
+| Performance | 8 | bd-e5f6 to bd-w21x | Render-blocking resources |
+| Best Practices | 5 | bd-y23z to bd-c27d | Missing error boundaries |
+| SEO | 2 | bd-e29f to bd-g31h | Missing meta description |
+
+**Total Issues**: 27 tasks in beads tracker
+
+---
+
+## Next Steps
+
+Query beads to explore:
+- `bd ready --label accessibility --json` - Show unblocked accessibility tasks
+- `bd ready --label performance --json` - Show unblocked performance tasks
+- `show accessibility issues` - Stage 2 details from beads
+- `fix issue bd-a1b2` - Stage 3 fix code
+```
+
+**Key Innovation**: Issues now persisted in beads. No need to re-scan to see what remains.
+
+---
+
+#### Stage 2: Query Tasks (No Re-Scan!)
+
+**Prompt**: `show accessibility issues` or "what accessibility work remains?"
+
+**What Happens**:
+1. Query beads (NOT re-run Lighthouse):
+
+```bash
+bd ready --label accessibility --json
+```
+
+2. Generate Stage 2 output from beads tasks:
+
+**Output**:
+```markdown
+# Accessibility Issues (12 tasks)
+
+**Source**: Beads tracker (no re-scan required)
+**Ready Tasks**: 10 (2 blocked by dependencies)
+
+## Critical Issues (8 tasks ready)
+
+1. **bd-a1b2**: Images without alt text - `image-alt` (WCAG 1.1.1)
+   - Files: index.html (lines 45, 67, 78)
+   - Status: `open` | Priority: P1
+   - **Impact**: Screen readers cannot describe images
+   - **Command**: `fix issue bd-a1b2`
+
+2. **bd-c3d4**: Form inputs without labels - `label` (WCAG 3.3.2)
+   - Files: index.html (lines 120, 125)
+   - Status: `open` | Priority: P1
+   - **Impact**: Screen reader users don't know input purpose
+   - **Command**: `fix issue bd-c3d4`
+
+## Blocked Issues (2 tasks)
+
+10. **bd-k19l**: Improve keyboard navigation
+    - Blocked by: bd-j17i (Focus management)
+    - Will be ready when dependency closes
+
+---
+
+**Commands**:
+- `fix issue bd-a1b2` - Get code to fix alt text
+- `claim bd-a1b2` - Assign task to yourself
+- `bd show bd-a1b2 --json` - Full task details
+```
+
+**Benefits**:
+- ✅ No Lighthouse re-scan (query beads instead)
+- ✅ See exactly what's left (not what's already fixed)
+- ✅ Dependency visualization (blocked tasks shown separately)
+- ✅ Fast (<5 seconds vs 30+ seconds for re-scan)
+
+---
+
+#### Stage 3: Fix & Close Task
+
+**Prompt**: `fix issue bd-a1b2` or "show fix for alt text issue"
+
+**What Happens**:
+1. Query beads for task details:
+```bash
+bd show bd-a1b2 --json
+```
+
+2. Generate Stage 3 fix code (same as before)
+
+3. After user applies fix:
+```bash
+# Claim task
+bd update bd-a1b2 --claim --status in_progress --json
+
+# User applies fix
+
+# Close task
+bd close bd-a1b2 --reason "Added alt text to all 8 images" --json
+
+# Sync with git
+bd sync
+```
+
+**Output**:
+```markdown
+# Fix: Images Without Alt Text (bd-a1b2)
+
+[... same Stage 3 output as before with code examples ...]
+
+---
+
+## After Applying Fix
+
+Run these commands to update beads:
+
+```bash
+# Mark as completed
+bd close bd-a1b2 --reason "Added alt text to all 8 images"
+
+# Sync with git (export, commit, push)
+bd sync
+```
+
+**Progress Update**: 11 accessibility tasks remaining (was 12)
+```
+
+---
+
+#### Stage 4: Cross-Session Continuity
+
+**Session 1** (Initial scan):
+```bash
+bd ready --label web-quality --json
+# 27 tasks, fix 5 critical ones
+```
+
+**Session 2** (Next day):
+```bash
+bd ready --label web-quality --json
+# 22 tasks remain
+# Beads remembers: "You fixed 5 issues last session"
+# Agent: "Last session you completed bd-a1b2, bd-c3d4, bd-e5f6, bd-g7h8, bd-i9j0"
+```
+
+**Session 3** (Re-validation):
+```bash
+# Periodically re-run Lighthouse to verify fixes
+# Compare findings with open beads tasks
+# Close any validated fixes
+# File new tasks for any regressions
+```
+
+---
+
+### Dependency Tracking Example
+
+**Scenario**: LCP improvement requires fixing render-blocking CSS first
+
+```bash
+# Create performance tasks
+bd create "Fix: Render-blocking CSS" -p 1 -t bug --label performance --json
+# Returns: bd-render
+
+bd create "Improve: LCP to < 2.5s" -p 0 -t task --label performance --json
+# Returns: bd-lcp
+
+# Add dependency (LCP blocked by render-blocking)
+bd dep add bd-lcp bd-render  # lcp BLOCKS ON render
+
+# Query ready tasks
+bd ready --label performance --json
+# Shows bd-render (ready)
+# Does NOT show bd-lcp (blocked)
+
+# After fixing render-blocking:
+bd close bd-render --reason "Eliminated 3 blocking stylesheets"
+
+# Query again
+bd ready --label performance --json
+# NOW shows bd-lcp (unblocked)
+```
+
+**Benefits**:
+- Natural progression through optimization hierarchy
+- Prevents working on blocked optimizations
+- Documents why certain fixes come before others
+
+---
+
+### Complete Workflow Diagram
+
+```
+┌─────────────────────────────────────┐
+│ INITIAL SCAN (Progressive + Beads) │
+│ - Stage 1: Lighthouse (30s)        │
+│ - Create beads task per finding    │
+│ - Add dependencies where needed    │
+│ - Show summary table               │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│ QUERY TASKS (No Re-Scan)           │
+│ - bd ready --label <category>      │
+│ - Stage 2: Details from beads      │
+│ - Show file:line from task data    │
+│ - Fast (<5s vs 30+s)               │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│ FIX & CLOSE                        │
+│ - Stage 3: Show fix code           │
+│ - bd update (claim/in-progress)    │
+│ - Apply fix manually               │
+│ - bd close (after verification)    │
+│ - bd sync (git commit + push)      │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│ RE-VALIDATE (Periodic)             │
+│ - Re-run Lighthouse (weekly?)      │
+│ - Compare with open tasks          │
+│ - Close validated fixes            │
+│ - File new tasks for regressions   │
+└─────────────────────────────────────┘
+```
+
+---
+
+### Benefits Summary: Web Quality + Beads
+
+| Aspect | Without Beads | With Beads CLI |
+|--------|---------------|----------------|
+| **Initial Scan** | 30s Lighthouse run | 30s + task creation (<5s) |
+| **Query Issues** | Re-run Lighthouse (30s) | Query beads (<5s) |
+| **Cross-Session** | No memory, must re-scan | Persistent state |
+| **Progress Tracking** | Manual notes | Structured task status |
+| **Dependencies** | Not tracked | First-class support |
+| **Multi-Agent** | Coordination issues | Shared task database |
+| **Merge Conflicts** | Common (manual notes) | Rare (hash IDs + Dolt) |
+| **Historical Data** | Lost or in prose | Queryable audit trail |
+
+---
+
+### Implementation: Web Quality Prompts
+
+**New Prompts**:
+
+1. **`web-quality-scan.prompt.md`**
+   - Stage 1 progressive scan + create beads tasks
+   - Output: Summary table with task IDs
+
+2. **`web-quality-query.prompt.md`**
+   - Query beads (no re-scan)
+   - Generate Stage 2 output from tasks
+   - Filter by category/priority
+
+3. **`web-quality-fix.prompt.md`**
+   - Show Stage 3 fix code
+   - Update beads task status
+   - Provide close commands
+
+4. **`web-quality-validate.prompt.md`**
+   - Re-run Lighthouse for validation
+   - Compare with beads tasks
+   - Close verified fixes
+
+**Modified Prompts**:
+- Update existing `lighthouse-audit.prompt.md` to integrate beads
+- Update `accessibility-check.prompt.md` to query beads first
+
+---
+
+## Memory System with Beads CLI
 
 ### Current Memory System Problems
 
@@ -699,9 +1164,49 @@ The existing `.github/memory/` system has significant scalability issues:
 
 ---
 
-### Beads Pattern Solution for Memory
+### Solution: Beads CLI for Memory Management
 
-Replace the current 3-file system with **memory-aware prompts** using progressive disclosure:
+Replace markdown files with **beads CLI tasks** + **progressive disclosure prompts**:
+
+#### Architecture: Memory in Beads
+
+```
+.beads/
+├── beads.db              # Dolt database (source of truth, gitignored)
+├── issues.jsonl          # Git-tracked export (automatic via hooks)
+└── .beads-hooks/         # Git hooks for auto-sync
+
+memory/ (optional, complementary)
+├── index.json            # Lightweight index (generated from beads)
+└── scratch/
+    └── working-notes.md  # Ephemeral notes (still gitignored)
+```
+
+**Key Insight**: Sessions and patterns become **beads tasks**, not markdown files.
+
+#### Beads Task Types for Memory
+
+```bash
+# Sessions as tasks
+bd create "Session: Fresh Start - Prompt Reset" \
+  -t epic --label session --label 2026-02-16 \
+  --description "Created 5 minimal starter prompts, archived 22 old prompts" \
+  --acceptance "5 prompt files created, documentation updated" \
+  --json
+
+# Patterns as tasks  
+bd create "Pattern: Simple Conversational Prompt Format" \
+  -t task --label pattern --label prompt-design \
+  --description "Use simple, conversational instructions. No nested headers." \
+  --design "Solves: UI navigation issues, hard to maintain complex prompts" \
+  --notes "Examples: lighthouse-audit.prompt.md, accessibility-check.prompt.md" \
+  --json
+
+# Sub-tasks for session work
+bd create "Archive 22 previous prompts" \
+  -t task --label session --label 2026-02-16 \
+  --json
+```
 
 #### Architecture: Memory as Beads
 
@@ -721,244 +1226,139 @@ Replace the current 3-file system with **memory-aware prompts** using progressiv
     └── working-notes.md    # Still gitignored, but indexed daily
 ```
 
-#### Stage 1: Memory Overview (Quick Scan)
+#### Stage 1: Memory Overview (Query Beads)
 
 **Prompt**: `#memory-scan` or "what's in the memory system?"
+
+**What Happens**:
+```bash
+# Query beads for sessions
+bd list --label session --json
+
+# Query beads for patterns by category
+bd list --label pattern --label accessibility --json
+bd list --label pattern --label react --json
+```
 
 **Output**:
 ```markdown
 # Memory System Overview 📚
 
-**Last Updated**: 2026-02-16
-**Total Sessions**: 12
-**Total Patterns**: 47
-**Session Duration**: 3 weeks
+**Source**: Beads task tracker
+**Last Updated**: 2026-02-17
+**Total Sessions**: 12 tasks
+**Total Patterns**: 47 tasks
 
 ## Recent Sessions (Last 5)
 
-| Date | Topic | Key Achievement | Files Changed |
-|------|-------|-----------------|---------------|
-| 2026-02-16 | Fresh Start: Prompt Reset | Created 5 minimal starter prompts | 7 created |
-| 2026-02-11 | Testing Session | Demo app infrastructure | 4 created |
-| 2026-02-11 | Phase 1 & 2 Complete | MCP integration finished | 9 updated |
-| 2026-02-10 | Agent Integration | Added MCP tools to 3 agents | 3 updated |
-| 2026-02-09 | MCP Servers | web-quality + react servers | 2 created |
+| Task ID | Date | Topic | Status | Key Achievement |
+|---------|------|-------|--------|----------------|
+| bd-s012 | 2026-02-16 | Fresh Start: Prompt Reset | closed | 5 minimal prompts created |
+| bd-s011 | 2026-02-11 | Testing Session | closed | Demo app infrastructure |
+| bd-s010 | 2026-02-11 | Phase 1 & 2 Complete | closed | MCP integration |
+| bd-s009 | 2026-02-10 | Agent Integration | closed | MCP tools added |
+| bd-s008 | 2026-02-09 | MCP Servers | closed | 2 servers created |
 
 ## Pattern Categories
 
-| Category | Patterns | Last Updated | Top Pattern |
-|----------|----------|--------------|-------------|
-| **Accessibility** | 8 | 2026-02-11 | WCAG Level AA compliance |
-| **React** | 12 | 2026-02-16 | Component review workflow |
-| **Performance** | 9 | 2026-02-11 | Core Web Vitals optimization |
-| **Prompt Design** | 6 | 2026-02-16 | Simple conversational format |
-| **Testing** | 5 | 2026-02-11 | Demo app validation |
-| **Documentation** | 7 | 2026-02-16 | Memory system workflows |
+| Category | Tasks | Last Updated | Sample Patterns |
+|----------|-------|--------------|----------------|
+| accessibility | 8 | 2026-02-11 | WCAG compliance, semantic HTML |
+| react | 12 | 2026-02-16 | Component review, hooks |
+| performance | 9 | 2026-02-11 | Core Web Vitals |
+| prompt-design | 6 | 2026-02-16 | Simple format |
 
-**Total Patterns**: 47
+**Total**: 47 pattern tasks
 
 ---
 
 ## Next Steps
 
-Explore specific sessions or patterns:
-- `show session 2026-02-16` - Full details on Fresh Start session
-- `show accessibility patterns` - All 8 accessibility patterns
-- `show recent sessions` - Last 10 sessions with full details
-- `search memory "lighthouse"` - Full-text search across all memory
+- `show session bd-s012` - Full details on Fresh Start
+- `show patterns accessibility` - All 8 accessibility patterns
+- `bd show bd-s012 --json` - Raw task data
 ```
 
-**Implementation**:
-- Reads `memory/index.json` only (lightweight, <10KB)
-- Shows overview without loading any markdown files
-- Completes in <5 seconds, no timeout risk
+**Implementation**: Query beads, format output as table (<5 seconds).
 
 ---
 
-#### Stage 2: Category/Session Details (On Demand)
+#### Stage 2: Session/Pattern Details (Query Specific Task)
 
-**Prompt**: `#memory-session 2026-02-16` or "show accessibility patterns"
+**Prompt**: `show session bd-s012` or "show accessibility patterns"
+
+**What Happens**:
+```bash
+# Get specific session
+bd show bd-s012 --json
+
+# Get patterns by label
+bd list --label pattern --label accessibility --json
+```
 
 **Output for Session**:
 ```markdown
-## Fresh Start: Prompt Reset - 2026-02-16
+## Session: Fresh Start - Prompt Reset (bd-s012)
 
-### What Was Accomplished ✅
-- Archived 22 previous prompts to `prompts_archived_20260216/`
-- Created 5 minimal, essential starter prompts
-- Simplified format from 60-80 line documentation-style to 10-15 line conversational
-- Fixed formatting errors (deprecated `mode:`, incorrect `tools:`)
-- Updated all documentation
+**Date**: 2026-02-16  
+**Status**: Closed  
+**Duration**: 4 hours
 
-### Key Findings and Decisions 🔍
+### What Was Accomplished
+- Archived 22 previous prompts
+- Created 5 minimal, essential starter prompts  
+- Simplified format from 60-80 lines to 10-15 lines
+- Fixed formatting errors
 
-**Problem**: Complex nested heading structures caused UI issues and made prompts read like technical documentation.
-
-**Solution**: Complete format simplification
-- Conversational, direct instructions
-- No nested headings - just simple bullet points
-- Focus on "what to do" not "how the prompt works"
-
-**Decision Rationale**:
-1. Quality over quantity: 5 great prompts > 22 problematic
-2. Industry standards: Follow VS Code/Copilot best practices
-3. Maintainability: Simple prompts easier to test and update
-
-### Files Changed (7 files)
-- Created: `.github/prompts/README.md`
-- Created: 5 prompt files (lighthouse-audit, accessibility-check, etc.)
-- Created: `docs/_archive/2026-02-16-fresh-start.md`
+### Key Decisions
+- Quality over quantity: 5 great prompts > 22 problematic
+- Simple conversational format adopted as standard
+- No nested headings in prompts
 
 ### Related Patterns
-- [Simple Conversational Prompt Format](patterns/prompt-design.md#simple-conversational-format)
-- [Agent Assignment Pattern](patterns/prompt-design.md#agent-assignment)
+- bd-p047: Simple Conversational Prompt Format
+- bd-p046: Agent Assignment Pattern
 
----
-
-**Want more details?**
-- `show pattern "simple conversational format"` - Full pattern with examples
-- `show all patterns from this session` - 3 patterns discovered
-- `compare session 2026-02-16 with 2026-02-11` - See evolution
+**Commands**:
+- `show pattern bd-p047` - Simple format details
+- `bd show bd-s012 --json` - Full task JSON
 ```
 
 **Output for Pattern Category**:
 ```markdown
-# Accessibility Patterns (8 patterns)
+# Accessibility Patterns (8 tasks)
 
-**Last Updated**: 2026-02-11
-**Related Sessions**: testing-session, phase1-2-complete
+**Source**: Beads tracker  
+**Label**: `pattern`, `accessibility`
 
-## Pattern Index
+| Task ID | Pattern Name | Status | Related Sessions |
+|---------|--------------|--------|------------------|
+| bd-p001 | WCAG Level AA Compliance | active | bd-s010, bd-s011 |
+| bd-p002 | Semantic HTML First | active | bd-s011 |
+| bd-p003 | ARIA When Needed | active | bd-s010 |
+| bd-p004 | Color Contrast | active | bd-s011 |
+| bd-p005 | Focus Management | active | bd-s010 |
+| bd-p006 | Alt Text Generation | active | bd-s011 |
+| bd-p007 | Keyboard Navigation | active | bd-s010 |
+| bd-p008 | Screen Reader Testing | active | bd-s011 |
 
-| # | Pattern Name | When to Use | Related Files |
-|---|--------------|-------------|---------------|
-| 1 | WCAG Level AA Compliance | All production code | 12 references |
-| 2 | Semantic HTML First | Component scaffolding | 8 references |
-| 3 | ARIA Attributes (When Needed) | Complex UI patterns | 6 references |
-| 4 | Color Contrast Validation | Design system colors | 4 references |
-| 5 | Focus Management | Dynamic content | 5 references |
-| 6 | Alt Text Generation Pattern | Image handling | 10 references |
-| 7 | Keyboard Navigation | Interactive components | 7 references |
-| 8 | Screen Reader Testing | Critical user flows | 3 references |
-
----
-
-**Explore patterns**:
-- `show pattern "WCAG Level AA Compliance"` - Full details with code examples
-- `show pattern 6` - Alt text generation pattern
-- `show all accessibility patterns` - Full content of all 8 patterns
-```
-
-**Implementation**:
-- Loads specific session file OR pattern category file (not all memory)
-- Returns compact summary with links to deeper details
-- Completes in <10 seconds
-
----
-
-#### Stage 3: Detailed Pattern/Session (Deep Dive)
-
-**Prompt**: `#memory-pattern "Simple Conversational Format"` or "show full pattern for alt text generation"
-
-**Output**:
-```markdown
-## Pattern: Simple Conversational Prompt Format
-
-**Context**: When creating `.prompt.md` files for GitHub Copilot Chat workflows
-
-**Problem**: 
-Complex documentation-style prompts with nested headers (##, ###, ####) cause:
-1. VS Code UI navigation issues (prompts show up as navigable sections)
-2. Prompts read like technical specs instead of actionable instructions
-3. Too much structure makes prompts hard to maintain
-4. Users struggle to understand what the prompt actually does
-
-**Solution**: Use simple, conversational instructions with minimal structure
-
----
-
-### ✅ Correct Format
-
-```markdown
----
-description: "Brief, clear description"
-agent: specialized-agent-name
-tools: ["codebase", "search", "fetch", "usages", "problems"]
----
-
-Direct, conversational instruction about what to analyze.
-
-Check for:
-- Key point 1 (brief, actionable)
-- Key point 2 (brief, actionable)
-- Key point 3 (brief, actionable)
-
-Provide output in this format: [brief description]. Include line numbers and code examples.
-
-Reference: [link to authoritative source]
+**Commands**:
+- `show pattern bd-p001` - Full WCAG pattern details
+- `bd show bd-p006 --json` - Alt text pattern JSON
 ```
 
 ---
 
-### ❌ Anti-Pattern (Overly Complex)
+#### Stage 3: Detailed Pattern (Full Task)
 
-```markdown
----
-description: "Description"
-mode: "agent"  # ❌ Deprecated
-tools: ["readonly"]  # ❌ Tool set name, not actual tools
----
+**Prompt**: `show pattern bd-p047` or "show simple conversational format pattern"
 
-# Main Heading  # ❌ Adds navigation noise
-
-Long introductory paragraph explaining the prompt's purpose...
-
-## What to Review  # ❌ Nested structure
-### 1. Category One  # ❌ Too much nesting
-...
+**What Happens**:
+```bash
+bd show bd-p047 --json
 ```
 
----
-
-### Related Files
-
-- [lighthouse-audit.prompt.md](.github/prompts/lighthouse-audit.prompt.md) - Exemplar
-- [accessibility-check.prompt.md](.github/prompts/accessibility-check.prompt.md) - Exemplar
-- [docs/_archive/2026-02-16-fresh-start.md](docs/_archive/2026-02-16-fresh-start.md) - Origin session
-
-### Performance Impact
-
-- **Before**: 60-80 lines, complex navigation, hard to maintain
-- **After**: 10-15 lines, simple structure, easy to update
-- **Improvement**: ~75% reduction in prompt complexity
-
-### When to Use
-
-✅ Use this pattern:
-- When creating any new `.prompt.md` file
-- When refactoring existing prompts
-- When prompts become hard to read or maintain
-
-❌ Avoid this pattern:
-- Never! Always use simple, conversational format
-
-### History
-
-- **Discovered**: 2026-02-16 (Fresh Start session)
-- **Validation**: Tested with 6 prompts, zero errors
-- **Status**: ✅ Adopted as standard
-
----
-
-**Related patterns**:
-- `show pattern "Agent Assignment"` - How to choose the right agent
-- `show session 2026-02-16` - Session where this was discovered
-```
-
-**Implementation**:
-- Loads single pattern file from `patterns/` directory
-- Returns complete information with code examples
-- Only loaded when user explicitly requests deep dive
+**Output**: Display full task with description, design notes, examples, related files.
 
 ---
 
@@ -1024,44 +1424,238 @@ Long introductory paragraph explaining the prompt's purpose...
 
 ---
 
-### Benefits of Beads-Based Memory
+### Benefits: Memory with Beads CLI
 
-| Aspect | Current System | With Beads Pattern |
-|--------|----------------|-------------------|
-| **File Size** | 2109 + 874 lines (single files) | 50-200 lines per file (split) |
-| **Load Time** | 30-60 seconds (load all) | <5 seconds (index only) |
-| **Discoverability** | Manual grep/search | Table overview + categories |
-| **Context Efficiency** | Load everything or nothing | Load only what's needed |
-| **Timeout Risk** | High (large files) | None (index + on-demand) |
-| **Maintenance** | Hard to manage large files | Easy to add/update individual files |
-| **AI Query UX** | "Read session-notes.md line 500-600" | "show session 2026-02-16" |
+| Aspect | Current (Markdown) | With Beads CLI |
+|--------|-------------------|----------------|
+| **Storage** | 2,109 + 874 lines (2 files) | Structured SQL database |
+| **Query Speed** | 30-60s (load full files) | <5s (SQL query) |
+| **Discoverability** | Manual grep/search | `bd list --label <category>` |
+| **Context Efficiency** | All-or-nothing | Query specific tasks |
+| **Timeout Risk** | High (large files) | None (fast queries) |
+| **Merge Conflicts** | Common (large file edits) | Rare (hash IDs + Dolt) |
+| **Multi-Agent** | Coordination issues | Shared database |
+| **Versioning** | Git (file-level) | Dolt (cell-level) + Git |
+| **Dependencies** | Not tracked | `bd dep add` support |
+| **Status Tracking** | Manual prose | Task status fields |
 
 ---
 
-### Migration Plan
+## Implementation Phases
 
-**Phase 1**: Create infrastructure (Week 1)
-- [ ] Create `memory/index.json` generator script
-- [ ] Split `session-notes.md` into individual session files
-- [ ] Split `patterns-discovered.md` into category files
-- [ ] Update `.github/copilot-instructions.md` to reference new structure
+### Phase 0: Setup Beads CLI (Week 1, Days 1-2)
 
-**Phase 2**: Create memory prompts (Week 1)
-- [ ] `memory-scan.prompt.md` - Quick overview
-- [ ] `memory-session.prompt.md` - Session details
-- [ ] `memory-pattern.prompt.md` - Pattern category
-- [ ] `memory-search.prompt.md` - Full-text search
+**Goal**: Install beads and initialize in project
 
-**Phase 3**: Validation (Week 2)
-- [ ] Test memory-scan on demo-app  
-- [ ] Verify load times < 5 seconds
-- [ ] Test pattern discovery workflow
-- [ ] Document usage in README
+**Tasks**:
+- [ ] Install beads CLI globally
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+  bd version  # Verify
+  ```
+- [ ] Initialize beads in project
+  ```bash
+  cd /path/to/bootcamp-capstone-demo
+  bd init
+  bd hooks install  # Auto-sync via git
+  ```
+- [ ] Configure `.gitignore`
+  ```
+  # Add to .gitignore
+  .beads/beads.db
+  .beads/beads-dolt.db
+  
+  # Keep these tracked:
+  # .beads/issues.jsonl
+  # .beads-hooks/
+  ```
+- [ ] Test basic workflow
+  ```bash
+  bd create "Test task" -p 1 --json
+  bd list --json
+  bd sync
+  git status  # Should show .beads/issues.jsonl
+  ```
 
-**Phase 4**: Deprecate old system (Week 2)
-- [ ] Archive `session-notes.md` → `_archive/session-notes-legacy.md`
-- [ ] Archive `patterns-discovered.md` → `_archive/patterns-discovered-legacy.md`
-- [ ] Update memory/README.md with new workflows
+**Success Criteria**:
+- ✅ `bd version` shows installed version
+- ✅ `.beads/` directory created
+- ✅ Git hooks installed and working
+- ✅ Test task created and synced
+
+---
+
+### Phase 1: Web Quality Integration (Week 1, Days 3-5)
+
+**Goal**: Integrate beads with web quality prompts
+
+**Tasks**:
+- [ ] Create `web-quality-scan.prompt.md`
+  - Stage 1 progressive scan
+  - Create beads task per finding
+  - Add dependency relationships
+  - Output: Summary table with task IDs
+  
+- [ ] Create `web-quality-query.prompt.md`
+  - Query beads (no re-scan)
+  - Generate Stage 2 from tasks
+  - Filter by category/priority
+  
+- [ ] Create `web-quality-fix.prompt.md`
+  - Show Stage 3 fix code
+  - Update task status
+  - Provide close commands
+  
+- [ ] Create `web-quality-validate.prompt.md`
+  - Re-run Lighthouse
+  - Compare with beads
+  - Close verified fixes
+  
+- [ ] Update existing prompts
+  - Modify `lighthouse-audit.prompt.md`
+  - Modify `accessibility-check.prompt.md`
+  
+- [ ] Test on demo-app
+  - Run initial scan
+  - Verify tasks created
+  - Query and fix workflow
+  - Validate persistence
+
+**Success Criteria**:
+- ✅ Initial scan creates beads tasks
+- ✅ Query shows tasks (no re-scan)
+- ✅ Fix workflow updates task status
+- ✅ Tasks persist across sessions
+- ✅ Dependencies tracked correctly
+
+---
+
+### Phase 2: Memory System Migration (Week 2, Days 1-3)
+
+**Goal**: Migrate memory from markdown to beads
+
+**Tasks**:
+- [ ] Create migration script `scripts/migrate-memory-to-beads.sh`
+  - Parse `session-notes.md` → Create session tasks
+  - Parse `patterns-discovered.md` → Create pattern tasks
+  - Add appropriate labels
+  - Set status (closed for historical)
+  
+- [ ] Run migration
+  ```bash
+  ./scripts/migrate-memory-to-beads.sh
+  bd list --label session --json  # Verify sessions
+  bd list --label pattern --json  # Verify patterns
+  ```
+  
+- [ ] Create memory prompts
+  - `memory-scan.prompt.md` - Overview
+  - `memory-session.prompt.md` - Session details
+  - `memory-pattern.prompt.md` - Pattern details
+  - `memory-new-session.prompt.md` - Create session
+  - `memory-new-pattern.prompt.md` - Create pattern
+  
+- [ ] Archive old markdown files
+  ```bash
+  mv .github/memory/*.md docs/_archive/memory-legacy/
+  ```
+  
+- [ ] Update `.github/memory/README.md`
+  - Explain beads integration
+  - Document commands
+  - Link to prompts
+
+**Success Criteria**:
+- ✅ All sessions migrated to beads
+- ✅ All patterns migrated to beads
+- ✅ Memory prompts functional
+- ✅ Old markdown archived
+- ✅ Documentation updated
+
+---
+
+### Phase 3: Validation & Documentation (Week 2, Days 4-5)
+
+**Goal**: Test integrated workflow and document
+
+**Tasks**:
+- [ ] End-to-end web quality test
+  - Initial scan → tasks created
+  - Query → fast, no re-scan
+  - Fix → task updated
+  - Validate → task closed
+  - Cross-session → state persists
+  
+- [ ] End-to-end memory test
+  - Create new session task
+  - Query sessions/patterns
+  - Progressive disclosure works
+  - Fast query (<5s)
+  
+- [ ] Multi-agent test (if applicable)
+  - Simulate concurrent work
+  - Verify no conflicts
+  - Test `bd sync` workflow
+  
+- [ ] Update documentation
+  - `.github/copilot-instructions.md` - Add beads workflow
+  - `docs/using-beads.md` - Complete guide
+  - `README.md` - Quick start section
+  - `CONTRIBUTING.md` - Beads conventions
+  
+- [ ] Create video demo (optional)
+  - Show full workflow
+  - Highlight benefits
+
+**Success Criteria**:
+- ✅ Web quality workflow validated
+- ✅ Memory workflow validated
+- ✅ No merge conflicts in testing
+- ✅ Documentation complete
+- ✅ All prompts functional
+
+---
+
+### Phase 4: Adoption & Iteration (Week 3+)
+
+**Goal**: Use beads in daily workflow, iterate based on learnings
+
+**Tasks**:
+- [ ] Use beads for all new work
+  - Create tasks for features/bugs
+  - Track dependencies
+  - Close completed work
+  - Sync regularly
+  
+- [ ] Monitor effectiveness
+  - Track query times (should be <5s)
+  - Count avoided re-scans
+  - Observe merge conflicts (should be rare)
+  - Gather user feedback
+  
+- [ ] Iterate on prompts
+  - Refine based on usage
+  - Add new prompts as needed
+  - Optimize query patterns
+  
+- [ ] Expand use cases
+  - React analysis + beads
+  - Bundle analysis + beads
+  - Testing results + beads
+  
+- [ ] Community contribution prep
+  - Polish documentation
+  - Create examples
+  - Prepare for sharing
+
+**Success Criteria**:
+- ✅ Beads used daily
+- ✅ Measurable time savings
+- ✅ Team adoption (if applicable)
+- ✅ Workflow improvements identified
+- ✅ Ready to share externally
+
+---
 - [ ] Update all documentation references
 
 ---
@@ -1809,6 +2403,126 @@ After testing, ask users:
 
 ---
 
+## Timeline & Milestones
+
+### Week 1: Foundation & Web Quality
+
+**Days 1-2: Beads Setup (Phase 0)**
+- ✅ Install beads CLI
+- ✅ Initialize in project
+- ✅ Test basic workflow
+- ✅ Git hooks configured
+
+**Days 3-5: Web Quality Integration (Phase 1)**
+- ✅ Create 4 new web-quality prompts
+- ✅ Modify 2 existing prompts
+- ✅ Test on demo-app
+- ✅ Validate persistence across sessions
+
+**Success Metrics**:
+- ✅ Beads installed and operational
+- ✅ Web quality scan creates beads tasks
+- ✅ Query works without re-scan
+- ✅ Tasks persist across sessions
+
+---
+
+### Week 2: Memory Migration & Validation
+
+**Days 1-3: Memory System (Phase 2)**
+- ✅ Create migration script
+- ✅ Migrate sessions (12 tasks)
+- ✅ Migrate patterns (47 tasks)
+- ✅ Create 5 memory prompts
+- ✅ Archive old markdown
+
+**Days 4-5: Validation (Phase 3)**
+- ✅ End-to-end web quality test
+- ✅ End-to-end memory test
+- ✅ Multi-agent test (if applicable)
+- ✅ Documentation complete
+- ✅ All prompts functional
+
+**Success Metrics**:
+- ✅ All memory migrated to beads
+- ✅ Query times < 5 seconds
+- ✅ No merge conflicts observed
+- ✅ Documentation complete
+
+---
+
+### Week 3+: Adoption & Iteration
+
+**Phase 4: Daily Usage**
+- Use beads for all development work
+- Monitor effectiveness
+- Iterate on prompts
+- Expand use cases
+
+**Ongoing Metrics to Track**:
+- Query response times (target: <5s)
+- Number of avoided re-scans per week
+- Merge conflicts (target: near zero)
+- User satisfaction / adoption rate
+- Cross-session context retention
+
+---
+
+### Key Milestones
+
+| Milestone | Target Date | Status | Deliverables |
+|-----------|-------------|--------|--------------|
+| **M1: Beads Operational** | Week 1, Day 2 | 🟡 Pending | Beads installed, initialized, tested |
+| **M2: Web Quality Live** | Week 1, Day 5 | 🟡 Pending | 6 prompts working with beads |
+| **M3: Memory Migrated** | Week 2, Day 3 | 🟡 Pending | 59 tasks in beads, old files archived |
+| **M4: Fully Validated** | Week 2, Day 5 | 🟡 Pending | All tests passing, docs complete |
+| **M5: Production Ready** | Week 3, Day 1 | 🟡 Pending | Daily workflow adopted |
+
+---
+
+### Risk Mitigation
+
+**Risk 1: Beads installation issues**
+- **Mitigation**: Support for curl, npm, Homebrew (3 install methods)
+- **Fallback**: Manual binary download if all fail
+
+**Risk 2: Migration script errors**
+- **Mitigation**: Dry-run mode in script, manual verification
+- **Fallback**: Keep old markdown files until validation complete
+
+**Risk 3: Adoption resistance**
+- **Mitigation**: Clear documentation, video demos, compelling benefits
+- **Fallback**: Beads optional initially, markdown still functional
+
+**Risk 4: Performance issues (queries slow)**
+- **Mitigation**: SQL database is fast, Dolt optimized
+- **Fallback**: Add indexes if needed, optimize queries
+
+**Risk 5: Merge conflicts despite Dolt**
+- **Mitigation**: Hash IDs prevent most conflicts, cell-level merge
+- **Fallback**: `bd sync` resolves via JSONL import/export
+
+---
+
+### Decision Points
+
+**Decision Point 1: Memory Architecture (End of Week 1)**
+- **Question**: Keep markdown files as backup, or full migration?
+- **Criteria**: Query speed, user preference, risk tolerance
+- **Expected**: Full migration if queries < 5s consistently
+
+**Decision Point 2: Web Quality Re-Scan Frequency (Week 2)**
+- **Question**: How often to re-validate with Lighthouse?
+- **Criteria**: Code change frequency, CI/CD integration
+- **Expected**: Weekly manual, or on-demand after major changes
+
+**Decision Point 3: Multi-Agent Adoption (Week 3)**
+- **Question**: Expand to multiple agents/contributors?
+- **Criteria**: Zero conflicts observed, clear benefits
+- **Expected**: Yes if single-agent workflow stable
+
+---
+
 ## Appendix A: Competitive Feature Matrix
 
 | Feature | Lighthouse CI | axe-core | Web Quality Skills | Our Toolkit (Post-Implementation) |
@@ -1958,7 +2672,14 @@ COPILOT: [User manually applies fix to index.html]
 
 **END OF IMPLEMENTATION PLAN**
 
-Generated: 2026-02-16  
+Generated: 2026-02-17 (Updated with Beads CLI integration)  
+Original: 2026-02-16  
 Authors: AI Assistant + User Feedback  
-Version: 1.0  
+Version: 2.0  
 Status: Ready for Implementation ✅
+
+**Major Update**: Integrated [beads CLI](https://github.com/steveyegge/beads) for:
+- Web quality task persistence (no more re-scanning)
+- Memory system management (replacing markdown files)
+- Dependency tracking for optimization workflows
+- Cross-session context retention
