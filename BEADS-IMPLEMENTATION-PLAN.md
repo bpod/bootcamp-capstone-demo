@@ -43,6 +43,62 @@
 
 ---
 
+## Implementation Note: Using Beads v0.49.6
+
+**Current Approach**: Downgrade to Beads v0.49.6 with SQLite backend  
+**Reason**: v0.52.0 has multiple blocking issues:
+- CGO dependency prevents Dolt initialization ([#1812](https://github.com/steveyegge/beads/issues/1812), [#1805](https://github.com/steveyegge/beads/issues/1805))
+- `--no-db` flag documented but not implemented in v0.52.0
+- `no-db: true` config ignored in v0.50+ ([#1833](https://github.com/steveyegge/beads/issues/1833))
+
+**Solution**: v0.49.6 is production-stable with SQLite (no CGO needed)  
+**Status**: Community-proven workaround, waiting for v0.53+ to fix issues
+
+### Why v0.49.6?
+
+✅ **Production-Ready Features**:
+- **SQLite backend** - No CGO dependency, works out-of-the-box
+- **JSONL mode** - `no-db: true` config works perfectly
+- **Full feature set** - JSON API, dependencies, labels, git hooks
+- **Community-proven** - Stable version, positive feedback
+- **Simple setup** - No complex source builds or dependency hell
+
+✅ **All Features We Need**:
+- Git-backed persistence (`.beads/issues.jsonl` tracked in git)
+- JSON API for all commands (`--json` flag)
+- Task creation, listing, updating, closing
+- Dependency tracking (`bd dep` commands)
+- Cross-session state persistence
+- Git hooks for auto-sync
+- Hash-based IDs (bd-abc format)
+- Labels and filtering
+
+⚠️ **What We'll Get Later (Dolt in v0.53+)**:
+- Cell-level merge conflict resolution (not critical for single-user)
+- Multi-writer concurrency (not needed initially)
+- Advanced SQL queries (JSONL sufficient for now)
+
+### Upgrade Path
+
+When beads fixes issues (v0.53+ expected):
+
+```bash
+# Option 1: Upgrade and keep SQLite
+curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+bd migrate --yes  # Migrate data if needed
+
+# Option 2: Upgrade and migrate to Dolt (if CGO resolved)
+curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+bd migrate --to-dolt  # Migrate to Dolt backend
+
+# Option 3: Keep v0.49.6 (if it works for you)
+# No action needed, pin to v0.49.6
+```
+
+**Decision**: Use v0.49.6 now (stable, works immediately), upgrade when issues resolved. All features needed for this project work in v0.49.6.
+
+---
+
 ## Table of Contents
 
 1. [Competitive Analysis](#competitive-analysis)
@@ -1445,43 +1501,78 @@ bd show bd-p047 --json
 
 ### Phase 0: Setup Beads CLI (Week 1, Days 1-2)
 
-**Goal**: Install beads and initialize in project
+**Goal**: Install beads v0.49.6 and initialize in project
 
 **Tasks**:
-- [ ] Install beads CLI globally
+- [x] Research blocking issues in v0.52.0
+  - Identified CGO dependency preventing Dolt init
+  - Found `--no-db` flag not implemented despite docs
+  - Discovered v0.49.6 workaround from issue #1833
+  **Result**: Decision to use v0.49.6 (stable, SQLite backend)
+
+- [ ] Downgrade to beads v0.49.6
   ```bash
-  curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
-  bd version  # Verify
+  # Remove current version
+  rm ~/.local/bin/bd ~/.local/bin/beads
+  
+  # Install v0.49.6 (last stable SQLite version)
+  curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/v0.49.6/scripts/install.sh | bash
+  
+  # Verify version
+  bd version  # Should show v0.49.6
   ```
+  **Why v0.49.6**: SQLite backend (no CGO), `no-db: true` works, community-proven
+
 - [ ] Initialize beads in project
   ```bash
   cd /path/to/bootcamp-capstone-demo
   bd init
-  bd hooks install  # Auto-sync via git
+  
+  # Optional: Configure JSONL-only mode (no database)
+  echo "no-db: true" >> .beads/config.yaml
+  
+  # Install git hooks for auto-sync
+  bd hooks install
   ```
+  **Note**: Can use SQLite or JSONL-only mode (both work in v0.49.6)
+
 - [ ] Configure `.gitignore`
-  ```
+  ```gitignore
   # Add to .gitignore
-  .beads/beads.db
-  .beads/beads-dolt.db
+  .beads/beads.db          # SQLite database (if not using no-db mode)
+  .beads/*.log             # Log files
   
   # Keep these tracked:
-  # .beads/issues.jsonl
-  # .beads-hooks/
+  # .beads/issues.jsonl    # Core data (always tracked)
+  # .beads/config.yaml     # Configuration
+  # .beads-hooks/          # Git hooks
   ```
+
 - [ ] Test basic workflow
   ```bash
+  # Create test task
   bd create "Test task" -p 1 --json
+  
+  # List tasks
   bd list --json
+  
+  # Sync with git
   bd sync
+  
+  # Verify git tracking
   git status  # Should show .beads/issues.jsonl
+  
+  # Close test task
+  bd close <task-id> --reason "Testing complete"
   ```
 
 **Success Criteria**:
-- ✅ `bd version` shows installed version
+- ✅ `bd version` shows v0.49.6
 - ✅ `.beads/` directory created
 - ✅ Git hooks installed and working
-- ✅ Test task created and synced
+- ✅ Test task created, listed, and closed successfully
+- ✅ JSONL file tracked in git
+- ✅ JSON API working (`--json` flag on all commands)
 
 ---
 
