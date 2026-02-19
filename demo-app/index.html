@@ -27,11 +27,11 @@
     <header>
       <!-- ISSUE: Non-semantic div instead of nav -->
       <div class="navigation">
-        <!-- ISSUE: Links without descriptive text -->
-        <a href="#" onclick="navigate('home')">Home</a>
-        <a href="#" onclick="navigate('about')">About</a>
-        <a href="#" onclick="navigate('products')">Products</a>
-        <a href="#" onclick="navigate('contact')">Contact</a>
+        <!-- FIXED: Added descriptive href values for screen readers -->
+        <a href="#home" onclick="navigate('home')">Home</a>
+        <a href="#about" onclick="navigate('about')">About</a>
+        <a href="#products" onclick="navigate('products')">Products</a>
+        <a href="#contact" onclick="navigate('contact')">Contact</a>
       </div>
     </header>
 
@@ -60,8 +60,8 @@
         <div class="feature-grid">
           <!-- FIXED: Added alt text, dimensions, and lazy loading -->
           <div class="feature-card">
-            <!-- ISSUE: Poor color contrast -->
-            <h3 style="color: #aaa">Fast Performance</h3>
+            <!-- FIXED: Improved color contrast for WCAG AA compliance -->
+            <h3 style="color: #333">Fast Performance</h3>
             <img
               src="https://via.placeholder.com/400x300.jpg"
               alt="Speed gauge icon representing fast performance"
@@ -73,7 +73,8 @@
           </div>
 
           <div class="feature-card">
-            <h3 style="color: #999">Great Design</h3>
+            <!-- FIXED: Improved color contrast for WCAG AA compliance -->
+            <h3 style="color: #333">Great Design</h3>
             <img
               src="https://via.placeholder.com/400x300.jpg"
               alt="Design palette icon representing beautiful UI"

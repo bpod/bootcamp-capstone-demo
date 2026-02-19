@@ -24,15 +24,15 @@ body {
     gap: 2rem;
 }
 
-/* ISSUE: Poor color contrast for accessibility */
+/* FIXED: Improved color contrast for WCAG AA compliance (white on dark bg) */
 .navigation a {
-    color: #666;
+    color: #ffffff;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .navigation a:hover {
-    color: #999;
+    color: #e0e0e0;
 }
 
 /* ISSUE: Hero image without defined dimensions causing layout shift */
