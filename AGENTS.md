@@ -130,6 +130,71 @@ bd close <id> -q --reason "Workflow validated - see commit abc123 for full test 
 
 **Exception**: If you absolutely need multi-line text, use files (not yet tested with beads).
 
+## Terminal Hygiene Best Practices
+
+**CRITICAL: Manage terminal output to prevent scrollback pollution and confusion**
+
+**Problem**: Terminal output accumulates across commands in long sessions, causing:
+- Large file warnings (11KB+ from simple commands showing historical output)
+- Difficulty determining if commands actually executed vs showing scrollback
+- Mixed historical/current output making debugging hard
+- Context overflow in AI tools
+
+**Solution**: Strategic terminal clearing and execution markers.
+
+### When to Clear Terminal
+
+Clear terminal before critical operation groups:
+
+```bash
+# ✅ GOOD: Clear before beads operations
+clear && bd ready -q --json | jq -r '.[] | .title'
+
+# ✅ GOOD: Clear before multi-step git workflows
+clear && git status && git add . && git commit -m "message"
+
+# ✅ GOOD: Clear after every 5-10 commands in long sessions
+clear && echo "=== Starting Phase 2 ===" && bd list -q --label phase-2
+```
+
+### Execution Markers
+
+Use timestamped markers to verify commands actually ran:
+
+```bash
+# ✅ GOOD: Marker with timestamp
+echo "=== Beads Query $(date +%H:%M:%S) ===" && bd ready -q --json | jq
+
+# ✅ GOOD: Named operation marker
+echo "=== Testing Enhancement Workflow ===" && lightouse https://example.com
+
+# ✅ GOOD: Completion confirmation
+bd sync -q && echo "✓ Beads synced $(date +%H:%M:%S)"
+```
+
+### Command Separation
+
+Group related operations, separate concerns:
+
+```bash
+# ✅ GOOD: Separate beads, git, and reporting
+clear && bd ready -q --json | jq '.[] | .title'
+# ... work on tasks ...
+clear && git add . && git commit -m "message" && git status
+# ... final checks ...
+clear && bd list -q --status closed | tail -5
+```
+
+### Agent Rules
+
+1. **Clear before**: Beads queries, git multi-step workflows, critical operations
+2. **Use markers**: Echo with timestamp for verification (especially after `clear`)
+3. **Clear after**: Every 5-10 commands in long debugging sessions
+4. **Separate concerns**: Clear between beads/git/test operation groups
+5. **In "Landing the Plane"**: Clear terminal before final status checks
+
+**Rationale**: Clean terminal output = clear thinking. Prevents false positives from stale output.
+
 ## Landing the Plane (Session Completion)
 
 **When ending a work session**, complete ALL steps below. Work should be committed locally and ready to push.
