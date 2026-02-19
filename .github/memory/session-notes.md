@@ -2096,6 +2096,166 @@ EXCEPTIONS:
 
 ---
 
+## Terminal Hygiene, Enhancement Workflows & Demo App Test Bed - 2026-02-19
+
+### What Was Accomplished
+
+**Root Cause Investigation & Documentation**:
+- **Diagnosed terminal scrollback pollution** causing 11KB+ file warnings and execution verification confusion
+- **Created comprehensive terminal hygiene pattern documentation**:
+  - Added "Terminal Hygiene Best Practices" section to AGENTS.md (65 lines)
+  - Created docs/pattern-terminal-hygiene.md (285 lines) with real-world examples
+  - Pattern: `clear && echo "=== [Operation] $(date +%H:%M:%S) ===" && command`
+- **Captured real-world git commit quote mode incident** - documented ironic mistake (multi-line `git commit -m` triggered same quote mode we were documenting!)
+- **Updated both AGENTS.md and pattern doc** with git commit example showing universal shell principle
+
+**Enhancement Workflows (Option B - Enhancements)**:
+- **Created batch fixes workflow** (.github/prompts/batch-fixes.prompt.md)
+  - Query tasks by label, group logically (images, semantics, performance, SEO)
+  - Batch workflow: claim → fix together → commit → close
+  - Example: 7 image tasks → 3 focused commits vs 7 scattered fixes
+- **Created automated Lighthouse comparison**:
+  - scripts/compare-lighthouse.js (250 lines) - compares JSON reports
+  - .github/prompts/compare-lighthouse.prompt.md - usage guide
+  - Table or JSON output, CI/CD integration examples
+- **Closed 2 enhancement tasks** (30g: batch fixes, fqn: comparison automation)
+
+**Strategic Repositioning: Demo App → Test Bed**:
+- **Closed 3 demo app fix tasks** as "intentionally unfixed for demo and testing purposes" (8li, 9xy, ddr)
+- **Created demo-app/TEST-SCENARIOS.md** (389 lines) - comprehensive test validation guide:
+  - Expected Lighthouse scores (baselines for validation)
+  - 9 documented issues currently in demo app (Performance, A11y, SEO)
+  - Future enhancement opportunities (20+ potential additions)
+  - Toolkit validation workflow (detection → fix → comparison → tracking)
+  - Success criteria for toolkit correctness
+- **Created 5 enhancement tasks** for diverse issue coverage:
+  - 1hf: Contact form with accessibility issues
+  - 8bz: Poor heading hierarchy (skipped levels)
+  - g2l: Structured data schema markup (SEO)
+  - hk0: Larger JS bundle with unused code (performance)
+  - o5k: React version with anti-patterns (future)
+
+**Pattern Extraction**:
+- **Extracted 2 patterns to standalone docs**:
+  - docs/pattern-simple-conversational-prompts.md (142 lines)
+  - docs/pattern-plug-in-architecture.md (161 lines)
+- **Closed 2 pattern documentation tasks** (1hl, 4gw)
+
+### Key Findings and Decisions
+
+**Terminal Hygiene Pattern**:
+- **Problem**: Terminal output accumulates across commands in long sessions, causing:
+  - Large file warnings (11KB+ from simple commands showing historical scrollback)
+  - Difficulty determining if commands actually executed vs showing scrollback
+  - Mixed historical/current output making debugging hard
+  - Context overflow in AI tools
+- **Solution**: Strategic terminal clearing and execution markers
+  - Clear before critical operations: `clear && bd ready -q --json`
+  - Use timestamps to prove fresh execution: `echo "=== Query $(date +%H:%M:%S) ==="`
+  - Clear after every 5-10 commands in long sessions
+  - Separate concerns: clear between beads/git/testing operations
+- **Universal principle**: Applies to ALL agents and workflows, not just beads
+
+**Multi-Line Command Arguments (Universal Shell Principle)**:
+- **Discovered real-world**: While documenting terminal hygiene, made multi-line `git commit -m` that triggered quote mode
+- **Root cause**: Multi-line text in ANY CLI `-m` argument causes shell quote mode (bash/zsh/sh)
+- **Affects ALL tools**: beads, git, npm, docker, kubectl - any command-line tool
+- **Solution confirmed**: 
+  - Single-line messages for `-m` arguments
+  - Use editor mode (`git commit` without `-m`) for multi-paragraph messages
+  - Reference external files for detailed context
+- **Ironic teachable moment**: Perfect example of "even while documenting patterns, we can violate them!" - captured in documentation
+
+**Demo App Strategic Repositioning**:
+- **Old philosophy**: Fix issues to show improvement
+- **New philosophy**: Keep issues to validate toolkit detection and workflows
+- **Decision rationale**:
+  - Toolkit needs realistic, detectable issues to validate functionality
+  - Demo app should be comprehensive test bed, not broken project
+  - Each issue should test specific prompts/tools/workflows
+  - Test coverage more important than clean app
+- **Benefits**:
+  - Systematic testing with clear expectations (TEST-SCENARIOS.md)
+  - Validates detection capabilities across all categories
+  - Educational value - each issue documents problem, fix strategy, validation
+  - Future-proof template for adding more issues as toolkit grows
+
+**Enhancement Workflows**:
+- **Batch fixes workflow** reduces context switching and improves commit quality
+  - Group similar issues by file locality, pattern type, or category
+  - Test batch together to verify no conflicts
+  - Single focused commit vs scattered individual fixes
+- **Automated comparison** quantifies improvement impact
+  - Before/after metrics for accountability
+  - Regression detection for CI/CD
+  - JSON output for programmatic integration
+
+### Outcomes
+
+**Documentation Improvements**:
+- ✅ **AGENTS.md updated** with terminal hygiene rules and examples
+- ✅ **3 pattern docs created/updated**: terminal hygiene, conversational prompts, plug-in architecture
+- ✅ **TEST-SCENARIOS.md** provides comprehensive validation guide for toolkit
+- ✅ **All patterns now standalone** and accessible to users (not just agents)
+
+**Enhancement Deliverables**:
+- ✅ **batch-fixes.prompt.md** enables efficient grouped fix workflows
+- ✅ **compare-lighthouse.js** script (executable) compares JSON reports
+- ✅ **compare-lighthouse.prompt.md** integrates comparison into workflows
+- ✅ **2 enhancement tasks completed** (30g, fqn)
+
+**Demo App as Test Bed**:
+- ✅ **3 fix tasks closed** as intentionally unfixed (8li, 9xy, ddr)
+- ✅ **5 enhancement tasks created** for diverse test coverage
+- ✅ **Clear success criteria** defined for toolkit validation
+- ✅ **Comprehensive documentation** of what issues should exist and why
+
+**Quality Metrics**:
+- **4 commits pushed** to feature/beads-pattern branch:
+  - 6f8c9af: Terminal hygiene documentation (initial)
+  - c895ecc: Real-world git commit quote mode example
+  - 92b61d9: Batch fixes workflow + Lighthouse comparison automation
+  - d40ef62: TEST-SCENARIOS.md and demo app repositioning
+- **Branch status**: Up to date with origin, ready for merge
+- **Terminal hygiene**: Clean output demonstrated (500 bytes vs 11KB+)
+- **Beads database**: Synced and current
+
+**Pattern Application**:
+- ✅ **Terminal hygiene pattern** applied throughout session (clear && markers)
+- ✅ **Single-line commits** after git quote mode incident
+- ✅ **Plug-in architecture** maintained in all new prompts/scripts
+
+### Lessons Learned
+
+1. **Terminal hygiene prevents confusion** - Clean terminal output = clear thinking. Prevents false positives from stale scrollback.
+2. **Multi-line CLI arguments are universal problem** - Not beads-specific, affects ALL command-line tools. Always use single-line or editor mode.
+3. **Even experts violate patterns** - Git commit quote mode incident while documenting patterns. Document these moments as teachable examples.
+4. **Test beds need realistic issues** - Demo app with 100s would validate nothing. Need detectable, educational issues across all categories.
+5. **Batch workflows improve quality** - Grouping similar fixes reduces context switching, improves test coverage, creates focused commits.
+6. **Quantification drives improvement** - Automated comparison script provides accountability and regression detection.
+7. **Good documentation enables fresh starts** - With comprehensive docs (AGENTS.md, pattern files, TEST-SCENARIOS.md), new sessions can start immediately without context loss.
+
+### Files Created/Modified
+
+**Created** (6 files):
+- docs/pattern-terminal-hygiene.md (285 lines)
+- docs/pattern-simple-conversational-prompts.md (142 lines)
+- docs/pattern-plug-in-architecture.md (161 lines)
+- .github/prompts/batch-fixes.prompt.md
+- .github/prompts/compare-lighthouse.prompt.md
+- scripts/compare-lighthouse.js (250 lines, executable)
+- demo-app/TEST-SCENARIOS.md (389 lines)
+
+**Modified**:
+- AGENTS.md (+65 lines for terminal hygiene section)
+- .beads/issues.jsonl (closed 3 fix tasks, 2 enhancement tasks, 2 pattern tasks; created 5 demo app enhancement tasks)
+
+**Branch**: feature/beads-pattern  
+**Commits**: 4 (all pushed to origin)  
+**Status**: Ready for merge to main
+
+---
+
 ## [Your Next Session] - [YYYY-MM-DD]
 
 ### What Was Accomplished
