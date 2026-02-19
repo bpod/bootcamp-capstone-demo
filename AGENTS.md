@@ -12,6 +12,52 @@ bd close <id>         # Complete work
 bd sync               # Sync with git
 ```
 
+## Beads Command Best Practices
+
+**CRITICAL: Always use `--quiet` or `-q` flag with `bd` commands**
+
+**Problem**: Without `--quiet`, beads outputs verbose help text that creates massive terminal output (16KB+), causing:
+- Large file warnings in tooling
+- Slow command execution
+- Poor user experience
+- Context overflow in AI tools
+
+**Solution**: Always append `--quiet` or `-q` to ALL beads commands:
+
+```bash
+# ❌ BAD: Generates 16KB+ output
+bd ready --json | jq '.[] | .title'
+
+# ✅ GOOD: Clean, minimal output
+bd ready --quiet --json | jq '.[] | .title'
+bd ready -q --json | jq '.[] | .title'
+```
+
+**Agent Rule**: When constructing ANY `bd` command, ALWAYS include `--quiet` or `-q` flag.
+
+**Examples**:
+```bash
+# List ready work
+bd ready -q --json
+
+# Show task details
+bd show <id> -q --json
+
+# List by label
+bd list -q --label accessibility --json
+
+# Update task
+bd update <id> -q --status in_progress
+
+# Close task  
+bd close <id> -q --reason "completed"
+
+# Create task (note: bd create doesn't support -q, outputs ID only)
+bd create "Task title" --label foo -p 1
+```
+
+**Exception**: `bd create` doesn't support `--quiet` but outputs only the task ID (already minimal).
+
 ## Landing the Plane (Session Completion)
 
 **When ending a work session**, complete ALL steps below. Work should be committed locally and ready to push.

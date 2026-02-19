@@ -761,33 +761,37 @@ Or copy the fixed code above and replace the current code manually.
 
 ### Core Commands
 
+**IMPORTANT**: Always use `--quiet` or `-q` flag to avoid massive output (16KB+ help text).
+
 ```bash
 # Initialize in project
 bd init
 
-# Create tasks
+# Create tasks (note: create doesn't support --quiet, outputs ID only)
 bd create "Fix accessibility issues" -p 1 -t bug --label web-quality --json
 
 # List ready tasks (no blockers)
-bd ready --json
-bd ready --label web-quality --json
+bd ready -q --json
+bd ready -q --label web-quality --json
 
 # Claim and track work
-bd update bd-abc --claim --json
-bd update bd-abc --status in_progress --json
+bd update bd-abc -q --claim --json
+bd update bd-abc -q --status in_progress --json
 
 # Add dependencies
 bd dep add bd-xyz bd-abc  # xyz blocks abc
 
 # Close completed work
-bd close bd-abc --reason "Fixed all alt text" --json
+bd close bd-abc -q --reason "Fixed all alt text" --json
 
 # Sync with git (export, commit, push)
 bd sync
 
 # View task details
-bd show bd-abc --json
+bd show bd-abc -q --json
 ```
+
+**Why `--quiet`?** Without it, beads outputs verbose help text causing large file warnings, slow execution, and poor UX. Always use `-q` or `--quiet` except for `bd create` (which is already minimal).
 
 ### Why Use Beads for This Project?
 
