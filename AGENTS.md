@@ -14,27 +14,38 @@ bd sync               # Sync with git
 
 ## Landing the Plane (Session Completion)
 
-**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+**When ending a work session**, complete ALL steps below. Work should be committed locally and ready to push.
 
 **MANDATORY WORKFLOW:**
 
 1. **File issues for remaining work** - Create issues for anything that needs follow-up
 2. **Run quality gates** (if code changed) - Tests, linters, builds
 3. **Update issue status** - Close finished work, update in-progress items
-4. **PUSH TO REMOTE** - This is MANDATORY:
+4. **Commit locally and sync beads**:
    ```bash
-   git pull --rebase
+   git add -A
+   git commit -m "descriptive message"
    bd sync
-   git push
-   git status  # MUST show "up to date with origin"
    ```
-5. **Clean up** - Clear stashes, prune remote branches
-6. **Verify** - All changes committed AND pushed
+5. **Recommend push to user** - Provide clear instructions:
+   ```bash
+   git pull --rebase  # If working with others
+   git push
+   git status  # Verify "up to date with origin"
+   ```
+6. **Clean up** - Clear stashes, prune remote branches
 7. **Hand off** - Provide context for next session
 
-**CRITICAL RULES:**
-- Work is NOT complete until `git push` succeeds
-- NEVER stop before pushing - that leaves work stranded locally
-- NEVER say "ready to push when you are" - YOU must push
-- If push fails, resolve and retry until it succeeds
+**AGENT WORKFLOW:**
+- ✅ Agent SHOULD commit changes locally (safe, documents work)
+- ✅ Agent SHOULD run `bd sync` to persist beads database
+- ✅ Agent SHOULD recommend/remind user to push
+- ❌ Agent should NOT automatically push without user confirmation
+- ✅ Agent CAN ask "Should I push this to remote now?" and wait for response
+
+**RATIONALE:**
+- Local commits are safe and preserve work
+- User controls when changes go to remote
+- Allows user to review git log before pushing
+- User may want to squash, amend, or reorganize commits
 
