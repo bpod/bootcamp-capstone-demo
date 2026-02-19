@@ -793,6 +793,8 @@ bd show bd-abc -q --json
 
 **Why `--quiet`?** Without it, beads outputs verbose help text causing large file warnings, slow execution, and poor UX. Always use `-q` or `--quiet` except for `bd create` (which is already minimal).
 
+**Avoid Multi-Line Text**: When using `--append-notes`, `--description`, or `--reason`, keep text on a single line to prevent terminal quote mode. Use semicolons or dashes for structure, or make multiple small updates instead of one large multi-line update. See AGENTS.md for detailed solutions.
+
 ### Why Use Beads for This Project?
 
 **Problem 1: No Cross-Session Memory**

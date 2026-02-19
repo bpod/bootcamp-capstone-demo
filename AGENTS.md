@@ -58,6 +58,76 @@ bd create "Task title" --label foo -p 1
 
 **Exception**: `bd create` doesn't support `--quiet` but outputs only the task ID (already minimal).
 
+## Handling Multi-Line Text in Beads Commands
+
+**CRITICAL: Avoid multi-line strings in bd commands - they cause terminal quote mode**
+
+**Problem**: Multi-line text in `--append-notes`, `--description`, or `--reason` causes the terminal to enter quote mode, blocking execution:
+- Commands hang waiting for closing quote
+- Difficult to escape or recover
+- Poor user experience
+- Breaks automated workflows
+
+**BAD Examples** (causes quote mode):
+```bash
+# ❌ BAD: Multi-line note with line breaks
+bd update <id> -q --append-notes "Line 1
+Line 2
+Line 3"
+
+# ❌ BAD: Long detailed description with paragraphs
+bd create "Title" --description "Paragraph 1
+
+Paragraph 2
+
+Paragraph 3"
+```
+
+**GOOD Solutions**:
+
+### Solution 1: Single-Line Summary (Preferred)
+Keep notes concise, use semicolons or dashes for structure:
+```bash
+# ✅ GOOD: Single line, structured with punctuation
+bd update <id> -q --append-notes "Tested: task creation, querying, updates, closing; All workflows validated; Performance <1s"
+
+# ✅ GOOD: Concise summary
+bd close <id> -q --reason "Integration test complete - all workflows validated"
+```
+
+### Solution 2: Use Echo with Escaped Newlines
+For programmatic use when multi-line needed:
+```bash
+# ✅ GOOD: Echo with \n for newlines (shell will interpret)
+bd update <id> -q --append-notes "Phase 1: Setup\nPhase 2: Testing\nPhase 3: Validation"
+```
+
+### Solution 3: Break Into Multiple Updates
+For complex information, make multiple smaller updates:
+```bash
+# ✅ GOOD: Multiple targeted updates
+bd update <id> -q --append-notes "TESTED: Task creation, querying, updates, closing"
+bd update <id> -q --append-notes "VALIDATED: All commands work with -q flag"
+bd update <id> -q --append-notes "PERFORMANCE: Query time <1s, sync successful"
+```
+
+### Solution 4: Reference External Documentation
+Link to detailed docs instead of embedding everything:
+```bash
+# ✅ GOOD: Summary + reference
+bd update <id> -q --append-notes "Phase 2 complete - see docs/phase-2-summary.md for details"
+bd close <id> -q --reason "Workflow validated - see commit abc123 for full test results"
+```
+
+**Agent Rules**:
+1. ALWAYS use single-line text for bd commands
+2. Use semicolons, dashes, or bullets for structure within single line
+3. Keep notes concise - detailed docs belong in files
+4. When detail needed, reference files or commits
+5. Multiple small updates > one large multi-line update
+
+**Exception**: If you absolutely need multi-line text, use files (not yet tested with beads).
+
 ## Landing the Plane (Session Completion)
 
 **When ending a work session**, complete ALL steps below. Work should be committed locally and ready to push.
