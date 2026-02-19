@@ -83,6 +83,14 @@ bd create "Title" --description "Paragraph 1
 Paragraph 2
 
 Paragraph 3"
+
+# ❌ BAD: Multi-line git commit message (same issue!)
+git commit -m "feat: Add new feature
+
+Detailed explanation
+More details
+Even more context"
+# Results in terminal quote mode - affects ALL CLI tools, not just beads
 ```
 
 **GOOD Solutions**:
@@ -95,6 +103,12 @@ bd update <id> -q --append-notes "Tested: task creation, querying, updates, clos
 
 # ✅ GOOD: Concise summary
 bd close <id> -q --reason "Integration test complete - all workflows validated"
+
+# ✅ GOOD: Single-line git commit (works perfectly)
+git commit -m "docs: Add terminal hygiene best practices to prevent scrollback pollution"
+
+# ✅ GOOD: For detailed commit messages, use git commit (no -m) to open editor
+git commit  # Opens editor for multi-paragraph message
 ```
 
 ### Solution 2: Use Echo with Escaped Newlines

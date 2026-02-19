@@ -243,7 +243,48 @@ If you notice these symptoms:
 ✅ **Reduced file warnings**: Output stays small and focused  
 ✅ **Improved communication**: Clear visual separation of concerns
 
-## Real-World Example
+## Real-World Examples
+
+### Example 1: Git Commit Quote Mode Incident (2026-02-19)
+
+**What Happened**: While documenting terminal hygiene patterns, attempted to commit with multi-line `git commit -m` message. This triggered terminal quote mode ("dquote>") - ironically demonstrating the exact problem being documented.
+
+**The Mistake**:
+```bash
+# ❌ BAD: Multi-line -m message
+git commit -m "docs: Add terminal hygiene best practices
+
+Problem Addressed:
+- Terminal output accumulates
+- Scrollback pollution
+...
+"
+# Result: Terminal enters quote mode, command hangs
+```
+
+**Why It Happened**: 
+- Multi-line text in `-m` argument causes shell quote mode
+- **Same principle as beads commands** - applies to ALL CLI tools
+- Agent violated the rule it just documented 😅
+
+**The Fix**:
+```bash
+# ✅ GOOD: Single-line commit message
+git commit -m "docs: Add terminal hygiene best practices to prevent scrollback pollution and verify execution"
+
+# ✅ ALTERNATIVE: Use git commit (no -m) for detailed messages
+git commit  # Opens editor, supports multi-paragraph messages
+```
+
+**Lesson Learned**: 
+- The "avoid multi-line in command arguments" rule is **universal**, not tool-specific
+- Applies equally to: beads, git, npm, docker, kubectl, any CLI tool
+- When you need detail: use editor (`git commit`) or reference files
+- Terminal recovery: Send closing quote `"` or kill terminal and restart
+
+**Teachable Moment**: Perfect example of why we document patterns - even while documenting them, we can violate them!
+
+### Example 2: Terminal Scrollback Pollution
 
 ### Before (Poor Hygiene)
 
