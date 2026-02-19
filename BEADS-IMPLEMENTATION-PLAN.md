@@ -793,7 +793,7 @@ bd show bd-abc -q --json
 
 **Why `--quiet`?** Without it, beads outputs verbose help text causing large file warnings, slow execution, and poor UX. Always use `-q` or `--quiet` except for `bd create` (which is already minimal).
 
-**Avoid Multi-Line Text**: When using `--append-notes`, `--description`, or `--reason`, keep text on a single line to prevent terminal quote mode. Use semicolons or dashes for structure, or make multiple small updates instead of one large multi-line update. See AGENTS.md for detailed solutions.
+**Avoid Multi-Line Text**: This is a **general shell command-line principle** (not Beads-specific). When using `--append-notes`, `--description`, or `--reason`, keep text on a single line to prevent terminal quote mode. Use semicolons or dashes for structure, or make multiple small updates instead of one large multi-line update. See AGENTS.md for detailed solutions and examples.
 
 ### Why Use Beads for This Project?
 
@@ -841,6 +841,26 @@ brew install beads
 # Verify
 bd version
 ```
+
+### Optional: Install Git Hooks for Auto-Sync
+
+**Recommended for**: Multi-developer teams, production workflows, CI/CD integration  
+**Skip for**: Personal projects, single-developer workflows (built-in auto-sync is sufficient)
+
+```bash
+# Install hooks for guaranteed immediate sync
+bd hooks install
+
+# Verifies hooks are installed
+ls -la .git/hooks/ | grep beads
+```
+
+**What it does**:
+- Exports beads to JSONL immediately after commits (no 5-second wait)
+- Imports JSONL automatically after `git pull` (no manual sync needed)
+- Ensures team members always see latest task state
+
+**Default behavior without hooks**: Beads auto-syncs after create/update/close with a 5-second debounce, and imports on the first command after `git pull`. This is sufficient for most use cases.
 
 ---
 

@@ -60,7 +60,9 @@ bd create "Task title" --label foo -p 1
 
 ## Handling Multi-Line Text in Beads Commands
 
-**CRITICAL: Avoid multi-line strings in bd commands - they cause terminal quote mode**
+**CRITICAL: This is a general shell command-line principle, NOT Beads-specific**
+
+Avoid multi-line strings in ANY CLI command arguments - they cause terminal quote mode in bash/zsh/sh.
 
 **Problem**: Multi-line text in `--append-notes`, `--description`, or `--reason` causes the terminal to enter quote mode, blocking execution:
 - Commands hang waiting for closing quote
@@ -164,4 +166,58 @@ bd close <id> -q --reason "Workflow validated - see commit abc123 for full test 
 - User controls when changes go to remote
 - Allows user to review git log before pushing
 - User may want to squash, amend, or reorganize commits
+
+## Git Hooks (Optional - For Production Workflows)
+
+**When to use**: Multi-developer teams, production workflows, CI/CD integration  
+**When to skip**: Personal projects, single-developer workflows (auto-sync is sufficient)
+
+### Install Beads Git Hooks
+
+```bash
+bd hooks install
+```
+
+**What it does**:
+- Installs hooks in `.git/hooks/`: `pre-commit`, `post-checkout`, `post-merge`
+- **Immediate export** after commits (no 5-second debounce)
+- **Automatic import** after `git pull` (no waiting for next command)
+- **Ensures consistency** across multi-developer workflows
+
+**Benefits**:
+- ✅ Guaranteed sync on git operations
+- ✅ No stale data after `git pull`
+- ✅ Team members always see latest beads state
+- ✅ Reduces "forgot to sync" errors
+
+**What's Included**:
+```bash
+# .git/hooks/pre-commit - Export before commit
+bd export -o .beads/issues.jsonl
+git add .beads/issues.jsonl
+
+# .git/hooks/post-merge - Import after merge/pull
+bd import -i .beads/issues.jsonl
+
+# .git/hooks/post-checkout - Import after branch switch
+bd import -i .beads/issues.jsonl
+```
+
+**Verification**:
+```bash
+# Check if hooks are installed
+ls -la .git/hooks/ | grep -E "(pre-commit|post-merge|post-checkout)"
+
+# Test hook execution
+git add .
+git commit -m "test" # Should auto-export
+git pull # Should auto-import
+```
+
+**Alternative to hooks**: Beads has built-in auto-sync that works for most cases:
+- Auto-exports after create/update/close (5-second debounce)
+- Auto-imports on first command after `git pull`
+- Sufficient for single-developer or casual workflows
+
+**Source**: [Official Beads docs/TROUBLESHOOTING.md](https://github.com/steveyegge/beads/blob/main/docs/TROUBLESHOOTING.md#auto-sync-not-working)
 
